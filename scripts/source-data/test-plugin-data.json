@@ -1,0 +1,106 @@
+[
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/action-sheet"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/app-launcher"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/app"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/browser"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/camera"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/clipboard"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/device"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/dialog"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/filesystem"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/geolocation"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/google-maps"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/haptics"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/keyboard"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/local-notifications"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/motion"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/network"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/preferences"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/push-notifications"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/screen-orientation"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/screen-reader"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/share"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/splash-screen"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/status-bar"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/text-zoom"
+  },
+  {
+    "githubUrl": "https://github.com/ionic-team/capacitor-plugins",
+    "npmPackageName": "@capacitor/toast"
+  },
+  {
+    "githubUrl": "https://github.com/capacitor-community/barcode-scanner",
+    "npmPackageName": "@capacitor-community/barcode-scanner"
+  }
+]
