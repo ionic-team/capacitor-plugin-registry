@@ -250,12 +250,10 @@ export async function fetchPluginDataFromGithubBatched<T extends PluginSchema>({
     throw e;
   }
 
-  if (missingPackageJson.length > 0) {
-    jsonfile.writeFileSync(
-      path.join("data", "missing-package-json.json"),
-      missingPackageJson
-    );
-  }
+  jsonfile.writeFileSync(
+    path.join("data", "missing-package-json.json"),
+    missingPackageJson
+  );
 
   jsonfile.writeFileSync("data/github-results.json", results);
 
