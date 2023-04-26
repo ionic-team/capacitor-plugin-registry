@@ -1,12 +1,65 @@
-import { graphql } from "@octokit/graphql";
 import jsonfile from "jsonfile";
 
 import { GithubQueryType } from "./types/github-data-schema";
 import { log, sleep } from "./utils";
 import { PluginSchema } from "./types/plugin-schema";
 import path from "path";
+import { Octokit } from "@octokit/core";
+import { throttling } from "@octokit/plugin-throttling";
 
 let missingPackageJson: string[] = [];
+
+function getOctokit() {
+  const WithRatelimit = Octokit.plugin(throttling);
+  const octokit = new WithRatelimit({
+    auth: process.env.DATA_SCRIPTS_GITHUB_TOKEN,
+    throttle: {
+      onRateLimit: (
+        retryAfter: any,
+        options: any,
+        octokit: any,
+        retryCount: any
+      ) => {
+        console.warn("Rate Limit Exceeded", {
+          retryAfter,
+          options,
+          retryCount,
+        });
+        octokit.log.warn(
+          `Request quota exhausted for request ${options.method} ${options.url}`
+        );
+
+        if (retryCount < 1) {
+          // only retries once
+          octokit.log.info(`Retrying after ${retryAfter} seconds!`);
+          return true;
+        }
+      },
+      onSecondaryRateLimit: (
+        retryAfter: any,
+        options: any,
+        octokit: any,
+        retryCount: any
+      ) => {
+        console.warn("Secondary Rate Limit Exceeded", {
+          retryAfter,
+          options,
+          retryCount,
+        });
+        octokit.log.warn(
+          `SecondaryRateLimit detected for request ${options.method} ${options.url}`
+        );
+
+        if (retryCount < 1) {
+          // only retries once
+          octokit.log.info(`Retrying after ${retryAfter} seconds!`);
+          return true;
+        }
+      },
+    },
+  });
+  return octokit;
+}
 
 export function extractDataFromGithubUrl(url: string) {
   const baseUrl = url
@@ -223,8 +276,8 @@ export async function fetchPluginDataFromGithubBatched<T extends PluginSchema>({
   try {
     for (const batch of batches) {
       if (results.length > 0) {
-        log(`Sleeping for ${batchDelay / 1000} seconds`);
-        await sleep(batchDelay);
+        // log(`Sleeping for ${batchDelay / 1000} seconds`);
+        // await sleep(batchDelay);
       }
       log(
         `Fetching batch ${Math.floor(results.length / batchSize) + 1} of ${
@@ -263,6 +316,7 @@ export async function fetchPluginDataFromGithubBatched<T extends PluginSchema>({
 }
 
 export async function checkGithubRatelimit() {
+  const { graphql } = getOctokit();
   const res = await graphql<{
     rateLimit: {
       limit: number;
@@ -317,6 +371,7 @@ async function makeGithubRequest({
   packagePath: string;
   packageJsonPath?: string;
 }) {
+  const { graphql } = getOctokit();
   try {
     const data = await graphql<GithubQueryType>({
       query: GH_QUERY,
@@ -388,6 +443,7 @@ async function makeGithubRequestWithoutPackageJSON({
   repo: string;
   packagePath: string;
 }) {
+  const { graphql } = getOctokit();
   console.log("fallback to no-package.json", owner, repo);
   try {
     const data = await graphql<GithubQueryType>({
