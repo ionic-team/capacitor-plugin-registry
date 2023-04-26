@@ -16,7 +16,7 @@ export async function loadPluginData() {
     .filter((plugin) => plugin.githubUrl && plugin.npmPackageName);
 }
 
-async function loadPluginDataFromDisk() {
+function loadPluginDataFromDisk() {
   const PLUGIN_SOURCE_DATA_PATH = path.join(
     "scripts",
     "source-data",

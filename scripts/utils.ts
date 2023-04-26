@@ -1,4 +1,6 @@
 import chalk from "chalk";
+import fs from "fs";
+import path from "path";
 
 export function patchConsole() {
   const originalConsoleError = console.error;
@@ -35,4 +37,11 @@ export function sleep(ms: number) {
 export function normalizeStringArray(arr?: string[]) {
   if (!arr || !Array.isArray(arr)) return [];
   return Array.from(new Set(arr.map((s) => s.toLowerCase().trim())));
+}
+
+export function createDataDirectoryIfNotExists() {
+  const dir = path.join("data");
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
 }

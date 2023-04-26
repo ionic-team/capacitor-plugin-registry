@@ -1,5 +1,5 @@
 import { loadPluginData } from "./local-repository-list";
-import { log, patchConsole } from "./utils";
+import { createDataDirectoryIfNotExists, log, patchConsole } from "./utils";
 import { fetchPluginDataFromGithubBatched } from "./fetch-from-github";
 import { writePluginDataToPublicDirectory } from "./format-results";
 import { fetchPluginDataFromNpmBatched } from "./fetch-from-npm";
@@ -27,6 +27,12 @@ async function execute() {
     console.error(err);
     return;
   }
+
+  /**
+   * Create Data directory if it doesn't exist
+   */
+
+  createDataDirectoryIfNotExists();
 
   /**
    * Fetch data from Github

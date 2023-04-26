@@ -250,10 +250,12 @@ export async function fetchPluginDataFromGithubBatched<T extends PluginSchema>({
     throw e;
   }
 
-  jsonfile.writeFileSync(
-    path.join("data", "missing-package-json.json"),
-    missingPackageJson
-  );
+  if (missingPackageJson.length > 0) {
+    jsonfile.writeFileSync(
+      path.join("data", "missing-package-json.json"),
+      missingPackageJson
+    );
+  }
 
   jsonfile.writeFileSync("data/github-results.json", results);
 
@@ -371,7 +373,8 @@ async function makeGithubRequest({
       };
       return fakeData;
     }
-    console.error(owner, repo, packagePath);
+    console.error(e instanceof Error ? e.message : e);
+    console.error(`https://github.com/${owner}/${repo}`, packagePath);
     throw e;
   }
 }
@@ -399,8 +402,8 @@ async function makeGithubRequestWithoutPackageJSON({
     data.repository.lastRelease = data.repository.releases?.nodes?.[0];
     return data;
   } catch (e) {
-    console.error(e);
-    console.log(owner, repo, packagePath);
+    console.error(e instanceof Error ? e.message : e);
+    console.error(`https://github.com/${owner}/${repo}`, packagePath);
     throw e;
   }
 }
