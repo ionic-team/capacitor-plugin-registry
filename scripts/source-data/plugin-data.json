@@ -2532,10 +2532,6 @@
     "githubUrl": "https://github.com/xmartlabs/cordova-plugin-market.git"
   },
   {
-    "npmPackageName": "cordova-plugin-marketingcloudsdk",
-    "githubUrl": "https://github.com/salesforce-marketingcloud/MC-Cordova-Plugin.git"
-  },
-  {
     "npmPackageName": "cordova-plugin-mauron85-background-geolocation",
     "githubUrl": "https://github.com/mauron85/cordova-plugin-background-geolocation.git"
   },
