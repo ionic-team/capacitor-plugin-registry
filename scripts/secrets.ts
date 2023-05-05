@@ -10,15 +10,8 @@ export function getGitHubToken() {
     return process.env.DATA_SCRIPTS_GITHUB_TOKEN;
 }
 
-/**
- * This token is used for @capacitor/* plugins which are public but fail if we use out Ionic org token
-  */
-export function getCapacitorGithubToken() {
-    return process.env.DATA_SCRIPTS_GITHUB_CAP_TOKEN;    
-}
-
 export function secretList(): string {
-    return 'DATA_SCRIPTS_NPM_TOKEN, DATA_SCRIPTS_GITHUB_TOKEN, DATA_SCRIPTS_GITHUB_CAP_TOKEN'
+    return 'DATA_SCRIPTS_NPM_TOKEN, DATA_SCRIPTS_GITHUB_TOKEN'
 }
 
 export function checkSecretsAreSet(): boolean {
@@ -28,10 +21,6 @@ export function checkSecretsAreSet(): boolean {
     }
     if (!getGitHubToken()) {
         console.error(`DATA_SCRIPTS_GITHUB_TOKEN is undefined`);
-        return false;
-    }
-    if (!getCapacitorGithubToken()) {
-        console.error(`DATA_SCRIPTS_GITHUB_CAP_TOKEN is undefined`);
         return false;
     }
     return true;

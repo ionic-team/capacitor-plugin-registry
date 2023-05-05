@@ -1,7 +1,7 @@
 import { httpGet, rateLimited } from './utils';
 import { PluginInfo } from './types/plugin';
 import { GitHubInfo } from './types/github-data-schema';
-import { getGitHubToken, getCapacitorGithubToken } from './secrets';
+import { getGitHubToken } from './secrets';
 
 export async function applyGithubInfo(plugin: PluginInfo) {
     try {
@@ -16,14 +16,8 @@ export async function applyGithubInfo(plugin: PluginInfo) {
         if (part.includes('#')) {
             part = part.substring(0, part.indexOf('#') - 1);
         }
-        let token = getGitHubToken();
 
-        // Quirk: Our regular token fails with @capacitor/[plugin] packages
-        // So we use a token from outside the Ionic org
-        if (plugin.name.startsWith('@capacitor/')) {
-            token = getCapacitorGithubToken();
-        }
-        const headers = { Authorization: `Bearer ${token}` };
+        const headers = { Authorization: `Bearer ${getGitHubToken()}` };
         let retry = true;
         let gh: GitHubInfo | undefined = undefined;
         let count = 0;
