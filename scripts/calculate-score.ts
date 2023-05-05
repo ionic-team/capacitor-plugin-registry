@@ -1,4 +1,4 @@
-import { PluginInfo } from "./types/plugin-info";
+import { PluginInfo } from "./types/plugin";
 
 /**
  * Based on the React Native Directory Scoring System (for now at least!)
@@ -24,21 +24,21 @@ const modifiers = [
     name: "Lots of open issues",
     value: -20,
     condition: (plugin: PluginInfo) =>
-      plugin.github.repository.issues.totalCount >= 75,
+      plugin.issues >= 75,
   },
   {
     name: "No license",
     value: -20,
-    condition: (plugin: PluginInfo) => !plugin.github.repository.license,
+    condition: (plugin: PluginInfo) => !plugin.license,
   },
   {
     name: "GPL license",
     value: -20,
     condition: (plugin: PluginInfo) =>
-      plugin.github.repository.license &&
-      typeof plugin.github.repository.license === "string" &&
-      (plugin.github.repository.license.startsWith("gpl") ||
-        plugin.github.repository.license.startsWith("other")),
+      plugin.license &&
+      typeof plugin.license === "string" &&
+      (plugin.license.startsWith("gpl") ||
+        plugin.license.startsWith("other")),
   },
   {
     name: "Recently updated",
@@ -89,17 +89,17 @@ export const calculatePluginScore = (plugin: PluginInfo) => {
 };
 
 const getCombinedPopularity = (plugin: PluginInfo) => {
-  const subscribers = plugin.github.repository.watchers.totalCount;
-  const forks = plugin.github.repository.forks.totalCount;
-  const stars = plugin.github.repository.stargazers.totalCount;
-  const downloads = plugin.npm?.downloads ?? 0;
+  const subscribers = plugin.watchers;
+  const forks = plugin.forks;
+  const stars = plugin.stars ?? 0;
+  const downloads = plugin.downloads ?? 0;
   return subscribers * 20 + forks * 10 + stars + downloads / 100;
 };
 
 const DAY_IN_MS = 864e5;
 
 const getUpdatedDaysAgo = (plugin: PluginInfo) => {
-  const updatedAt = plugin.github.repository.lastRelease?.publishedAt;
+  const updatedAt = plugin.updated;
   const updateDate = updatedAt
     ? new Date(updatedAt).getTime()
     : new Date().getTime();

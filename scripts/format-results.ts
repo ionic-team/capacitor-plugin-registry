@@ -4,7 +4,7 @@ import fs from "fs";
 import { PluginResult } from "../shared/plugin-result";
 import { searchKeys } from "../shared/search-keys";
 import { calculatePluginScore } from "./calculate-score";
-import { PluginInfo } from "./types/plugin-info";
+import { PluginInfo } from "./types/plugin";
 import Fuse from "fuse.js";
 import { normalizeStringArray } from "./utils";
 
@@ -12,33 +12,36 @@ export async function writePluginDataToPublicDirectory(
   pluginData: PluginInfo[]
 ) {
   const PLUGIN_PUBLIC_DATA_PATH = path.join("data", "plugin-data.json");
-  const PLUGIN_INDEX_DATA_PATH = path.join("data", "plugin-index.json");
+  const PLUGIN_PUBLIC_RAW_PATH = path.join("data", "plugin-data-raw.json");
+  const PLUGIN_INDEX_DATA_PATH = path.join("data", "plugin-index.json");  
 
   const pluginResults = pluginData.map((plugin) => {
     const pluginResult: PluginResult = {
-      name: plugin.github.repository.name,
-      npmPackageName: plugin.npmPackageName,
-      description: plugin.github.repository.description,
-      keywords: normalizeStringArray(plugin.github.repository.keywords),
-      license: plugin.github.repository.license ?? "",
-      lastUpdated: plugin.github.repository.lastRelease?.publishedAt ?? "",
-      githubUrl: plugin.githubUrl,
+      name: plugin.name,
+      npmPackageName: plugin.name,
+      description: plugin.description,
+      keywords: normalizeStringArray(plugin.keywords),
+      license: plugin.license,
+      lastUpdated: plugin.published,
+      githubUrl: plugin.repo,
       health: calculatePluginScore(plugin),
       stats: {
-        downloads: plugin.npm?.downloads ?? -1,
-        downloadsStart: plugin.npm?.start,
-        downloadsEnd: plugin.npm?.end,
-        downloadsPeriod: plugin.npm?.period,
-        stars: plugin.github.repository.watchers.totalCount,
-        openIssues: plugin.github.repository.issues.totalCount,
+        downloads: plugin.downloads ?? -1,
+        downloadsStart: plugin.downloadStart,
+        downloadsEnd: plugin.downloadEnd,
+        downloadsPeriod: plugin.downloadPeriod,
+        stars: plugin.stars,
+        openIssues: plugin.issues,
       },
     };
     return pluginResult;
   });
 
   await deleteFileIfExists(PLUGIN_PUBLIC_DATA_PATH);
+  await deleteFileIfExists(PLUGIN_PUBLIC_RAW_PATH);
   await deleteFileIfExists(PLUGIN_INDEX_DATA_PATH);
   await writeDataFile(pluginResults, PLUGIN_PUBLIC_DATA_PATH);
+  await writeDataFile(pluginData, PLUGIN_PUBLIC_RAW_PATH);
   await createSearchIndex(pluginResults, PLUGIN_INDEX_DATA_PATH);
 }
 
@@ -60,7 +63,7 @@ function deleteFileIfExists(path: string) {
   });
 }
 
-function writeDataFile(pluginData: PluginResult[], savePath: string) {
+function writeDataFile(pluginData: PluginResult[] | PluginInfo[], savePath: string) {
   return new Promise<void>((resolve, reject) => {
     jsonfile.writeFile(savePath, pluginData, {}, (err) => {
       if (err) {
@@ -71,6 +74,8 @@ function writeDataFile(pluginData: PluginResult[], savePath: string) {
     });
   });
 }
+
+
 
 function createSearchIndex(pluginData: PluginResult[], savePath: string) {
   return new Promise<void>((resolve, reject) => {
