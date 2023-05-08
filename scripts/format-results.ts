@@ -12,7 +12,7 @@ export async function writePluginDataToPublicDirectory(
   pluginData: PluginInfo[]
 ) {
   const PLUGIN_PUBLIC_DATA_PATH = path.join("data", "plugin-data.json");
-  const PLUGIN_PUBLIC_RAW_PATH = path.join("data", "plugin-data-raw.json");
+  const PLUGIN_PUBLIC_RAW_PATH = path.join("public", "plugin-data-raw.json");
   const PLUGIN_INDEX_DATA_PATH = path.join("data", "plugin-index.json");
 
   const pluginResults = pluginData.map((plugin) => {
