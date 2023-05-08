@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "lib": ["dom", "dom.iterable", "esnext", "es2022"],
+    "lib": ["esnext", "es2022"],
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
