@@ -13,7 +13,7 @@ export async function writePluginDataToPublicDirectory(
 ) {
   const PLUGIN_PUBLIC_DATA_PATH = path.join("data", "plugin-data.json");
   const PLUGIN_PUBLIC_RAW_PATH = path.join("data", "plugin-data-raw.json");
-  const PLUGIN_INDEX_DATA_PATH = path.join("data", "plugin-index.json");  
+  const PLUGIN_INDEX_DATA_PATH = path.join("data", "plugin-index.json");
 
   const pluginResults = pluginData.map((plugin) => {
     const pluginResult: PluginResult = {
@@ -63,7 +63,10 @@ function deleteFileIfExists(path: string) {
   });
 }
 
-function writeDataFile(pluginData: PluginResult[] | PluginInfo[], savePath: string) {
+function writeDataFile(
+  pluginData: PluginResult[] | PluginInfo[],
+  savePath: string
+) {
   return new Promise<void>((resolve, reject) => {
     jsonfile.writeFile(savePath, pluginData, {}, (err) => {
       if (err) {
@@ -74,8 +77,6 @@ function writeDataFile(pluginData: PluginResult[] | PluginInfo[], savePath: stri
     });
   });
 }
-
-
 
 function createSearchIndex(pluginData: PluginResult[], savePath: string) {
   return new Promise<void>((resolve, reject) => {

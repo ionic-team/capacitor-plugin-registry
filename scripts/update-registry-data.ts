@@ -1,6 +1,6 @@
 import { createDataDirectoryIfNotExists, log, patchConsole } from "./utils";
 import { writePluginDataToPublicDirectory } from "./format-results";
-import { inspectPlugins, readPluginList } from './summary';
+import { inspectPlugins, readPluginList } from "./summary";
 import { checkSecretsAreSet, secretList } from "./secrets";
 
 require("dotenv").config();
@@ -16,7 +16,7 @@ async function execute() {
    * Make sure environment variables are set
    */
   if (!checkSecretsAreSet()) {
-    console.error(`Some required variables are not set (${secretList()})`)
+    console.error(`Some required variables are not set (${secretList()})`);
     return;
   }
 
@@ -29,13 +29,13 @@ async function execute() {
    * Load plugin data from source-data folder
    */
   try {
-    const plugins = readPluginList()
+    const plugins = readPluginList();
     const pluginData = await inspectPlugins(plugins);
     log(`Found ${pluginData.length} plugins`);
 
-  /**
-   * Write final data to public directory
-   */
+    /**
+     * Write final data to public directory
+     */
     await writePluginDataToPublicDirectory(pluginData);
   } catch (err) {
     console.error(err);
