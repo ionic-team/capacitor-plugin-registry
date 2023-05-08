@@ -5,7 +5,7 @@ export type PluginResult = {
   keywords: string[];
   license: string;
   lastUpdated: string;
-  githubUrl: string;
+  githubUrl: string | undefined;
   health: {
     score: number;
     modifiers: string[];
@@ -15,7 +15,7 @@ export type PluginResult = {
     downloadsStart: string | undefined;
     downloadsEnd: string | undefined;
     downloadsPeriod: string | undefined;
-    stars: number;
+    stars?: number;
     openIssues: number;
   };
 };

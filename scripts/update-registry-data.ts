@@ -1,8 +1,7 @@
-import { loadPluginData } from "./local-repository-list";
 import { createDataDirectoryIfNotExists, log, patchConsole } from "./utils";
-import { fetchPluginDataFromGithubBatched } from "./fetch-from-github";
 import { writePluginDataToPublicDirectory } from "./format-results";
-import { fetchPluginDataFromNpmBatched } from "./fetch-from-npm";
+import { inspectPlugins, readPluginList } from './summary';
+import { checkSecretsAreSet, secretList } from "./secrets";
 
 require("dotenv").config();
 
@@ -14,54 +13,29 @@ async function execute() {
   patchConsole();
 
   /**
-   * Load plugin data from source-data folder
+   * Make sure environment variables are set
    */
-  let pluginData;
-  try {
-    pluginData = await loadPluginData();
-    if (!Array.isArray(pluginData) || pluginData.length === 0) {
-      throw new Error("No plugin data found");
-    }
-    log(`Found ${pluginData.length} plugins`);
-  } catch (err) {
-    console.error(err);
+  if (!checkSecretsAreSet()) {
+    console.error(`Some required variables are not set (${secretList()})`)
     return;
   }
 
   /**
    * Create Data directory if it doesn't exist
    */
-
   createDataDirectoryIfNotExists();
 
   /**
-   * Fetch data from Github
+   * Load plugin data from source-data folder
    */
   try {
-    pluginData = await fetchPluginDataFromGithubBatched({
-      input: pluginData,
-    });
-  } catch (err) {
-    console.error(err);
-    return;
-  }
-
-  /**
-   * Fetch data from NPM
-   */
-  try {
-    pluginData = await fetchPluginDataFromNpmBatched({
-      input: pluginData,
-    });
-  } catch (err) {
-    console.error(err);
-    return;
-  }
+    const plugins = readPluginList()
+    const pluginData = await inspectPlugins(plugins);
+    log(`Found ${pluginData.length} plugins`);
 
   /**
    * Write final data to public directory
    */
-  try {
     await writePluginDataToPublicDirectory(pluginData);
   } catch (err) {
     console.error(err);
