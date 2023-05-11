@@ -1,6 +1,8 @@
 name: Deploy to production
 
 on:
+  schedule:
+    - cron: "0 4 * * *"
   push:
     branches:
       - main
