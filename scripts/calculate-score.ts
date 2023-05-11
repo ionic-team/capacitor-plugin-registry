@@ -23,8 +23,7 @@ const modifiers = [
   {
     name: "Lots of open issues",
     value: -20,
-    condition: (plugin: PluginInfo) =>
-      plugin.issues >= 75,
+    condition: (plugin: PluginInfo) => plugin.issues >= 75,
   },
   {
     name: "No license",
@@ -37,8 +36,7 @@ const modifiers = [
     condition: (plugin: PluginInfo) =>
       plugin.license &&
       typeof plugin.license === "string" &&
-      (plugin.license.startsWith("gpl") ||
-        plugin.license.startsWith("other")),
+      (plugin.license.startsWith("gpl") || plugin.license.startsWith("other")),
   },
   {
     name: "Recently updated",

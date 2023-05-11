@@ -10,6 +10,8 @@ on:
 env:
   VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+  DATA_SCRIPTS_NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  DATA_SCRIPTS_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   deploy:
