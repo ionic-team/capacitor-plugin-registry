@@ -170,6 +170,7 @@
 @ionic-enterprise/screen-orientation
 @ionic-enterprise/secure-storage
 @ionic-enterprise/splashscreen
+@ionic-enterprise/ssl-pinning
 @ionic-enterprise/statusbar
 @ionic/portals
 @ironsource-plus/cordova-plugin
