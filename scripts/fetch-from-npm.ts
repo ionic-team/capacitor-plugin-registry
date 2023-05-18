@@ -12,7 +12,7 @@ export async function applyNpmInfo(plugin: PluginInfo) {
   ]);
 
   plugin.version = npmHistory.version;
-  plugin.versions = npmHistory.versions as string[];
+  plugin.versions = npmHistory.versions ? npmHistory.versions as string[] : [];
   plugin.author = npmHistory.author;
   plugin.description = npmHistory.description;
   plugin.bugs = npmHistory.bugs?.url;
