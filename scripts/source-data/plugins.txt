@@ -172,6 +172,7 @@
 @ionic-enterprise/splashscreen
 @ionic-enterprise/ssl-pinning
 @ionic-enterprise/statusbar
+@ionic-enterprise/zebra-scanner
 @ionic/portals
 @ironsource-plus/cordova-plugin
 @ironsource-plus/mediation-admob
