@@ -50,6 +50,7 @@
 @capacitor-community/photoviewer
 @capacitor-community/privacy-screen
 @capacitor-community/realm
+@capacitor-community/security-provider
 @capacitor-community/screen-brightness
 @capacitor-community/speech-recognition
 @capacitor-community/sqlite
