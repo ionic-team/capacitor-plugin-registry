@@ -1149,3 +1149,4 @@ wonderpush-cordova-sdk
 wonderpush-cordova-sdk-fcm
 wxs-chris-wxsnetwork
 zebra-capacitor
+@bazuka5801/capacitor-reminders
