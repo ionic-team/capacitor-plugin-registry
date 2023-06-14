@@ -11,8 +11,13 @@ export async function applyNpmInfo(plugin: PluginInfo) {
     getNpmInfo(plugin.name, true),
   ]);
 
+  if (!npmHistory.versions) {
+    // Likely not found in npm
+    return;
+  }
+  
   plugin.version = npmHistory.version;
-  plugin.versions = npmHistory.versions ? npmHistory.versions as string[] : [];
+  plugin.versions = npmHistory.versions as string[];
   plugin.author = npmHistory.author;
   plugin.description = npmHistory.description;
   plugin.bugs = npmHistory.bugs?.url;
@@ -72,7 +77,12 @@ async function getNpmInfo(name: string, latest: boolean): Promise<NpmInfo> {
     np.version = np["dist-tags"] ? np["dist-tags"].latest : np.version;
     return np;
   } catch (error) {
-    console.error(`getNpmInfo Failed ${url}`, error);
+    const msg = `${error}`;
+    if (msg.includes(`'Not found'`)) {
+      console.error(`[error] ${name} was not found on npm.`);
+    } else {
+      console.error(`getNpmInfo Failed ${url}`, error);
+    }
     return {} as NpmInfo;
   }
 }
