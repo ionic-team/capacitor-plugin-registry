@@ -73,7 +73,7 @@ async function getNpmInfo(name: string, latest: boolean): Promise<NpmInfo> {
       ? `https://registry.npmjs.org/${name}/latest`
       : `https://registry.npmjs.org/${name}`;
     const np: NpmInfo = await httpGet(url, npmHeaders());
-    np.versions = undefined;
+    //np.versions = undefined;
     np.version = np["dist-tags"] ? np["dist-tags"].latest : np.version;
     return np;
   } catch (error) {
