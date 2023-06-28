@@ -1,0 +1,134 @@
+.ds-container {
+  margin-inline: auto;
+  width: clamp(0px, 70rem, calc(100% - 16px * 2));
+}
+
+[class*='ds-heading'] {
+  font-weight: 600;
+  color: var(--c-carbon-100);
+}
+
+.ds-heading-1 {
+  font-weight: 700;
+  font-size: 6rem;
+  margin-block-end: 1.5rem;
+  font-size: 4rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.ds-heading-2 {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-block-end: 1.5rem;
+  font-size: 2.5rem;
+  line-height: 1.12;
+}
+.ds-heading-3 {
+  letter-spacing: 0;
+  font-size: 2rem;
+  margin-block-end: 0.75rem;
+  line-height: 1.12;
+}
+.ds-heading-4 {
+  letter-spacing: 0.01em;
+  margin-block-end: 0.75rem;
+  font-size: 1.5rem;
+  line-height: 1.12;
+}
+.ds-heading-5 {
+  letter-spacing: -0.01em;
+  margin-block-end: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1.12;
+}
+.ds-heading-6 {
+  font-size: 1rem;
+  margin-block-end: 0.5rem;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+}
+
+[class*='ds-poster'] {
+  font-weight: 500;
+  color: var(--c-carbon-100);
+}
+
+.ds-poster-1 {
+  margin-block-end: 1.5rem;
+  font-size: 6rem;
+  line-height: 92%;
+  letter-spacing: -0.02em;
+}
+.ds-poster-2 {
+  letter-spacing: -0.01em;
+  margin-block-end: 1.5rem;
+  font-size: 5.5rem;
+  line-height: 1;
+}
+.ds-poster-3 {
+  letter-spacing: -0.01em;
+  font-size: 5rem;
+  margin-block-end: 1.5rem;
+  line-height: 1;
+}
+.ds-poster-4 {
+  letter-spacing: -0.01em;
+  margin-block-end: 1.5rem;
+  font-size: 4.5rem;
+  line-height: 1;
+}
+
+[class*='ds-paragraph'] {
+  margin: 0 0 1.6em 0;
+
+  color: var(--c-indigo-90);
+
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+[class*='ds-paragraph']:last-child {
+  margin-block-end: 0;
+}
+
+.ds-paragraph-1 {
+  font-size: 1.5rem;
+}
+.ds-paragraph-2 {
+  font-size: 1.25rem;
+}
+.ds-paragraph-3 {
+  font-size: 1rem;
+}
+.ds-paragraph-4 {
+  font-size: 0.875rem;
+}
+.ds-paragraph-5 {
+  font-size: 0.813rem;
+}
+.ds-paragraph-6 {
+  font-size: 0.75rem;
+}
+.ds-paragraph--prose {
+  line-height: 1.8;
+}
+
+.ds-overline-1 {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 120%;
+
+  color: var(--c-indigo-80);
+
+  margin-block-end: 1rem;
+}
+.ds-overline-3 {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.625rem;
+  line-height: 112%;
+  letter-spacing: 0.16em;
+
+  color: var(--c-indigo-80);
+
+  margin-block-end: 1rem;
+}
