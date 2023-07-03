@@ -1,14 +1,24 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
+import IndexPage from "@pages/index";
 
-const inter = Inter({ subsets: ["latin"] });
+import pluginData from "../data/plugin-data.json";
 
-export default function Home() {
-  return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <h1>Capacitor Plugin Registry</h1>
-    </main>
-  );
-}
+const Index = (props) => <IndexPage {...props} />;
+
+export const getStaticProps = async () => {
+  const allPlatforms = pluginData.reduce((acc, cur) => {
+    if (!Array.isArray(cur.platforms)) return acc;
+
+    cur.platforms.forEach(
+      (platform) => !acc.includes(platform) && acc.push(platform)
+    );
+    return acc;
+  }, []);
+
+  return {
+    props: {
+      allPlatforms,
+    },
+  };
+};
+
+export default Index;
