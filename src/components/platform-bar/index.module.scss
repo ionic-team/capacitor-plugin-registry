@@ -1,0 +1,50 @@
+.platformBar {
+  background-color: var(--c-carbon-100);
+
+  height: var(--h-platform-bar);
+
+  &Ctas {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &CtaLink {
+    margin: 0;
+
+    font-weight: 600;
+
+    color: var(--c-cyan-10);
+  }
+
+  &CtaButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 600;
+
+    margin: 0;
+
+    color: #fff;
+    background-color: var(--c-cyan-130);
+
+    border-radius: 8px;
+
+    height: 2rem;
+
+    padding-inline: 0.75rem;
+  }
+
+  :global {
+    .ds-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+
+      height: 100%;
+    }
+  }
+}
