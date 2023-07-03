@@ -1,0 +1,39 @@
+:root {
+  --h-platform-bar: 3.5rem;
+  --h-site-subnav: 3.5rem;
+
+  --z-subnav: 900;
+  --z-backdrop: 1100;
+}
+
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: var(--c-indigo-30);
+  margin: 2rem 0;
+}
+
+.link,
+p a {
+  color: var(--c-cyan-130);
+  transition: opacity 0.2s ease-out;
+}
+.link:hover,
+p a:hover {
+  opacity: 0.7;
+}
+
+p strong {
+  font-weight: 500;
+  color: var(--c-carbon-100);
+}
+
+.no-scroll {
+  overflow: hidden;
+}
