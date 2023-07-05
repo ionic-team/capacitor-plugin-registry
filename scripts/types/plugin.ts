@@ -6,7 +6,7 @@
  */
 export interface PluginInfo {
   name: string; // Name of the npm package
-  author: string; // Name of the Author of the latest package
+  author: { name: string; email?: string }; // Name and email of the Author of the latest package
   published: string; // Date Time published to npm
   license: string; // eg MIT
   version: string; // Version number inspected from NPM

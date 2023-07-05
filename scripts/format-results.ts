@@ -1,7 +1,7 @@
 import jsonfile from "jsonfile";
 import path from "path";
 import fs from "fs";
-import { PluginResult } from "../shared/plugin-result";
+import { PluginResult, PluginType } from "../shared/plugin-result";
 import { searchKeys } from "../shared/search-keys";
 import { calculatePluginScore } from "./calculate-score";
 import { PluginInfo } from "./types/plugin";
@@ -25,6 +25,9 @@ export async function writePluginDataToPublicDirectory(
       lastUpdated: plugin.published,
       githubUrl: plugin.repo,
       health: calculatePluginScore(plugin),
+      platforms: plugin.platforms,
+      author: plugin.author,
+      type: getPluginType(plugin),
       stats: {
         downloads: plugin.downloads ?? -1,
         downloadsStart: plugin.downloadStart,
@@ -32,6 +35,7 @@ export async function writePluginDataToPublicDirectory(
         downloadsPeriod: plugin.downloadPeriod,
         stars: plugin.stars,
         openIssues: plugin.issues,
+        watchers: plugin.watchers,
       },
     };
     return pluginResult;
@@ -90,4 +94,10 @@ function createSearchIndex(pluginData: PluginResult[], savePath: string) {
       }
     });
   });
+}
+
+function getPluginType({ name }: PluginInfo): PluginType {
+  return name.startsWith("@capacitor/") || name.startsWith("@ionic-enterprise/")
+    ? "official"
+    : "community";
 }

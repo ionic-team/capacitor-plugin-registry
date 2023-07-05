@@ -14,7 +14,7 @@ export interface NpmInfo {
   homepage: string;
   keywords: string[];
   repository: Repository;
-  author: string;
+  author: { name: string; email?: string };
   bugs: Bugs;
   license: string;
   readmeFilename: string;
@@ -45,7 +45,7 @@ export interface NpmInfo {
 }
 
 interface CordovaInfo {
-  platforms: string[];
+  platforms: string[] | string;
 }
 
 interface CapacitorInfo {
