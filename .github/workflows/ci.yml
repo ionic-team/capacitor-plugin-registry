@@ -1,0 +1,30 @@
+name: CI
+
+on: pull_request
+
+env:
+  VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+  DATA_SCRIPTS_NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  DATA_SCRIPTS_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  preview:
+    permissions:
+      contents: read
+      deployments: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+      - name: vercel pull
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - name: vercel build
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          DATA_SCRIPTS_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: vercel deploy
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
