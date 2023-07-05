@@ -1,18 +1,16 @@
 import clsx from "clsx";
 import styles from "./index.module.scss";
 import {
+  ChangeEvent,
   Dispatch,
   SetStateAction,
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useState,
 } from "react";
 import { useRouter } from "next/router";
 import PlatformBar from "@components/platform-bar";
-
-import { PluginInfo } from "@/scripts/types/plugin";
 
 import IconAuthor from "./assets/icons/author.png";
 import IconDownloads from "./assets/icons/downloads.png";
@@ -30,10 +28,12 @@ import { PluginResult } from "@/shared/plugin-result";
 
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+import { InferGetStaticPropsType } from "next";
+import { getStaticProps } from "@/pages";
 
 const IndexPageContext = createContext<{
-  pluginData: PluginInfo[];
-  setPluginData: Dispatch<SetStateAction<PluginInfo[]>>;
+  pluginData: PluginResult[];
+  setPluginData: Dispatch<SetStateAction<PluginResult[]>>;
   setFilters: Dispatch<SetStateAction<string[]>>;
   setPlatforms: Dispatch<SetStateAction<string[]>>;
   filters: string[];
@@ -49,29 +49,24 @@ const IndexPageContext = createContext<{
   allPlatforms: [],
 });
 
-const IndexPage = ({ allPlatforms }) => {
-  const [pluginData, setPluginData] = useState<PluginInfo[]>([]);
+const IndexPage = ({
+  allPlatforms,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const [pluginData, setPluginData] = useState<PluginResult[]>([]);
   const [platforms, setPlatforms] = useState<string[]>(["android", "ios"]);
-  const { query } = useRouter();
-  const [filters, setFilters] = useState<string[]>([]);
+  // const { query } = useRouter();
+  const [filters, setFilters] = useState<string[]>(["official", "community"]);
 
-  useEffect(() => {
-    setFilters(
-      query.filters
-        ? Array.isArray(query.filters)
-          ? query.filters
-          : query.filters.split(",")
-        : []
-    );
-  }, [query]);
-
-  useEffect(() => {
-    setPluginData((pluginData) => [
-      ...pluginData.filter((plugin) =>
-        plugin.platforms.some((platform) => platforms.includes(platform))
-      ),
-    ]);
-  }, [platforms]);
+  // TODO: query string functinality
+  // useEffect(() => {
+  //   setFilters(
+  //     query.filters
+  //       ? Array.isArray(query.filters)
+  //         ? query.filters
+  //         : query.filters.split(",")
+  //       : []
+  //   );
+  // }, [query]);
 
   return (
     <IndexPageContext.Provider
@@ -96,7 +91,7 @@ const Search = () => {
   const { setPluginData } = useContext(IndexPageContext);
 
   const handleChange = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const search = async () => {
         const res = await fetch(`/api/search?search=${e.target.value}`);
 
@@ -124,23 +119,47 @@ const Search = () => {
 };
 
 const Sidebar = () => {
-  const { allPlatforms, setFilters, platforms, setPlatforms } =
+  const { allPlatforms, setFilters, platforms, setPlatforms, filters } =
     useContext(IndexPageContext);
 
   const handlePlatformCheckboxChange = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.target.dataset.name;
+
+      if (!value) return;
 
       setPlatforms((platform) => {
         if (!e.target.checked) {
           const index = platform.indexOf(value);
-          return platform.splice(index, 1);
+          if (index < 0) return platform;
+          platform.splice(index, 1);
+          return [...platform];
         } else {
           return [...platform, value];
         }
       });
     },
     [setPlatforms]
+  );
+
+  const handleFilterCheckboxChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.dataset.name;
+
+      if (!value) return;
+
+      setFilters((filter) => {
+        if (!e.target.checked) {
+          const index = filter.indexOf(value);
+          if (index < 0) return filter;
+          filter.splice(index, 1);
+          return [...filter];
+        } else {
+          return [...filter, value];
+        }
+      });
+    },
+    [setFilters]
   );
 
   return (
@@ -150,12 +169,17 @@ const Sidebar = () => {
           <h2 className="ds-overline-3">Filter</h2>
           <div>
             <div className={clsx("ds-paragraph-4", styles.sidebarFilter)}>
-              <input type="checkbox" />
+              <input
+                data-name="official"
+                type="checkbox"
+                checked={filters.includes("official")}
+                onChange={handleFilterCheckboxChange}
+              />
               <Image
                 src={IconOfficialBadge}
                 width={IconOfficialBadge.width / 2}
                 height={IconOfficialBadge.height / 2}
-                alt="Author icon"
+                alt="official plugin icon"
               />
               Official
               <Tippy content="Built and maintained by Ionic">
@@ -168,7 +192,12 @@ const Sidebar = () => {
               </Tippy>
             </div>
             <div className={clsx("ds-paragraph-4", styles.sidebarFilter)}>
-              <input type="checkbox" />
+              <input
+                data-name="community"
+                type="checkbox"
+                checked={filters.includes("community")}
+                onChange={handleFilterCheckboxChange}
+              />
               Community
               <Tippy content="Built and maintained by independent developers in the Ionic community.">
                 <Image
@@ -213,9 +242,12 @@ const Results = () => {
   return (
     <div className={styles.results}>
       {pluginData
-        .filter((plugin) => {
-          plugin.platforms.some((platform) => platforms.includes(platform));
-        })
+        //filter by platforms
+        .filter((plugin) =>
+          plugin.platforms.some((platform) => platforms.includes(platform))
+        )
+        //filter by filters
+        .filter((plugin) => filters.includes(plugin.type))
         .map((data) => {
           return <PluginCard key={data.name} {...data} />;
         })}
@@ -232,8 +264,9 @@ const PluginCard = ({
   githubUrl,
   author,
   platforms,
+  type,
   stats: { downloads, stars, openIssues, watchers },
-}: Partial<PluginResult>) => {
+}: PluginResult) => {
   const formatter = new Intl.DateTimeFormat("en-US", {
     month: "short",
     year: "numeric",
@@ -244,7 +277,21 @@ const PluginCard = ({
     <article className={styles.pluginCard}>
       <header>
         <h2 className={clsx("ds-heading-5", styles.pluginCardTitle)}>
-          {githubUrl ? <a href={githubUrl}>{name}</a> : name}
+          {githubUrl ? (
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+              {name}
+            </a>
+          ) : (
+            name
+          )}
+          {type === "official" && (
+            <Image
+              src={IconOfficialBadge}
+              width={IconOfficialBadge.width / 2}
+              height={IconOfficialBadge.height / 2}
+              alt="official plugin icon"
+            />
+          )}
         </h2>
         <div className={styles.pluginCardPlatforms}>
           {platforms?.map((platform) => (
