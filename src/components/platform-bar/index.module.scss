@@ -1,7 +1,9 @@
 .platformBar {
-  background-color: var(--c-carbon-100);
+  min-height: var(--h-platform-bar);
 
-  height: var(--h-platform-bar);
+  padding-block: 0.75rem;
+
+  background-color: var(--c-carbon-100);
 
   &Ctas {
     display: flex;
@@ -42,7 +44,8 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 2rem;
+      column-gap: 2rem;
+      row-gap: 1rem;
 
       height: 100%;
     }
