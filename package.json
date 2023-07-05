@@ -17,6 +17,7 @@
     "@ionic-internal/design-system": "file:../../packages/design-system",
     "@ionic-internal/utils-js": "file:../../packages/utils-js",
     "@ionic-internal/utils-react": "file:../../packages/utils-react",
+    "@prismicio/react": "^2.7.1",
     "@tippyjs/react": "^4.2.6",
     "@types/node": "18.16.0",
     "@types/react": "18.0.38",
