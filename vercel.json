@@ -1,0 +1,38 @@
+{
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://capacitor-docs.vercel.app/docs"
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "https://capacitor-docs.vercel.app/docs/:path*"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/3",
+      "destination": "https://ionic.io/blog/announcing-capacitor-3-0/"
+    },
+    {
+      "source": "/blog/:match*",
+      "destination": "https://ionic.io/blog/tag/capacitor"
+    },
+    {
+      "source": "/forum",
+      "destination": "https://forum.ionicframework.com/c/capacitor/26"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)/page.state.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}
