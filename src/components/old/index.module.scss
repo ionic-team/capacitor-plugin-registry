@@ -1,0 +1,478 @@
+.button {
+  --height: 2.75rem;
+  --c-background: var(--c-blue-80);
+  --c-background--hover: var(--c-blue-70);
+  --c-background--active: var(--c-blue-90);
+  --c-focus: #c2d8ff;
+  --c-text: #fff;
+  --elevation: 0 0 0 1px rgba(0, 0, 0, 0);
+  --padding: 13.5px 16px;
+  --f-size: 0.875rem;
+  --letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  color: var(--c-text);
+  line-height: 100%;
+  outline: 1px solid rgba(0, 0, 0, 0);
+  box-shadow: var(--elevation);
+  white-space: pre;
+  //default to large blue display button
+  text-transform: uppercase;
+  border-radius: 8px;
+  padding: var(--padding);
+  letter-spacing: var(----letter-spacing);
+  background: var(--c-background);
+  font-size: var(--f-size);
+  height: var(--height);
+  font-weight: 500;
+
+  &:focus {
+    outline: 1px solid rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 3px var(--c-focus), var(--elevation);
+  }
+  &:hover {
+    background: var(--c-background--hover);
+  }
+  &:active {
+    background: var(--c-background--active);
+  }
+  transition: box-shadow 0.2s ease-out, background-color 0.2s ease-out;
+  //button size
+  &Sm {
+    --height: 1.5rem;
+  }
+  &Md {
+    --f-size: 0.813rem;
+    --height: 2rem;
+  }
+  &Lg {
+    --f-size: 1rem;
+    --height: 3rem;
+  }
+  &Xl {
+    --f-size: 1rem;
+    --height: 3.5;
+  }
+  &Light {
+    &.buttonXl,
+    &.buttonLg {
+      --elevation: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 0 2px 0 rgba(0, 0, 0, 0.06);
+      &:hover,
+      &:focus {
+        --elevation: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+      }
+    }
+    &.buttonMd,
+    &.buttonSm {
+      --elevation: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 1px 0 rgba(0, 0, 0, 0.04);
+      &:hover,
+      &:focus {
+        --elevation: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 0 2px 0 rgba(0, 0, 0, 0.06);
+      }
+    }
+    &.buttonRound {
+      &:active {
+        --elevation: 0 0 0 1px rgba(0, 0, 0, 0.06);
+      }
+    }
+  }
+  //button-type
+  &.buttonDisplay {
+    text-transform: uppercase;
+    font-weight: 500;
+
+    &.buttonSm {
+      --f-size: 0.625rem;
+      border-radius: 6px;
+      --padding: 6px 8px 5px 8px;
+      --letter-spacing: 0.08em;
+    }
+    &.buttonMd {
+      border-radius: 8px;
+      --padding: 8px 12px;
+      --letter-spacing: 0.08em;
+    }
+    &.buttonLg {
+      border-radius: 8px;
+      --padding: 13.5px 16px;
+      --letter-spacing: 0.08em;
+    }
+    &.buttonXl {
+      border-radius: 8px;
+      --padding: 18.5px 20px;
+      --letter-spacing: 0.12em;
+    }
+  }
+  &.buttonRegular {
+    font-weight: 500;
+    text-transform: none;
+
+    &.buttonSm {
+      --f-size: 11px;
+      border-radius: 6px;
+      --padding: 5.5px 8px 6px 8px;
+      --letter-spacing: -0.02em;
+    }
+    &.buttonMd {
+      border-radius: 8px;
+      --padding: 7.5px 12px 8.5px 12px;
+      --letter-spacing: -0.02em;
+    }
+    &.buttonLg {
+      border-radius: 8px;
+      --padding: 14px 16px;
+      --letter-spacing: -0.02em;
+    }
+    &.buttonXl {
+      border-radius: 8px;
+      --padding: 19px 20px;
+      --letter-spacing: 0em;
+    }
+  }
+  &.buttonRound {
+    font-weight: 500;
+    border-radius: 1000px;
+    text-transform: none;
+
+    &.buttonSm {
+      --f-size: 11px;
+      --padding: 5.5px 8px 6px 8px;
+      --letter-spacing: 0em;
+    }
+    &.buttonMd {
+      --padding: 7.5px 12px 8.5px 12px;
+      --letter-spacing: -0.02em;
+    }
+    &.buttonLg {
+      --padding: 15px 22px;
+      --letter-spacing: 0.01em;
+    }
+    &.buttonXl {
+      --padding: 19px 22px;
+      --letter-spacing: -0.02em;
+    }
+  }
+  &.buttonLight:active {
+    --c-background--active: #fff;
+  }
+  //button color
+  &.buttonBlue {
+    --c-background: var(--c-blue-90);
+    --c-focus: #c2d8ff;
+    --c-background--hover: var(--c-blue-80);
+    --c-background--active: var(--c-blue-100);
+    &.buttonMuted {
+      --c-background: var(--c-cyan-10);
+      --c-text: var(--c-blue-80);
+      --c-background--hover: var(--c-cyan-0);
+      --c-background--active: var(--c-cyan-20);
+    }
+    &.buttonLight {
+      --c-background: #fff;
+      --c-text: var(--c-blue-80);
+      &.buttonLg,
+      &.buttonXl {
+        --c-background--hover: #fff;
+        --c-focus: #c2d8ff;
+      }
+      &.buttonSm,
+      &.buttonMd {
+        --c-background--hover: #fff;
+        --c-focus: #c2d8ff;
+      }
+    }
+    &.buttonGhost {
+      --c-background: rgba(0, 0, 0, 0);
+      --c-text: var(--c-blue-80);
+      --c-background--hover: rgba(0, 0, 0, 0);
+      --c-background--active: rgba(0, 0, 0, 0);
+    }
+  }
+  &.buttonIndigo {
+    --c-background: var(--c-indigo-80);
+    --c-focus: #dee3ea;
+    --c-background--hover: var(--c-indigo-70);
+    --c-background--active: var(--c-indigo-90);
+    &.buttonMuted {
+      --c-background: var(--c-carbon-0);
+      --c-text: var(--c-indigo-80);
+      --c-background--hover: var(--c-indigo-10);
+      --c-background--active: var(--c-indigo-30);
+    }
+    &.buttonLight {
+      --c-background: #fff;
+      --c-text: var(--c-indigo-80);
+      &.buttonLg,
+      &.buttonXl {
+        --c-background--hover: #fff;
+        --c-focus: #dee3ea;
+      }
+      &.buttonSm,
+      &.buttonMd {
+        --c-background--hover: #fff;
+        --c-focus: #dee3ea;
+      }
+    }
+    &.buttonGhost {
+      --c-background: rgba(0, 0, 0, 0);
+      --c-text: var(--c-indigo-80);
+      --c-background--hover: var(--c-indigo-0);
+      --c-background--active: var(--c-indigo-10);
+    }
+  }
+  &.buttonGreen {
+    --c-background: var(--c-green-90);
+    --c-focus: #cff5dc;
+    --c-background--hover: var(--c-green-80);
+    --c-background--active: var(--c-green-100);
+    &.buttonMuted {
+      --c-background: var(--c-green-0);
+      --c-background--hover: var(--c-green-10);
+      --c-background--active: var(--c-green-20);
+      --c-text: var(--c-green-100);
+      &.buttonRound {
+        --c-text: var(--c-green-90);
+      }
+    }
+    &.buttonLight {
+      --c-background: #fff;
+      --c-text: var(--c-green-100);
+      &.buttonLg,
+      &.buttonXl {
+        --c-background--hover: #fff;
+        --c-focus: #cff5dc;
+      }
+      &.buttonSm,
+      &.buttonMd {
+        --c-background--hover: #fff;
+        --c-focus: #cff5dc;
+      }
+    }
+    &.buttonGhost {
+      --c-background: rgba(0, 0, 0, 0);
+      --c-text: var(--c-green-100);
+      --c-background--hover: var(--c-green-0);
+      --c-background--active: var(--c-green-10);
+    }
+  }
+  &.buttonRed {
+    --c-background: var(--c-red-80);
+    --c-focus: #ffdde2;
+    --c-background--hover: var(--c-red-70);
+    --c-background--active: var(--c-red-90);
+    &.buttonMuted {
+      --c-background: var(--c-red-0);
+      --c-text: var(--c-red-90);
+      --c-background--hover: var(--c-red-10);
+      --c-background--active: var(--c-red-20);
+      &.buttonRound {
+        --c-text: var(--c-red-80);
+      }
+    }
+    &.buttonLight {
+      --c-background: #fff;
+      --c-text: var(--c-red-90);
+      &.buttonLg,
+      &.buttonXl {
+        --c-background--hover: #fff;
+        --c-focus: #ffdde2;
+      }
+      &.buttonSm,
+      &.buttonMd {
+        --c-background--hover: #fff;
+        --c-focus: #ffdde2;
+      }
+    }
+    &.buttonGhost {
+      --c-background: rgba(0, 0, 0, 0);
+      --c-text: var(--c-red-90);
+      --c-background--hover: var(--c-red-0);
+      --c-background--active: var(--c-red-10);
+    }
+  }
+  &.buttonYellow {
+    --c-background: var(--c-yellow-80);
+    --c-focus: #fff4d1;
+    --c-background--hover: var(--c-yellow-60);
+    --c-background--active: var(--c-yellow-90);
+    &.buttonMuted {
+      --c-background: var(--c-yellow-0);
+      --c-text: var(--c-yellow-90);
+      --c-background--hover: var(--c-yellow-10);
+      --c-background--active: var(--c-yellow-20);
+      &.buttonRound {
+        --c-text: var(--c-yellow-80);
+      }
+    }
+    &.buttonLight {
+      --c-background: #fff;
+      --c-text: var(--c-yellow-90);
+      &.buttonLg,
+      &.buttonXl {
+        --c-background--hover: #fff;
+        --c-focus: #fff4d1;
+      }
+      &.buttonSm,
+      &.buttonMd {
+        --c-background--hover: #fff;
+        --c-focus: #fff4d1;
+      }
+    }
+    &.buttonGhost {
+      --c-background: rgba(0, 0, 0, 0);
+      --c-text: var(--c-yellow-90);
+      --c-background--hover: var(--c-yellow-0);
+      --c-background--active: var(--c-yellow-10);
+    }
+  }
+  &.buttonOrange {
+    --c-background: var(--c-orange-70);
+    --c-focus: #ffdfd1;
+    --c-background--hover: var(--c-orange-70);
+    --c-background--active: var(--c-orange-90);
+    &.buttonMuted {
+      --c-background: var(--c-orange-0);
+      --c-text: var(--c-orange-90);
+      --c-background--hover: var(--c-orange-10);
+      --c-background--active: var(--c-orange-20);
+      &.buttonRound {
+        --c-text: var(--c-orange-80);
+      }
+    }
+    &.buttonLight {
+      --c-background: #fff;
+      --c-text: var(--c-orange-90);
+      &.buttonLg,
+      &.buttonXl {
+        --c-background--hover: #fff;
+        --c-focus: #ffdfd1;
+      }
+      &.buttonSm,
+      &.buttonMd {
+        --c-background--hover: #fff;
+        --c-focus: #ffdfd1;
+      }
+    }
+    &.buttonGhost {
+      --c-background: rgba(0, 0, 0, 0);
+      --c-text: var(--c-orange-90);
+      --c-background--hover: var(--c-orange-0);
+      --c-background--active: var(--c-orange-10);
+    }
+  }
+  &.buttonCyan {
+    --c-background: var(--c-cyan-90);
+    --c-focus: #d3ecff;
+    --c-background--hover: var(--c-cyan-80);
+    --c-background--active: var(--c-cyan-100);
+    &.buttonMuted {
+      --c-background: var(--c-cyan-0);
+      --c-text: var(--c-cyan-100);
+      --c-background--hover: var(--c-cyan-10);
+      --c-background--active: var(--c-cyan-20);
+      &.buttonRound {
+        --c-text: var(--c-cyan-90);
+      }
+    }
+    &.buttonLight {
+      --c-background: #fff;
+      --c-text: var(--c-cyan-100);
+      &.buttonLg,
+      &.buttonXl {
+        --c-background--hover: #fff;
+        --c-focus: #d3ecff;
+      }
+      &.buttonSm,
+      &.buttonMd {
+        --c-background--hover: #fff;
+        --c-focus: #d3ecff;
+      }
+    }
+    &.buttonGhost {
+      --c-background: rgba(0, 0, 0, 0);
+      --c-text: var(--c-cyan-100);
+      --c-background--hover: var(--c-cyan-0);
+      --c-background--active: var(--c-cyan-10);
+    }
+  }
+  &.buttonLavender {
+    --c-background: var(--c-lavender-80);
+    --c-focus: #d0dbff;
+    --c-background--hover: var(--c-lavender-70);
+    --c-background--active: var(--c-lavender-90);
+    &.buttonMuted {
+      --c-background: var(--c-blue-0);
+      --c-text: var(--c-lavender-90);
+      --c-background--hover: var(--c-blue-10);
+      --c-background--active: var(--c-blue-20);
+      &.buttonRound {
+        --c-text: var(--c-lavender-80);
+      }
+    }
+    &.buttonLight {
+      --c-background: #fff;
+      --c-text: var(--c-lavender-90);
+      &.buttonLg,
+      &.buttonXl {
+        --c-background--hover: #fff;
+        --c-focus: #d0dbff;
+      }
+      &.buttonSm,
+      &.buttonMd {
+        --c-background--hover: #fff;
+        --c-focus: #d0dbff;
+      }
+    }
+    &.buttonGhost {
+      --c-background: rgba(0, 0, 0, 0);
+      --c-text: var(--c-lavender-90);
+      --c-background--hover: var(--c-blue-0);
+      --c-background--active: var(--c-blue-10);
+    }
+  }
+  &.buttonBlack {
+    --c-background: #000;
+    --c-focus: #fff;
+    --c-background--hover: var(--c-gray-90);
+    --c-background--active: var(--c-gray-100);
+    &.buttonMuted {
+      --c-background: var(--c-carbon-0);
+      --c-text: var(--c-indigo-80);
+      --c-background--hover: var(--c-gray-10);
+      --c-background--active: var(--c-gray-30);
+    }
+    &.buttonLight {
+      --c-background: #fff;
+      --c-text: var(--c-gray-80);
+      &.buttonLg,
+      &.buttonXl {
+        --c-background--hover: var(--c-gray-0);
+        --c-focus: #dee3ea;
+      }
+      &.buttonSm,
+      &.buttonMd {
+        --c-background--hover: var(--c-gray-0);
+        --c-focus: #dee3ea;
+      }
+    }
+    &.buttonGhost {
+      --c-background: rgba(0, 0, 0, 0);
+      --c-text: var(--c-gray-80);
+      --c-background--hover: var(--c-gray-0);
+      --c-background--active: var(--c-gray-10);
+    }
+  }
+  &:disabled {
+    cursor: not-allowed;
+    --c-background: var(--c-indigo-20);
+    --c-text: var(--c-carbon-20);
+    &:hover {
+      --c-background--hover: var(--c-indigo-20);
+      --c-text: var(--c-carbon-20);
+      --elevation: none;
+    }
+  }
+}
