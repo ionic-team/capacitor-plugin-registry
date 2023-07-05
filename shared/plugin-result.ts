@@ -8,6 +8,7 @@ export type PluginResult = {
   githubUrl: string | undefined;
   platforms: string[];
   author: { name: string; email?: string };
+  type: PluginType;
   health: {
     score: number;
     modifiers: string[];
@@ -22,3 +23,5 @@ export type PluginResult = {
     openIssues: number;
   };
 };
+
+export type PluginType = "official" | "community";
