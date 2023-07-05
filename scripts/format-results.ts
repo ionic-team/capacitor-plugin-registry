@@ -25,6 +25,8 @@ export async function writePluginDataToPublicDirectory(
       lastUpdated: plugin.published,
       githubUrl: plugin.repo,
       health: calculatePluginScore(plugin),
+      platforms: plugin.platforms,
+      author: plugin.author,
       stats: {
         downloads: plugin.downloads ?? -1,
         downloadsStart: plugin.downloadStart,
@@ -32,6 +34,7 @@ export async function writePluginDataToPublicDirectory(
         downloadsPeriod: plugin.downloadPeriod,
         stars: plugin.stars,
         openIssues: plugin.issues,
+        watchers: plugin.watchers,
       },
     };
     return pluginResult;

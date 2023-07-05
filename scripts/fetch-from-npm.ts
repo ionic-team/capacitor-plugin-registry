@@ -15,7 +15,7 @@ export async function applyNpmInfo(plugin: PluginInfo) {
     // Likely not found in npm
     return;
   }
-  
+
   plugin.version = npmHistory.version;
   plugin.versions = npmHistory.versions as string[];
   plugin.author = npmHistory.author;
@@ -29,7 +29,8 @@ export async function applyNpmInfo(plugin: PluginInfo) {
   plugin.repo = cleanUrl(npmHistory.repository?.url);
   plugin.keywords = npmHistory.keywords;
   if (npmLatest.cordova) {
-    plugin.platforms = npmLatest.cordova.platforms;
+    const platforms = npmLatest.cordova.platforms;
+    plugin.platforms = Array.isArray(platforms) ? platforms : [platforms];
   }
   if (npmLatest.capacitor) {
     plugin.platforms = [];

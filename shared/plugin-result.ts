@@ -6,6 +6,8 @@ export type PluginResult = {
   license: string;
   lastUpdated: string;
   githubUrl: string | undefined;
+  platforms: string[];
+  author: { name: string; email?: string };
   health: {
     score: number;
     modifiers: string[];
@@ -16,6 +18,7 @@ export type PluginResult = {
     downloadsEnd: string | undefined;
     downloadsPeriod: string | undefined;
     stars?: number;
+    watchers: number;
     openIssues: number;
   };
 };

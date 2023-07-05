@@ -87,7 +87,7 @@ export function readPlugin(plugin: string): PluginInfo {
     description: "",
     success: [],
     repo: "",
-    author: "",
+    author: { name: "", email: "" },
     published: "",
     versions: [],
     keywords: [],
@@ -125,7 +125,7 @@ function cleanupPlugin(i: PluginInfo): PluginInfo {
     i.name?.startsWith("@capacitor/") ||
     i.name?.startsWith("@ionic-enterprise/")
   ) {
-    i.author = "Ionic";
+    i.author = { name: "Ionic" };
     if (!i.image) {
       i.image = "https://avatars.githubusercontent.com/u/3171503?v=4";
     }
