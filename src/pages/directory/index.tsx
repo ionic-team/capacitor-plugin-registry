@@ -31,7 +31,7 @@ import "tippy.js/dist/tippy.css";
 import { InferGetStaticPropsType } from "next";
 import { getStaticProps } from "@/pages";
 
-const IndexPageContext = createContext<{
+const DirectoryPageContext = createContext<{
   pluginData: PluginResult[];
   setPluginData: Dispatch<SetStateAction<PluginResult[]>>;
   setFilters: Dispatch<SetStateAction<string[]>>;
@@ -49,7 +49,7 @@ const IndexPageContext = createContext<{
   allPlatforms: [],
 });
 
-const IndexPage = ({
+const DirectoryPage = ({
   allPlatforms,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [pluginData, setPluginData] = useState<PluginResult[]>([]);
@@ -69,7 +69,7 @@ const IndexPage = ({
   // }, [query]);
 
   return (
-    <IndexPageContext.Provider
+    <DirectoryPageContext.Provider
       value={{
         pluginData,
         setPluginData,
@@ -83,12 +83,12 @@ const IndexPage = ({
       <PlatformBar />
       <Search />
       <Content />
-    </IndexPageContext.Provider>
+    </DirectoryPageContext.Provider>
   );
 };
 
 const Search = () => {
-  const { setPluginData } = useContext(IndexPageContext);
+  const { setPluginData } = useContext(DirectoryPageContext);
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -120,7 +120,7 @@ const Search = () => {
 
 const Sidebar = () => {
   const { allPlatforms, setFilters, platforms, setPlatforms, filters } =
-    useContext(IndexPageContext);
+    useContext(DirectoryPageContext);
 
   const handlePlatformCheckboxChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -237,7 +237,7 @@ const Sidebar = () => {
 
 const Results = () => {
   const { pluginData, platforms, filters, setPluginData } =
-    useContext(IndexPageContext);
+    useContext(DirectoryPageContext);
 
   return (
     <div className={styles.results}>
@@ -406,4 +406,4 @@ const Content = () => {
   );
 };
 
-export default IndexPage;
+export default DirectoryPage;

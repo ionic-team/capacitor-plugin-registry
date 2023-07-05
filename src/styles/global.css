@@ -1,39 +1,49 @@
-:root {
-  --h-platform-bar: 3.5rem;
-  --h-site-subnav: 3.5rem;
+@layer reset, ds, site;
 
-  --z-subnav: 900;
-  --z-backdrop: 1100;
-}
+@import "modern-normalize/modern-normalize.css" layer(reset);
+@import "@ionic-internal/design-system/dist/reset/index.css" layer(reset);
 
-body {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+@import "@ionic-internal/design-system/dist/tokens/index.css" layer(ds);
+@import "./ds.css" layer(ds);
 
-hr {
-  border: none;
-  height: 1px;
-  background: var(--c-indigo-30);
-  margin: 2rem 0;
-}
+@layer site {
+  :root {
+    --h-platform-bar: 3.5rem;
+    --h-site-subnav: 3.5rem;
 
-.link,
-p a {
-  color: var(--c-cyan-130);
-  transition: opacity 0.2s ease-out;
-}
-.link:hover,
-p a:hover {
-  opacity: 0.7;
-}
+    --z-subnav: 900;
+    --z-backdrop: 1100;
+  }
 
-p strong {
-  font-weight: 500;
-  color: var(--c-carbon-100);
-}
+  body {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-.no-scroll {
-  overflow: hidden;
+  hr {
+    border: none;
+    height: 1px;
+    background: var(--c-indigo-30);
+    margin: 2rem 0;
+  }
+
+  .link,
+  p a {
+    color: var(--c-cyan-130);
+    transition: opacity 0.2s ease-out;
+  }
+  .link:hover,
+  p a:hover {
+    opacity: 0.7;
+  }
+
+  p strong {
+    font-weight: 500;
+    color: var(--c-carbon-100);
+  }
+
+  .no-scroll {
+    overflow: hidden;
+  }
 }

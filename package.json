@@ -1,16 +1,22 @@
 {
-  "name": "capacitor-plugin-registry",
-  "version": "0.1.0",
+  "name": "capacitor-site",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 5005",
     "build": "npm run update-registry && next build",
     "start": "next start",
     "lint": "next lint",
     "update-registry": "ts-node ./scripts/update-registry-data.ts --project ./scripts/tsconfig.json"
   },
   "dependencies": {
-    "@ionic-internal/design-system": "^0.0.1",
+    "@ionic-internal/components-next": "file:../../packages/components-next",
+    "@ionic-internal/components-react": "file:../../packages/components-react",
+    "@ionic-internal/config-next": "file:../../packages/config-next",
+    "@ionic-internal/config-prismic": "file:../../packages/config-prismic",
+    "@ionic-internal/design-system": "file:../../packages/design-system",
+    "@ionic-internal/utils-js": "file:../../packages/utils-js",
+    "@ionic-internal/utils-react": "file:../../packages/utils-react",
     "@tippyjs/react": "^4.2.6",
     "@types/node": "18.16.0",
     "@types/react": "18.0.38",

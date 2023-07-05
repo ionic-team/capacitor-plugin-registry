@@ -1,10 +1,12 @@
-import IndexPage from "@pages/index";
+import DirectoryPage from "@/src/pages/directory/index";
 
 import pluginData from "../data/plugin-data.json";
 import { GetStaticProps } from "next";
 import { ComponentProps } from "react";
 
-const Index = (props: ComponentProps<"div">) => <IndexPage {...props} />;
+const Directory = (props: ComponentProps<"div">) => (
+  <DirectoryPage {...props} />
+);
 
 export const getStaticProps: GetStaticProps = async () => {
   const allPlatforms = pluginData.reduce<string[]>((acc, cur) => {
@@ -23,4 +25,4 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default Index;
+export default Directory;
