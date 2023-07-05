@@ -79,9 +79,14 @@
   display: grid;
   grid-template-columns: 12rem 1fr;
   column-gap: 2rem;
+  row-gap: 2rem;
 
   margin-block-start: 4rem;
   margin-block-end: 3rem;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .pluginCard {
@@ -91,17 +96,28 @@
   padding: 2rem;
 
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.25fr 1fr;
   gap: 2rem;
 
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+
   &Title {
+    display: flex;
+    align-items: center;
+    column-gap: 0.25rem;
+
     margin-block-end: 0.625rem;
 
-    transition: color 0.2s ease-out;
-
-    &:hover,
-    &:active {
-      color: var(--c-cyan-130);
+    :global {
+      a {
+        transition: color 0.2s ease-out;
+      }
+      a:hover,
+      a:active {
+        color: var(--c-cyan-130);
+      }
     }
   }
 
