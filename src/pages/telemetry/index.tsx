@@ -3,11 +3,12 @@ import clsx from "clsx";
 import styles from "./index.module.scss";
 import Prefooter from "@components/prefooter";
 import SiteFooter from "@components/site-footer";
+import { HighlightedCode } from "@ionic-internal/components-react";
 
 const TelemetryPage = () => {
   return (
     <>
-      <main>
+      <main className={styles.page}>
         <Telemetry />
         <Prefooter />
       </main>
@@ -61,32 +62,38 @@ const Telemetry = () => (
       <code className="sc-docs-component">npx cap telemetry off</code> in the
       root of your project:
     </p>
-    <code-snippet
-      language="shell-session"
-      code={`
+    <pre>
+      <HighlightedCode
+        language="shell-session"
+        code={`
         npx cap telemetry off
         `}
-    />
+      />
+    </pre>
     <p>
       You can check the status by running the following command in the root of
       your project:
     </p>
-    <code-snippet
-      language="shell-session"
-      code={`
+    <pre>
+      <HighlightedCode
+        language="shell-session"
+        code={`
         npx cap telemetry
         `}
-    />
+      />
+    </pre>
     <p>
       If you would like to rejoin the program and provide telemetry on your
       project then run the following command:
     </p>
-    <code-snippet
-      language="shell-session"
-      code={`
+    <pre>
+      <HighlightedCode
+        language="shell-session"
+        code={`
         npx cap telemetry on
         `}
-    />
+      />
+    </pre>
   </section>
 );
 
