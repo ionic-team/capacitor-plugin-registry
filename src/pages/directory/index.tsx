@@ -30,6 +30,10 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { InferGetStaticPropsType } from "next";
 import { getStaticProps } from "@/pages";
+import SiteFooter from "@components/site-footer";
+import Prefooter from "@components/prefooter";
+import SiteHeader from "@components/site-header";
+import SiteMeta from "@components/site-meta";
 
 const DirectoryPageContext = createContext<{
   pluginData: PluginResult[];
@@ -69,21 +73,29 @@ const DirectoryPage = ({
   // }, [query]);
 
   return (
-    <DirectoryPageContext.Provider
-      value={{
-        pluginData,
-        setPluginData,
-        setFilters,
-        filters,
-        allPlatforms,
-        setPlatforms,
-        platforms,
-      }}
-    >
-      <PlatformBar />
-      <Search />
-      <Content />
-    </DirectoryPageContext.Provider>
+    <>
+      <SiteMeta title="Capacitor Plugin Directory" />
+      <SiteHeader />
+      <DirectoryPageContext.Provider
+        value={{
+          pluginData,
+          setPluginData,
+          setFilters,
+          filters,
+          allPlatforms,
+          setPlatforms,
+          platforms,
+        }}
+      >
+        <main>
+          <PlatformBar />
+          <Search />
+          <Content />
+          <Prefooter />
+        </main>
+      </DirectoryPageContext.Provider>
+      <SiteFooter />
+    </>
   );
 };
 

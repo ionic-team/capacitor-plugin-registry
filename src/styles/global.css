@@ -8,10 +8,15 @@
 
 @layer site {
   :root {
+    --c-capacitor-blue: rgb(17, 158, 255);
+
     --h-platform-bar: 3.5rem;
+    --h-site-header--mobile: 3.5rem;
+    --h-site-header--desktop: 4rem;
     --h-site-subnav: 3.5rem;
 
     --z-subnav: 900;
+    --z-header: 1000;
     --z-backdrop: 1100;
   }
 
@@ -19,6 +24,10 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  .font-root {
+    --ff-highlighted-code: var(--ff-roboto-mono);
   }
 
   hr {
@@ -45,5 +54,12 @@
 
   .no-scroll {
     overflow: hidden;
+  }
+
+  code {
+    font-family: var(--ff-roboto-mono);
+  }
+  pre code {
+    display: block;
   }
 }

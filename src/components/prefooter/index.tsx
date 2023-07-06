@@ -21,9 +21,7 @@ const Prefooter = () => {
               stroke-linejoin="round"
             />
           </svg>
-          <h4>
-            Installation Guide <span className="arrow">-&gt;</span>
-          </h4>
+          <h4>Installation Guide →</h4>
           <p>Install Capacitor and learn how to start building with it</p>
         </a>
         <a href="/docs/apis">
@@ -48,9 +46,7 @@ const Prefooter = () => {
               stroke-linejoin="roqund"
             />
           </svg>
-          <h4>
-            Explore Native Plugins <span className="arrow">-&gt;</span>
-          </h4>
+          <h4>Explore Native Plugins →</h4>
           <p>Explore Native Plugins that are available to all Capacitor apps</p>
         </a>
       </div>

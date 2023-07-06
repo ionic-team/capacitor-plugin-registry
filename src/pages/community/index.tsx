@@ -8,20 +8,26 @@ import clsx from "clsx";
 import { Column, Grid } from "@ionic-internal/components-react";
 import LegacyPrismicResponsiveImage from "@/src/components/prismic/legacy/responsive-image";
 import NewsletterSignup from "@components/newsletter-signup";
+import SiteHeader from "@components/site-header";
+import SiteMeta from "@components/site-meta";
 
 const CommunityPageContext = createContext();
 
 const CommunityPage = ({ prismicData }) => {
   return (
-    <CommunityPageContext.Provider value={{ prismicData }}>
-      <main className={styles.page}>
-        <Top />
-        <Websites />
-        <NewsletterSignup />
-        <Prefooter />
-      </main>
+    <>
+      <SiteMeta title="Capacitor Community" />
+      <SiteHeader />
+      <CommunityPageContext.Provider value={{ prismicData }}>
+        <main className={styles.page}>
+          <Top />
+          <Websites />
+          <NewsletterSignup />
+          <Prefooter />
+        </main>
+      </CommunityPageContext.Provider>
       <SiteFooter />
-    </CommunityPageContext.Provider>
+    </>
   );
 };
 

@@ -9,6 +9,8 @@
   :global {
     ul,
     ol {
+      list-style: disc;
+      padding-inline-start: 3.2em;
       margin: 1.6em 0;
 
       li[class*="ds-paragraph"] {

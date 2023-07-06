@@ -3,6 +3,7 @@ import {
   Breakpoint,
   Column,
   Grid,
+  HighlightedCode,
   HubspotForm,
   Modal,
 } from "@ionic-internal/components-react";
@@ -13,6 +14,11 @@ import { useState, createContext, useContext } from "react";
 import styles from "./index.module.scss";
 import Button from "@/src/components/old/Button";
 import Link from "next/link";
+import SiteFooter from "@components/site-footer";
+import Prefooter from "@components/prefooter";
+import CodeTabs from "@components/code-tabs";
+import SiteHeader from "@components/site-header";
+import SiteMeta from "@components/site-meta";
 
 const IndexPageContext = createContext();
 
@@ -20,29 +26,33 @@ export default function IndexPage({ prismicData }) {
   const [selectedCodeTab, setSelectedCodeTab] = useState("notifications");
   const [ebookModalOpen, setEbookModalOpen] = useState(false);
 
-  console.log(prismicData);
-
   return (
-    <IndexPageContext.Provider
-      value={{
-        prismicData,
-        selectedCodeTab,
-        setSelectedCodeTab,
-        ebookModalOpen,
-        setEbookModalOpen,
-      }}
-    >
-      <main className={styles.page}>
-        <Top />
-        <Started />
-        <Ebook />
-        <Native />
-        <Features />
-        <Framework />
-        <Tweets />
-        <Cta />
-      </main>
-    </IndexPageContext.Provider>
+    <>
+      <SiteMeta title="Capacitor Home" />
+      <SiteHeader />
+      <IndexPageContext.Provider
+        value={{
+          prismicData,
+          selectedCodeTab,
+          setSelectedCodeTab,
+          ebookModalOpen,
+          setEbookModalOpen,
+        }}
+      >
+        <main className={styles.page}>
+          <Top />
+          <Started />
+          <Ebook />
+          <Native />
+          <Features />
+          <Framework />
+          <Tweets />
+          <Cta />
+          <Prefooter />
+        </main>
+      </IndexPageContext.Provider>
+      <SiteFooter />
+    </>
   );
 }
 
@@ -75,7 +85,7 @@ const Top = () => {
               href="/docs/getting-started"
               className="primary"
             >
-              {primary} <span className="arrow"> -&gt;</span>
+              {primary} →
             </Button>
             <Button
               kind="round"
@@ -88,8 +98,7 @@ const Top = () => {
             </Button>
           </div>
           <Link className="link | ui-paragraph-4" href="/cordova">
-            {top__link}
-            <span className="arrow"> -&gt;</span>
+            {top__link} →
           </Link>
           <PrismicImage2x
             loading="eager"
@@ -128,18 +137,14 @@ const Announcement = () => {
         display="inline-block"
         className="text"
       >
-        <span className="text__content">
-          {desktop_text} <span className="arrow">-&gt;</span>
-        </span>
+        <span className="text__content">{desktop_text} →</span>
       </Breakpoint>
       <Breakpoint
         visible={[1, 0, 0, 0, 0]}
         display="inline-block"
         className="text"
       >
-        <span className="text__content">
-          {mobile_text} <span className="arrow">-&gt;</span>
-        </span>
+        <span className="text__content">{mobile_text} →</span>
       </Breakpoint>
     </a>
   );
@@ -151,15 +156,15 @@ const Started = () => {
   } = useContext(IndexPageContext);
 
   const panels = [
-    <code-snippet
+    <HighlightedCode
       language="shell-session"
       code={`npm install @capacitor/cli @capacitor/core\nnpx cap init`}
     />,
-    <code-snippet
+    <HighlightedCode
       language="shell-session"
       code={`npm install @capacitor/ios @capacitor/android\nnpx cap add ios\nnpx cap add android`}
     />,
-    <code-tabs
+    <CodeTabs
       data={{
         tabs: ["Notifications", "Geolocation", "Camera", "Custom"],
         languages: ["typescript"],
@@ -247,7 +252,9 @@ public class MyAwesomePlugin: CAPPlugin {
               ) : null}
               {text ? <p>{text}</p> : null}
             </div>
-            <div className="panel">{panels[i]}</div>
+            <div className="panel">
+              <pre>{panels[i]}</pre>
+            </div>
           </div>
         </div>
       ))}
@@ -294,7 +301,7 @@ const Ebook = () => {
                 size="md"
                 onClick={() => setEbookModalOpen(true)}
               >
-                {cta} <span className="arrow"> -&gt;</span>
+                {cta} →
               </Button>
             </div>
           </div>
@@ -352,8 +359,7 @@ const Features = () => {
         <div className="heading-group">
           <PrismicRichText field={features} />
           <a href="/docs/apis" className="link | ui-heading-4">
-            {features__link}
-            <span className="arrow">-&gt;</span>
+            {features__link} →
           </a>
         </div>
         <Grid>
@@ -542,7 +548,7 @@ const Cta = () => {
                   }}
                 />
                 <Button kind="round" href="/enterprise">
-                  {cta1} <span className="arrow"> -&gt;</span>
+                  {cta1} →
                 </Button>
               </div>
             </div>
@@ -583,8 +589,7 @@ const Cta = () => {
               className="secondary"
               color="cyan"
             >
-              {primary}
-              <span className="arrow"> -&gt;</span>
+              {primary} →
             </Button>
             <Button
               href="/docs/plugins"
@@ -594,8 +599,7 @@ const Cta = () => {
               className="primary"
               color="cyan"
             >
-              {secondary}
-              <span className="arrow"> -&gt;</span>
+              {secondary} →
             </Button>
           </div>
         </div>

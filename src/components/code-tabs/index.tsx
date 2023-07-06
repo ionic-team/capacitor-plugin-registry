@@ -1,12 +1,6 @@
 import { HighlightedCode } from "@ionic-internal/components-react";
 import clsx from "clsx";
-import {
-  MouseEventHandler,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useRef, useState } from "react";
 
 const pixelize = (value: number) => `${value}px`;
 
@@ -51,7 +45,9 @@ const CodeTabs = ({
     setCodeLeft(`-${pixelize(elRef.current.offsetWidth * index)}`);
   };
 
-  const handleMount = useCallback((el) => {
+  const handleMount = useCallback((el: HTMLDivElement | null) => {
+    if (!el) return;
+
     elRef.current = el;
     setCodeLeft(`-${pixelize(el.offsetWidth * activeTab.index)}`);
   }, []);

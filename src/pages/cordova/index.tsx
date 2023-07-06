@@ -10,6 +10,9 @@ import { HighlightedCode } from "@ionic-internal/components-react";
 import LogoApple from "./assets/apple.png";
 import LogoAndroid from "./assets/android.png";
 import Image from "next/image";
+import CodeTabs from "@components/code-tabs";
+import SiteHeader from "@components/site-header";
+import SiteMeta from "@components/site-meta";
 
 const CordovaPageContext = createContext();
 
@@ -17,16 +20,20 @@ const CordovaPage = () => {
   const [selectedCodeTab, setSetSelectedCodeTab] = useState("before");
 
   return (
-    <CordovaPageContext.Provider value={{ selectedCodeTab }}>
-      <main className={styles.page}>
-        <Top />
-        <GettingStarted />
-        {/* <MoreResources /> */}
-        <NewsletterSignup />
-        <Prefooter />
-      </main>
+    <>
+      <SiteMeta title="Cordova" />
+      <SiteHeader />
+      <CordovaPageContext.Provider value={{ selectedCodeTab }}>
+        <main className={styles.page}>
+          <Top />
+          <GettingStarted />
+          {/* <MoreResources /> */}
+          <NewsletterSignup />
+          <Prefooter />
+        </main>
+      </CordovaPageContext.Provider>{" "}
       <SiteFooter />
-    </CordovaPageContext.Provider>
+    </>
   );
 };
 
@@ -57,8 +64,7 @@ const GettingStarted = () => (
         <pre>
           <HighlightedCode
             language="shell-session"
-            code={`
-cd my-app
+            code={`cd my-app
 git checkout -b cap-migration
           `}
           />
@@ -78,8 +84,7 @@ git checkout -b cap-migration
         <pre>
           <HighlightedCode
             language="shell-session"
-            code={`
-npm install @capacitor/cli @capacitor/core
+            code={`npm install @capacitor/cli @capacitor/core
 npx cap init [name] [id]
 `}
           />
@@ -99,8 +104,7 @@ npx cap init [name] [id]
         <pre>
           <HighlightedCode
             language="shell-session"
-            code={`
-# Most web apps
+            code={`# Most web apps
 npm run build
 
 # Ionic app
@@ -139,8 +143,7 @@ ionic build
         <pre>
           <HighlightedCode
             language="shell-session"
-            code={`
-npx cap add android
+            code={`npx cap add android
 npx cap add ios
 `}
           />
@@ -161,8 +164,7 @@ npx cap add ios
         <pre>
           <HighlightedCode
             language="shell-session"
-            code={`
-npm install -g cordova-res
+            code={`npm install -g cordova-res
 
 cordova-res ios --skip-config --copy
 cordova-res android --skip-config --copy
@@ -190,13 +192,12 @@ cordova-res android --skip-config --copy
         <p>Remove unneeded ones to improve performance and reduce app size.</p>
       </div>
       <div className="code-panel">
-        <code-tabs
+        <CodeTabs
           data={{
             tabs: ["Cordova Camera", "Capacitor Camera"],
             languages: ["typescript"],
             code: [
-              `
-import { Camera } from '@ionic-native/camera/ngx';
+              `import { Camera } from '@ionic-native/camera/ngx';
 
 constructor(private camera: Camera) {}
 
@@ -207,8 +208,7 @@ const photo = await this.camera.getPicture({
   saveToPhotoAlbum: true
 });
 `, //----------------------------------
-              `
-import { Camera } from '@capacitor/camera';
+              `import { Camera } from '@capacitor/camera';
 
 const photo = await Camera.getPhoto({
   quality: 100,

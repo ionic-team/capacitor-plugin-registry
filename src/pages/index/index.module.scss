@@ -26,7 +26,7 @@
     h4,
     h5,
     h6 {
-      font-family: var(--f-family-text);
+      font-family: Inter, "Inter UI", Helvetica, Arial, sans-serif;
     }
 
     h2 em {
@@ -79,7 +79,7 @@
       }
 
       [class*="ds-paragraph"] {
-        margin-block-end: var(--space-6);
+        margin-block-end: 2rem;
         max-width: 448px;
       }
     }
@@ -108,8 +108,8 @@
     }
 
     .link {
-      margin-block-start: var(--space-2);
-      margin-block-end: var(--space-4);
+      margin-block-start: 0.75rem;
+      margin-block-end: 1.25rem;
     }
 
     .image-wrapper {
@@ -182,11 +182,11 @@
       padding: 4px 6px;
       color: white;
       background: #ffb762;
-      border-radius: var(--radius-3);
-      font-size: var(--f-size-0);
+      border-radius: 16px;
+      font-size: 0.625rem;
       font-weight: bold;
       text-transform: uppercase;
-      letter-spacing: var(--f-tracking-super);
+      letter-spacing: 0.08em;
     }
   }
 }
@@ -240,7 +240,7 @@
         top: 3px;
         width: 40px;
         margin-inline-end: clamp(12px, 1.5vw, 24px);
-        margin-block-end: var(--space-4);
+        margin-block-end: 1.25rem;
       }
 
       .heading-panel-wrapper {
@@ -287,7 +287,7 @@
         display: flex;
 
         * + * {
-          margin-inline-start: var(--space-3);
+          margin-inline-start: 1rem;
         }
       }
     }
@@ -421,11 +421,11 @@
   :global {
     .heading-group {
       max-width: 480px;
-      margin-block-end: var(--space-11);
+      margin-block-end: 6rem;
     }
 
     .ds-grid {
-      column-gap: var(--space-6);
+      column-gap: 2rem;
 
       .ds-col {
         img {
@@ -452,7 +452,7 @@
 
       margin-inline-start: -32px;
       margin-block-start: -16px;
-      margin-block-end: var(--space-11);
+      margin-block-end: 6rem;
 
       > * {
         margin-inline-start: 32px;
@@ -492,7 +492,7 @@
 
       margin-inline-start: -32px;
       margin-block-start: -16px;
-      margin-block-end: var(--space-11);
+      margin-block-end: 6rem;
 
       > * {
         margin-inline-start: 32px;
@@ -670,7 +670,8 @@
 
           &:hover {
             transform: translateY(-1px);
-            box-shadow: var(--elevation-2);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+              0 1px 1px 0 rgba(0, 0, 0, 0.04);
           }
 
           img {
@@ -868,7 +869,8 @@
         --elevation: 0;
 
         &:hover {
-          --elevation: var(--elevation-3);
+          --elevation: 0 2px 4px 0 rgba(0, 0, 0, 0.1),
+            0 0 2px 0 rgba(0, 0, 0, 0.06);
         }
       }
       .secondary {

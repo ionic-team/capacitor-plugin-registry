@@ -5,6 +5,8 @@ import NewsletterSignup from "@components/newsletter-signup";
 import Prefooter from "@components/prefooter";
 import SiteFooter from "@components/site-footer";
 import Image from "next/image";
+import SiteHeader from "@/src/components/site-header";
+import SiteMeta from "@/src/components/site-meta";
 
 const SolutionPageLayout = ({
   children,
@@ -20,6 +22,8 @@ const SolutionPageLayout = ({
   const { src, width, height } = framework.logo;
   return (
     <>
+      <SiteMeta title={`${framework.name} Solution for Capacitor`} />
+      <SiteHeader />
       <main className={styles.page}>
         <section className={clsx(styles.top, "ds-container")}>
           <div className="heading-group">

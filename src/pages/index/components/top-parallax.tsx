@@ -1,20 +1,20 @@
-import { Component, h } from '@stencil/core';
-import { ResponsiveContainer, Button } from '@ionic-internal/ionic-ds';
+import { Component, h } from "@stencil/core";
+import { ResponsiveContainer, Button } from "@ionic-internal/ionic-ds";
 
-import Parallax from 'parallax-js';
+import Parallax from "parallax-js";
 
-import Capacitor3Rainbow from '../assets/capacitor-3-rainbow.svg';
-import { Background } from '../assets/bg-3-only.svg';
+import Capacitor3Rainbow from "../assets/capacitor-3-rainbow.svg";
+import { Background } from "../assets/bg-3-only.svg";
 // import { Background } from '../assets/bg-boxes.svg';
 
 @Component({
-  tag: 'top-parallax',
-  styleUrl: 'top-parallax.scss',
+  tag: "top-parallax",
+  styleUrl: "top-parallax.scss",
   scoped: true,
 })
 export class LandingPage {
   $shapes!: HTMLDivElement;
-  libID = 'parallax-lib';
+  libID = "parallax-lib";
   parallaxInstance: Parallax;
 
   disconnectedCallback() {
@@ -33,8 +33,8 @@ export class LandingPage {
   render() {
     return (
       <section id="top">
-        <ResponsiveContainer>
-          <div id="shapes" ref={el => (this.$shapes = el as HTMLDivElement)}>
+        <div className="ds-container">
+          <div id="shapes" ref={(el) => (this.$shapes = el as HTMLDivElement)}>
             <div id="circle-1" data-depth="0.8" />
             <div id="circle-2" data-depth="0.3" />
             <div id="circle-3" data-depth="0.6" />
@@ -50,33 +50,33 @@ export class LandingPage {
           </div>
           <Capacitor3Rainbow />
           <h1>
-            <span class="reveal">Faster.</span>
-            <span class="reveal">Smaller.</span>
-            <span class="reveal">Simpler.</span>
+            <span className="reveal">Faster.</span>
+            <span className="reveal">Smaller.</span>
+            <span className="reveal">Simpler.</span>
           </h1>
-          <p class="reveal">
+          <p className="reveal">
             A brand new approach to building native apps with the Web — now even
             faster, more modular, and more enjoyable to build with than ever.
           </p>
-          <div class="btns">
+          <div className="btns">
             <Button
-              class="reveal"
+              className="reveal"
               kind="round"
               color="indigo"
               variation="light"
               href="/docs/getting-started"
               anchor={true}
             >
-              Try Capacitor 3 <span>{'->'}</span>
+              Try Capacitor 3 <span>{"→"}</span>
             </Button>
             <Button
-              class="reveal"
+              className="reveal"
               kind="round"
               color="indigo"
               href="https://ionic.io/blog/announcing-capacitor-3-0/"
               anchor={true}
             >
-              Read the Blog post <span>{'->'}</span>
+              Read the Blog post <span>{"→"}</span>
             </Button>
           </div>
         </ResponsiveContainer>

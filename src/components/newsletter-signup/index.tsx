@@ -5,8 +5,9 @@ import styles from "./index.module.scss";
 
 const NewsletterSignup = () => {
   return (
-    <div
+    <section
       className={clsx(styles.newsletter, "newsletter-signup", "ds-container")}
+      id="newsletter"
     >
       <div className="wrapper">
         <div className="heading-group">
@@ -22,7 +23,7 @@ const NewsletterSignup = () => {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

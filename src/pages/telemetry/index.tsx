@@ -4,10 +4,14 @@ import styles from "./index.module.scss";
 import Prefooter from "@components/prefooter";
 import SiteFooter from "@components/site-footer";
 import { HighlightedCode } from "@ionic-internal/components-react";
+import SiteHeader from "@components/site-header";
+import SiteMeta from "@components/site-meta";
 
 const TelemetryPage = () => {
   return (
     <>
+      <SiteMeta title="Capacitor Telemetry" />
+      <SiteHeader />
       <main className={styles.page}>
         <Telemetry />
         <Prefooter />
