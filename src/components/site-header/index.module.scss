@@ -1,0 +1,42 @@
+.wrapper {
+  display: contents;
+
+  :global {
+    .site-header--mobile {
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+    .site-header--desktop {
+      @media (max-width: 767px) {
+        :global {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.header {
+  position: relative;
+  z-index: var(--z-header);
+
+  &Sticky {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.intersectionHelper {
+  display: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  height: 1px;
+  margin-block-end: -1px;
+
+  &Offset {
+    top: -1px;
+  }
+}
