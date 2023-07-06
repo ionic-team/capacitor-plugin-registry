@@ -32,6 +32,10 @@ import Native2 from "./assets/native/2@2x.png";
 import Image from "next/image";
 import SiteFooter from "@components/site-footer";
 import Prefooter from "@components/prefooter";
+import SiteHeader from "@components/site-header";
+import SiteMeta from "@components/site-meta";
+import SiteSubnav from "@components/site-subnav";
+import EnterpriseSubnav from "./components/subnav";
 
 const EnterprisePageContext = createContext();
 
@@ -39,26 +43,33 @@ export default function EnterprisePage({ prismicData }) {
   const [ebookModalOpen, setEbookModalOpen] = useState(false);
 
   return (
-    <EnterprisePageContext.Provider
-      value={{ ebookModalOpen, setEbookModalOpen, prismicData }}
-    >
-      <main className={styles.page}>
-        <Top />
-        <Companies />
-        <Native />
-        <Ebook />
-        <MicroFrontends />
-        <Plugins />
-        <Security />
-        <Delivery />
-        <SupportGuidance />
-        <Features />
-        <Editions />
-        <Demo />
-      </main>
-      <Prefooter />
-      <SiteFooter />
-    </EnterprisePageContext.Provider>
+    <>
+      <SiteMeta title="Capacitor Enterprise" />
+      <SiteHeader theme="dark" sticky={false} />
+      <EnterpriseSubnav />
+      <div className={styles.page}>
+        <EnterprisePageContext.Provider
+          value={{ ebookModalOpen, setEbookModalOpen, prismicData }}
+        >
+          <main>
+            <Top />
+            <Companies />
+            <Native />
+            <Ebook />
+            <MicroFrontends />
+            <Plugins />
+            <Security />
+            <Delivery />
+            <SupportGuidance />
+            <Features />
+            <Editions />
+            <Demo />
+            <Prefooter />
+          </main>
+        </EnterprisePageContext.Provider>
+        <SiteFooter />
+      </div>
+    </>
   );
 }
 
@@ -77,12 +88,10 @@ const Top = () => {
           <p className="ds-paragraph-2">{text}</p>
           <div className="cta-row">
             <Button anchor href="#demo" kind="round">
-              {cta_1}
-              <span className="arrow"> -&gt;</span>
+              {cta_1} →
             </Button>
             {/* <a href="https://ionic.io/contact/sales" className="link btn-link">
-                {cta_2}
-                <span className="arrow"> -&gt;</span>
+                {cta_2} →
               </a> */}
           </div>
         </div>
@@ -121,7 +130,7 @@ const Companies = () => {
   return (
     <section className={styles.companies} id="companies">
       <div className="ds-container">
-        <h2>{companies}</h2>
+        <h2 className="ds-overline-2">{companies}</h2>
         <div className="logos">
           <div className="row1">
             {companyImages.slice(0, 4).map(({ src, height, width }, i) => (
@@ -239,7 +248,7 @@ const Ebook = () => {
                 size="md"
                 onClick={() => setEbookModalOpen(true)}
               >
-                {cta} <span className="arrow"> -&gt;</span>
+                {cta} →
               </Button>
             </div>
           </div>
@@ -500,12 +509,10 @@ const Editions = () => {
             />
             <div className="cta-row">
               <Button href="#demo" anchor kind="round">
-                {cta_1}
-                <span className="arrow"> -&gt;</span>
+                {cta_1} →
               </Button>
               {/* <a href="https://ionic.io/contact/sales" className="link btn-link">
-                  {cta_2}
-                  <span className="arrow"> -&gt;</span>
+                  {cta_2} →
                 </a> */}
             </div>
           </div>

@@ -18,15 +18,6 @@
       font-style: normal;
       color: var(--c-carbon-100);
     }
-    .ds-heading-1 {
-      font-family: Inter, "Inter UI", Helvetica, Arial, sans-serif;
-    }
-    .ds-heading-2 {
-      font-family: Inter, "Inter UI", Helvetica, Arial, sans-serif;
-    }
-    .ds-heading-3 {
-      font-family: Inter, "Inter UI", Helvetica, Arial, sans-serif;
-    }
 
     .ds-heading-6 {
       vertical-align: middle;
@@ -90,6 +81,7 @@
       }
 
       [class*="ds-paragraph"] {
+        color: #dee3ea;
         max-width: 31rem;
       }
 
