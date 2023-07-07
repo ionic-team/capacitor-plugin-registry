@@ -4,7 +4,7 @@
 @import "@ionic-internal/design-system/dist/reset/index.css" layer(reset);
 
 @import "@ionic-internal/design-system/dist/tokens/index.css" layer(ds);
-@import "./ds.css" layer(ds);
+@import "@ionic-internal/design-system/dist/stylesheets/ds-os.css" layer(ds);
 
 @layer site {
   :root {
