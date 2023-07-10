@@ -1,12 +1,15 @@
 import IndexPage from "@/src/pages/index";
 
-import { GetStaticProps } from "next";
 import { ComponentProps } from "react";
 import { createClient } from "@ionic-internal/config-prismic";
+import { InferGetStaticPropsType } from "next";
 
-const Index = (props: ComponentProps<"div">) => <IndexPage {...props} />;
+type PagePropsType = ComponentProps<"div"> &
+  InferGetStaticPropsType<typeof getStaticProps>;
 
-export const getStaticProps: GetStaticProps = async () => {
+const Index = (props: PagePropsType) => <IndexPage {...props} />;
+
+export const getStaticProps = async () => {
   const prismicClient = createClient();
 
   const homepageData = (await prismicClient.getSingle("capacitor_homepage"))

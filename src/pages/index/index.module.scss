@@ -1,37 +1,11 @@
 .page {
   --section-space: 12.5rem;
 
-  --h1-color: var(--c-carbon-100);
-  --h1-size: clamp(48px, 6vw, 64px);
-
-  --h2-color: var(--c-carbon-50);
-  --h2-size: clamp(40px, 6vw, 48px);
-
-  --h3-color: var(--c-carbon-100);
-  --h3-size: clamp(22px, 3vw, 28px);
-
-  --h4-color: #010610;
-  --h4-size: clamp(16px, 2.5vw, 20px);
-
-  --p2-color: var(--c-carbon-80);
-  --p2-size: clamp(16px, 2vw, 20px);
-
-  --p3-color: var(--c-indigo-80);
-  --p3-size: clamp(14px, 2vw, 16px);
-
   :global {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: Inter, "Inter UI", Helvetica, Arial, sans-serif;
-    }
-
-    h2 em {
-      font-style: normal;
-      color: var(--c-carbon-100);
+    h2 {
+      em {
+        font-style: normal;
+      }
     }
   }
 }
@@ -75,6 +49,10 @@
       position: relative;
 
       h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
         max-width: 530px;
       }
 
@@ -108,6 +86,8 @@
     }
 
     .link {
+      font-weight: 500;
+
       margin-block-start: 0.75rem;
       margin-block-end: 1.25rem;
     }
@@ -235,39 +215,39 @@
         background: var(--c-carbon-10);
       }
 
-      sup {
-        position: relative;
-        top: 3px;
+      > .number {
+        font-weight: 500;
+        color: var(--c-indigo-80);
+
+        font-family: var(--ff-roboto-mono);
+        display: flex;
+        align-items: center;
+        height: 40px;
         width: 40px;
-        margin-inline-end: clamp(12px, 1.5vw, 24px);
-        margin-block-end: 1.25rem;
+        margin-block-end: 0;
+        background: white;
+        position: relative;
+        top: -11px;
       }
 
       .heading-panel-wrapper {
+        flex-grow: 1;
         display: flex;
-        margin-block-start: -32px;
-        margin-inline-start: -32px;
-        width: calc(100% + 32px);
+        justify-content: space-between;
+        gap: 32px;
 
         @media screen and (max-width: 575px) {
           flex-direction: column;
         }
-
-        > * {
-          margin-block-start: 32px;
-          margin-inline-start: 32px;
-        }
       }
 
       .heading-wrapper {
-        flex-grow: 1;
-
-        [class*="ds-heading"] {
+        h3 {
           font-weight: 600;
           max-width: 384px;
           margin-inline-end: 32px;
         }
-        [class*="ds-paragraph"] {
+        p {
           margin-block-start: 24px;
           max-width: 384px;
         }
@@ -280,6 +260,25 @@
 
         @media screen and (max-width: 575px) {
           flex-basis: auto;
+        }
+
+        .highlighted-code {
+          padding: 32px;
+
+          border-radius: 16px;
+
+          overflow-x: auto;
+
+          &.language-shell-session {
+            .token-line {
+              white-space: nowrap;
+
+              &::before {
+                content: "$ ";
+                color: var(--c-cyan-80);
+              }
+            }
+          }
         }
       }
 
@@ -302,8 +301,6 @@
   :global {
     .modal {
       h2 {
-        text-align: center;
-        color: var(--c-carbon-100);
         margin-block-end: 2rem;
       }
     }
@@ -425,10 +422,8 @@
     }
 
     .ds-grid {
-      column-gap: 2rem;
-
       .ds-col {
-        img {
+        .prismic-image-wrapper {
           margin-block-end: 40px;
         }
       }
@@ -450,14 +445,10 @@
       justify-content: space-between;
       align-items: flex-end;
 
-      margin-inline-start: -32px;
-      margin-block-start: -16px;
-      margin-block-end: 6rem;
+      column-gap: 32px;
+      row-gap: 16px;
 
-      > * {
-        margin-inline-start: 32px;
-        margin-block-start: 16px;
-      }
+      margin-block-end: 6rem;
 
       h2 {
         max-width: 448px;
@@ -467,6 +458,9 @@
 
     .ds-grid {
       .ds-col {
+        h4 {
+          margin-block-start: 20px;
+        }
         img {
           margin-block-end: 32px;
         }
@@ -474,6 +468,8 @@
     }
 
     .link {
+      font-weight: 500;
+
       margin-block-end: 6px;
     }
   }
@@ -487,21 +483,17 @@
     .heading-group {
       display: flex;
       flex-wrap: wrap;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: space-between;
 
-      margin-inline-start: -32px;
-      margin-block-start: -16px;
-      margin-block-end: 6rem;
+      column-gap: 32px;
+      row-gap: 16px;
 
-      > * {
-        margin-inline-start: 32px;
-        margin-block-start: 16px;
-      }
+      margin-block-end: 6rem;
 
       h2 {
         margin-block-end: 0px;
-        max-width: 400px;
+        max-width: 360px;
       }
       [class*="ds-paragraph"] {
         max-width: 560px;
@@ -536,8 +528,6 @@
 }
 
 .tweets {
-  --h2-color: var(--c-carbon-50);
-
   padding-block-start: var(--section-space);
   padding-block-end: var(--section-space);
 
@@ -548,8 +538,7 @@
       margin-block-end: 6rem;
 
       h2 {
-        max-width: 38rem;
-        font-size: 3rem;
+        max-width: 420px;
         line-height: 112%;
         letter-spacing: -0.05em;
 
@@ -677,7 +666,7 @@
           img {
             max-width: 100%;
           }
-          [class*="ds-heading"] {
+          h4 {
             font-weight: bold;
             color: var(--c-carbon-100);
             line-height: 112%;
@@ -689,17 +678,13 @@
   }
 }
 
-#multisection {
+.multisection {
+  overflow-x: hidden;
+
   background: linear-gradient(180deg, #ffffff 0%, #f6f8fc 100%);
 }
 
 .cta {
-  --h2-color: var(--c-carbon-50);
-  --p1-color: var(--c-indigo-40);
-  --p1-size: 2rem;
-  --p1-weight: 600;
-  --p1-leading: 120%;
-
   margin-block-start: var(--section-space);
 
   :global {
@@ -762,6 +747,11 @@
 
         [class*="ds-paragraph"] {
           margin-block-end: 2.5rem;
+
+          font-size: 2rem;
+          font-weight: 600;
+          line-height: 120%;
+          color: var(--c-indigo-40);
 
           em {
             font-style: normal;
@@ -834,8 +824,6 @@
 }
 
 .getStarted {
-  --h2-color: var(--c-carbon-100);
-
   padding-block-end: 9.5rem;
 
   display: flex;
@@ -846,6 +834,7 @@
   :global {
     .heading-group {
       h2 {
+        color: var(--c-carbon-100);
         margin-block-end: 0.688rem;
       }
     }

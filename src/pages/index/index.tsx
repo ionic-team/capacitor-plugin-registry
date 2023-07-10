@@ -9,7 +9,13 @@ import {
 } from "@ionic-internal/components-react";
 import { PrismicRichText } from "@prismicio/react";
 import clsx from "clsx";
-import { useState, createContext, useContext } from "react";
+import {
+  useState,
+  createContext,
+  useContext,
+  SetStateAction,
+  Dispatch,
+} from "react";
 
 import styles from "./index.module.scss";
 import Button from "@/src/components/old/Button";
@@ -19,10 +25,27 @@ import Prefooter from "@components/prefooter";
 import CodeTabs from "@components/code-tabs";
 import SiteHeader from "@components/site-header";
 import SiteMeta from "@components/site-meta";
+import { InferGetStaticPropsType } from "next";
+import { getStaticProps } from "@/pages";
 
-const IndexPageContext = createContext();
+import ImageTop0 from "./assets/top-0.png";
+import Image from "next/image";
+import LegacyPrismicResponsiveImage from "@/src/components/prismic/legacy/responsive-image";
 
-export default function IndexPage({ prismicData }) {
+import nightOwl from "prism-react-renderer/themes/nightOwl";
+import { isWebLink } from "@utils/prismic";
+
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
+
+const IndexPageContext = createContext<{
+  prismicData: PageProps["prismicData"];
+  selectedCodeTab: string;
+  setSelectedCodeTab: Dispatch<SetStateAction<string>>;
+  ebookModalOpen: boolean;
+  setEbookModalOpen: Dispatch<SetStateAction<boolean>>;
+} | null>(null);
+
+export default function IndexPage({ prismicData }: PageProps) {
   const [selectedCodeTab, setSelectedCodeTab] = useState("notifications");
   const [ebookModalOpen, setEbookModalOpen] = useState(false);
 
@@ -57,10 +80,10 @@ export default function IndexPage({ prismicData }) {
 }
 
 const Top = () => {
-  const {
-    prismicData: { top, top__ctas, top__link, top__hero, top__icons },
-  } = useContext(IndexPageContext);
-  const { primary, secondary } = top__ctas[0];
+  const { prismicData } = useContext(IndexPageContext) || {};
+  if (!prismicData) return null;
+  const { top, top__ctas, top__link, top__hero, top__icons } = prismicData;
+  const { primary, secondary } = top__ctas[0] || {};
 
   return (
     <section className={styles.top} id="top">
@@ -100,15 +123,15 @@ const Top = () => {
           <Link className="link | ui-paragraph-4" href="/cordova">
             {top__link} →
           </Link>
-          <PrismicImage2x
-            loading="eager"
-            field={top__icons}
-            width={91}
-            height={16}
-          />
+          <PrismicImage2x field={top__icons} width={91} height={16} />
         </div>
         <div className="image-wrapper">
-          <PrismicImage2x loading="eager" field={top__hero} />
+          <Image
+            src={ImageTop0}
+            width={ImageTop0.width / 2}
+            height={ImageTop0.height}
+            alt="multi layered phone"
+          />
         </div>
       </div>
     </section>
@@ -116,11 +139,12 @@ const Top = () => {
 };
 
 const Announcement = () => {
+  const { prismicData } = useContext(IndexPageContext) || {};
+  if (!prismicData) return null;
   const {
-    prismicData: {
-      announcement: { tag_text, desktop_text, mobile_text, link },
-    },
-  } = useContext(IndexPageContext);
+    announcement: { tag_text, desktop_text, mobile_text, link },
+  } = prismicData;
+  if (!isWebLink(link)) return null;
   const { target, url } = link;
 
   return (
@@ -151,26 +175,28 @@ const Announcement = () => {
 };
 
 const Started = () => {
-  const {
-    prismicData: { started, started__list, started__icons },
-  } = useContext(IndexPageContext);
+  const { prismicData } = useContext(IndexPageContext) || {};
+  if (!prismicData) return null;
+  const { started, started__list, started__icons } = prismicData;
 
   const panels = [
     <HighlightedCode
+      theme={nightOwl}
       language="shell-session"
       code={`npm install @capacitor/cli @capacitor/core\nnpx cap init`}
     />,
     <HighlightedCode
+      theme={nightOwl}
       language="shell-session"
       code={`npm install @capacitor/ios @capacitor/android\nnpx cap add ios\nnpx cap add android`}
     />,
     <CodeTabs
+      theme={nightOwl}
       data={{
         tabs: ["Notifications", "Geolocation", "Camera", "Custom"],
         languages: ["typescript"],
         code: [
-          `
-import { LocalNotifications } from '@capacitor/local-notifications';
+          `import { LocalNotifications } from '@capacitor/local-notifications';
 
 LocalNotifications.schedule({
   notifications: [
@@ -186,8 +212,7 @@ LocalNotifications.schedule({
     }
   ]
 });`, //-----------------------------------
-          `
-import { Geolocation } from '@capacitor/geolocation';
+          `import { Geolocation } from '@capacitor/geolocation';
 
 // get the users current position
 const position = await Geolocation.getCurrentPosition();
@@ -196,16 +221,14 @@ const position = await Geolocation.getCurrentPosition();
 const latitude = position.coords.latitude;
 const longitude = position.coords.longitude;
 `,
-          `
-import { Camera, CameraResultType } from '@capacitor/camera';
+          `import { Camera, CameraResultType } from '@capacitor/camera';
 
 // Take a picture or video, or load from the library
 const picture = await Camera.getPicture({
   resultType: CameraResultType.Uri
 });
 `, //-----------------------------------
-          `
-import Foundation
+          `import Foundation
 import Capacitor
 
 // Custom platform code, easily exposed to your web app
@@ -235,7 +258,7 @@ public class MyAwesomePlugin: CAPPlugin {
       </div>
       {started__list.map(({ number, title, text }, i) => (
         <div className="step">
-          <sup className="ds-heading-6">{number}</sup>
+          <div className="number">{number}</div>
           <div className="heading-panel-wrapper">
             <div className="heading-wrapper">
               <h3>{title}</h3>
@@ -244,8 +267,8 @@ public class MyAwesomePlugin: CAPPlugin {
                   {started__icons.map(({ icon }, i) => (
                     <PrismicImage2x
                       field={icon}
-                      width={dimensions[i].split("x")[0]}
-                      height={dimensions[i].split("x")[1]}
+                      width={parseInt(dimensions[i].split("x")[0])}
+                      height={parseInt(dimensions[i].split("x")[1])}
                     />
                   ))}
                 </div>
@@ -263,27 +286,29 @@ public class MyAwesomePlugin: CAPPlugin {
 };
 
 const Ebook = () => {
-  const {
-    ebookModalOpen,
-    setEbookModalOpen,
-    prismicData: { ebook },
-  } = useContext(IndexPageContext);
-  const { text, cta1: cta, background, book } = ebook[0];
+  const { ebookModalOpen, setEbookModalOpen, prismicData } =
+    useContext(IndexPageContext) || {};
+  if (!prismicData) return null;
+  const { ebook } = prismicData;
+  const { text, cta1: cta, background, book } = ebook[0] || {};
 
   return (
     <section className={styles.ebook} id="ebook">
       <div className="ds-container">
-        <Modal open={ebookModalOpen} onClose={() => setEbookModalOpen(false)}>
+        <Modal open={ebookModalOpen} onClose={() => setEbookModalOpen?.(false)}>
           <h2>Building Cross-platform Apps with Capacitor</h2>
           <HubspotForm
             createProps={{ formId: "9151dc0b-42d9-479f-b7b8-649e0e7bd1bc" }}
           />
         </Modal>
         <div className="wrapper">
-          <PrismicImage2x field={background} className="background" />
+          <LegacyPrismicResponsiveImage
+            image={background}
+            className="background"
+          />
           <div className="content">
             <div className="image-wrapper">
-              <PrismicImage2x field={book} />
+              <LegacyPrismicResponsiveImage image={book} />
             </div>
             <div className="heading-group">
               <PrismicRichText
@@ -299,7 +324,7 @@ const Ebook = () => {
               <Button
                 kind="round"
                 size="md"
-                onClick={() => setEbookModalOpen(true)}
+                onClick={() => setEbookModalOpen?.(true)}
               >
                 {cta} →
               </Button>
@@ -312,9 +337,9 @@ const Ebook = () => {
 };
 
 const Native = () => {
-  const {
-    prismicData: { native, native__list },
-  } = useContext(IndexPageContext);
+  const { prismicData } = useContext(IndexPageContext) || {};
+  if (!prismicData) return null;
+  const { native, native__list } = prismicData;
   const dimensions = ["48x64", "60x64", "60x64"];
 
   return (
@@ -327,8 +352,8 @@ const Native = () => {
           <Column cols={[12, 6, 4, 4, 4]}>
             <PrismicImage2x
               field={icon}
-              width={dimensions[i].split("x")[0]}
-              height={dimensions[i].split("x")[1]}
+              width={parseInt(dimensions[i].split("x")[0])}
+              height={parseInt(dimensions[i].split("x")[1])}
             />
             <PrismicRichText field={item} />
           </Column>
@@ -339,9 +364,9 @@ const Native = () => {
 };
 
 const Features = () => {
-  const {
-    prismicData: { features, features__list, features__link },
-  } = useContext(IndexPageContext);
+  const { prismicData } = useContext(IndexPageContext) || {};
+  if (!prismicData) return null;
+  const { features, features__list, features__link } = prismicData;
   const dimensions = [
     "40x32",
     "40x32",
@@ -367,8 +392,8 @@ const Features = () => {
             <Column cols={[12, 6, 4, 3, 3]}>
               <PrismicImage2x
                 field={icon}
-                width={dimensions[i].split("x")[0]}
-                height={dimensions[i].split("x")[1]}
+                width={parseInt(dimensions[i].split("x")[0])}
+                height={parseInt(dimensions[i].split("x")[1])}
               />
               <PrismicRichText field={item} />
             </Column>
@@ -380,9 +405,9 @@ const Features = () => {
 };
 
 const Framework = () => {
-  const {
-    prismicData: { framework, framework__list },
-  } = useContext(IndexPageContext);
+  const { prismicData } = useContext(IndexPageContext) || {};
+  if (!prismicData) return null;
+  const { framework, framework__list } = prismicData;
 
   const logoTile = (logo: any) => (
     <PrismicImage2x field={logo} width="272" height="200" />
@@ -414,11 +439,12 @@ const Framework = () => {
 };
 
 const Tweets = () => {
-  const {
-    prismicData: { tweets, tweets__list, tweets__bottom, tweets__bottom__list },
-  } = useContext(IndexPageContext);
-  const { title } = tweets[0];
-  const { emoji, text } = tweets__bottom[0];
+  const { prismicData } = useContext(IndexPageContext) || {};
+  if (!prismicData) return null;
+  const { tweets, tweets__list, tweets__bottom, tweets__bottom__list } =
+    prismicData;
+  const { title } = tweets[0] || {};
+  const { emoji, text } = tweets__bottom[0] || {};
 
   return (
     <section className={styles.tweets} id="tweets">
@@ -430,7 +456,7 @@ const Tweets = () => {
           {tweets__list.map(({ name, handle, text, image, verified }, i) => (
             <article className="tweet" key={i}>
               <div className="title-row">
-                <PrismicImage2x field={image} />
+                <LegacyPrismicResponsiveImage image={image} />
                 <div className="title">
                   <h3 className="ds-heading-5">
                     {name}
@@ -488,14 +514,18 @@ const Tweets = () => {
             }}
           />
           <div className="links">
-            {tweets__bottom__list.map(({ icon, text, link }) => (
-              <a href={link.url} target={link.target}>
-                <article>
-                  <PrismicImage2x field={icon} />
-                  <h4>{text}</h4>
-                </article>
-              </a>
-            ))}
+            {tweets__bottom__list.map(({ icon, text, link }) => {
+              if (!isWebLink(link)) return null;
+
+              return (
+                <a href={link.url} target={link.target}>
+                  <article>
+                    <PrismicImage2x field={icon} />
+                    <h4>{text}</h4>
+                  </article>
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -504,18 +534,19 @@ const Tweets = () => {
 };
 
 const Cta = () => {
+  const { prismicData } = useContext(IndexPageContext) || {};
+  if (!prismicData) return null;
   const {
-    prismicData: {
-      get_started2: get_started,
-      get_started__ctas,
-      companies__list2,
-      cta,
-    },
-  } = useContext(IndexPageContext);
-  const { image, title, text, cta1 } = cta[0];
+    get_started2: get_started,
+    get_started__ctas,
+    companies__list2,
+    cta,
+  } = prismicData;
+  const { image, title, text, cta1 } = cta[0] || {};
 
-  const { title: get_started_title, text: get_started_text } = get_started[0];
-  const { primary, secondary } = get_started__ctas[0];
+  const { title: get_started_title, text: get_started_text } =
+    get_started[0] || {};
+  const { primary, secondary } = get_started__ctas[0] || {};
 
   const dimensions = [
     "33x42",
@@ -529,13 +560,16 @@ const Cta = () => {
   ];
 
   return (
-    <section id="multisection">
+    <section className={styles.multisection} id="multisection">
       <div className="ds-container">
         <div className={styles.cta} id="cta">
           <PrismicRichText field={title} />
           <div className="wrapper">
             <div className="card">
-              <PrismicImage2x field={image} className="background" />
+              <LegacyPrismicResponsiveImage
+                image={image}
+                className="background"
+              />
               <div className="heading-group">
                 <PrismicRichText
                   field={text}
@@ -560,8 +594,8 @@ const Cta = () => {
               {companies__list2.slice(0, 4).map(({ logo }, i) => (
                 <PrismicImage2x
                   field={logo}
-                  width={dimensions[i].split("x")[0]}
-                  height={dimensions[i].split("x")[1]}
+                  width={parseInt(dimensions[i].split("x")[0])}
+                  height={parseInt(dimensions[i].split("x")[1])}
                 />
               ))}
             </div>
@@ -569,8 +603,8 @@ const Cta = () => {
               {companies__list2.slice(4, 8).map(({ logo }, i) => (
                 <PrismicImage2x
                   field={logo}
-                  width={dimensions[i + 4].split("x")[0]}
-                  height={dimensions[i + 4].split("x")[1]}
+                  width={parseInt(dimensions[i + 4].split("x")[0])}
+                  height={parseInt(dimensions[i + 4].split("x")[1])}
                 />
               ))}
             </div>
