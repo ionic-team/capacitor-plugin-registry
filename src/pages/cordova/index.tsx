@@ -14,7 +14,11 @@ import CodeTabs from "@components/code-tabs";
 import SiteHeader from "@components/site-header";
 import SiteMeta from "@components/site-meta";
 
-const CordovaPageContext = createContext();
+import nightOwl from "prism-react-renderer/themes/nightOwl";
+
+const CordovaPageContext = createContext<{
+  selectedCodeTab: string;
+} | null>(null);
 
 const CordovaPage = () => {
   const [selectedCodeTab, setSetSelectedCodeTab] = useState("before");
@@ -55,7 +59,7 @@ const Top = () => (
 const GettingStarted = () => (
   <section className={clsx(styles.gettingStarted, "ds-container")}>
     <article className="step">
-      <sup className="ui-heading-6">01</sup>
+      <div className="number">01</div>
       <div className="heading-group">
         <h3 id="code-branch">Create a new code branch.</h3>
         <p>Recommended, but not required.</p>
@@ -63,16 +67,16 @@ const GettingStarted = () => (
       <div className="code-panel">
         <pre>
           <HighlightedCode
+            theme={nightOwl}
             language="shell-session"
             code={`cd my-app
-git checkout -b cap-migration
-          `}
+git checkout -b cap-migration`}
           />
         </pre>
       </div>
     </article>
     <article className="step">
-      <sup className="ui-heading-6">02</sup>
+      <div className="number">02</div>
       <div className="heading-group">
         <h3>Install Capacitor.</h3>
         <p>
@@ -83,16 +87,16 @@ git checkout -b cap-migration
       <div className="code-panel">
         <pre>
           <HighlightedCode
+            theme={nightOwl}
             language="shell-session"
             code={`npm install @capacitor/cli @capacitor/core
-npx cap init [name] [id]
-`}
+npx cap init [name] [id]`}
           />
         </pre>
       </div>
     </article>
     <article className="step">
-      <sup className="ui-heading-6">03</sup>
+      <div className="number">03</div>
       <div className="heading-group">
         <h3>Build the Web App.</h3>
         <p>
@@ -103,19 +107,19 @@ npx cap init [name] [id]
       <div className="code-panel">
         <pre>
           <HighlightedCode
+            theme={nightOwl}
             language="shell-session"
             code={`# Most web apps
 npm run build
 
 # Ionic app
-ionic build
-`}
+ionic build`}
           />
         </pre>
       </div>
     </article>
     <article className="step">
-      <sup className="ui-heading-6">04</sup>
+      <div className="number">04</div>
       <div className="heading-group">
         <h3>Install the native platforms you want to target.</h3>
         <div className="platforms">
@@ -142,16 +146,16 @@ ionic build
       <div className="code-panel">
         <pre>
           <HighlightedCode
+            theme={nightOwl}
             language="shell-session"
             code={`npx cap add android
-npx cap add ios
-`}
+npx cap add ios`}
           />
         </pre>
       </div>
     </article>
     <article className="step">
-      <sup className="ui-heading-6">05</sup>
+      <div className="number">05</div>
       <div className="heading-group">
         <h3>Recreate Splash Screens and Icons.</h3>
         <p>
@@ -163,18 +167,18 @@ npx cap add ios
       <div className="code-panel">
         <pre>
           <HighlightedCode
+            theme={nightOwl}
             language="shell-session"
             code={`npm install -g cordova-res
 
 cordova-res ios --skip-config --copy
-cordova-res android --skip-config --copy
-`}
+cordova-res android --skip-config --copy`}
           />
         </pre>
       </div>
     </article>
     <article className="step">
-      <sup className="ui-heading-6">06</sup>
+      <div className="number">06</div>
       <div className="heading-group">
         <h3>Audit existing Cordova plugins.</h3>
         <p>
@@ -193,6 +197,7 @@ cordova-res android --skip-config --copy
       </div>
       <div className="code-panel">
         <CodeTabs
+          theme={nightOwl}
           data={{
             tabs: ["Cordova Camera", "Capacitor Camera"],
             languages: ["typescript"],
@@ -223,7 +228,7 @@ const photo = await Camera.getPhoto({
       </div>
     </article>
     <article className="step">
-      <sup className="ui-heading-6">07</sup>
+      <div className="number">07</div>
       <div className="heading-group">
         <h3>Remove Cordova from your project.</h3>
         <p>
@@ -234,23 +239,22 @@ const photo = await Camera.getPhoto({
       <div className="code-panel">
         <pre>
           <HighlightedCode
+            theme={nightOwl}
             language="shell-session"
-            code={`
-# Remove a Cordova plugin
+            code={`# Remove a Cordova plugin
 npm uninstall cordova-plugin-name
 npx cap sync
 
 # Delete Cordova folders and files
 rm config.xml
 rm -R platforms/
-rm -R plugins/
-`}
+rm -R plugins/`}
           />
         </pre>
       </div>
     </article>
     <article className="step">
-      <sup className="ui-heading-6">08</sup>
+      <div className="number">08</div>
       <div className="heading-group">
         <h3>Continue your Capacitor Journey.</h3>
         <p>
@@ -264,15 +268,14 @@ rm -R plugins/
       <div className="code-panel">
         <pre>
           <HighlightedCode
+            theme={nightOwl}
             language="shell-session"
-            code={`
-# Install a Cordova plugin
+            code={`# Install a Cordova plugin
 npm install cordova-plugin-name
 npx cap sync
 
 # Create a custom plugin
-npm init @capacitor/plugin
-`}
+npm init @capacitor/plugin`}
           />
         </pre>
       </div>

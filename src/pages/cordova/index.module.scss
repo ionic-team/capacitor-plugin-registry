@@ -1,5 +1,24 @@
 .page {
   :global {
+    .highlighted-code {
+      padding: 32px;
+
+      border-radius: 16px;
+
+      overflow-x: auto;
+
+      &.language-shell-session {
+        .token-line {
+          white-space: nowrap;
+
+          &::before {
+            content: "$ ";
+            color: var(--c-cyan-80);
+          }
+        }
+      }
+    }
+
     #more-resources {
       margin-block-start: 160px;
       margin-block-end: 160px;
@@ -17,8 +36,6 @@
 }
 
 .top {
-  scroll-behavior: smooth;
-
   :global {
     .heading-group {
       margin-block-start: clamp(16px, 10vh, 96px);
@@ -79,7 +96,8 @@
         }
       }
 
-      sup {
+      > .number {
+        font-family: var(--ff-roboto-mono);
         display: flex;
         align-items: center;
         height: 40px;
