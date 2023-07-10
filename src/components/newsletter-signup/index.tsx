@@ -11,7 +11,9 @@ const NewsletterSignup = () => {
     >
       <div className="wrapper">
         <div className="heading-group">
-          <h3>The latest updates. Delivered monthly.</h3>
+          <h2 className="ds-heading-3">
+            The latest updates. Delivered monthly.
+          </h2>
           <p>
             Capacitor is getting better every day. Sign up for a monthly email
             on the latest updates, releases, articles, and news!

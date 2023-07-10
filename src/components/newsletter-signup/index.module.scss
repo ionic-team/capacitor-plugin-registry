@@ -14,15 +14,15 @@
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: flex-end;
-      margin-block-start: -32px;
-
-      > * {
-        margin-block-start: 32px;
-      }
+      gap: 2rem;
     }
 
     .heading-group {
-      max-width: 547px;
+      max-width: 500px;
+
+      .ds-heading-3 {
+        max-width: 350px;
+      }
     }
 
     form.hs-form {
@@ -68,7 +68,7 @@
           height: 48px;
           margin-inline-start: 12px;
           border: 1px solid #ced6e0;
-          border-radius: var(--radius-2);
+          border-radius: 8px;
           padding-inline-start: 50px;
 
           transition: border 0.2s ease-out, box-shadow 0.2s ease-out;
@@ -83,6 +83,8 @@
 
       .hs-submit {
         input {
+          margin: 0;
+
           display: flex;
           align-items: center;
           justify-content: center;
@@ -91,7 +93,7 @@
           border: none;
           background: var(--c-capacitor-blue);
           color: #fff;
-          border-radius: var(--radius-2);
+          border-radius: 8px;
           margin-inline-start: 12px;
 
           text-transform: uppercase;
