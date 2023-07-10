@@ -7,6 +7,8 @@ import LogoApple from "../assets/apple.png";
 import LogoAndroid from "../assets/android.png";
 import Image from "next/image";
 
+import nightOwl from "prism-react-renderer/themes/nightOwl";
+
 const framework = {
   id: "angular",
   name: "Angular",
@@ -19,7 +21,7 @@ const SolutionAngularPage = () => {
     <SolutionPageLayout framework={framework}>
       <section className="ds-container" id="getting-started">
         <article className="step">
-          <sup className="ui-heading-6">01</sup>
+          <div className="number">01</div>
           <div className="heading-group">
             <h3 id="install">Install Capacitor.</h3>
             <p>Add Capacitor to your project using the ng-app schematic</p>
@@ -27,17 +29,16 @@ const SolutionAngularPage = () => {
           <div className="code-panel">
             <pre>
               <HighlightedCode
+                theme={nightOwl}
                 language="shell-session"
-                code={`
-ng add @capacitor/angular
-`}
+                code={`ng add @capacitor/angular`}
               />
             </pre>
           </div>
         </article>
 
         <article className="step">
-          <sup className="ui-heading-6">02</sup>
+          <div className="number">02</div>
           <div className="heading-group">
             <h3>Build the Web App.</h3>
             <p>
@@ -48,17 +49,16 @@ ng add @capacitor/angular
           <div className="code-panel">
             <pre>
               <HighlightedCode
+                theme={nightOwl}
                 language="shell-session"
-                code={`
-ng build --prod
-`}
+                code={`ng build --prod`}
               />
             </pre>
           </div>
         </article>
 
         <article className="step">
-          <sup className="ui-heading-6">03</sup>
+          <div className="number">03</div>
           <div className="heading-group">
             <h3>Install the native platforms you want to target.</h3>
             <div className="platforms">
@@ -84,19 +84,18 @@ ng build --prod
           <div className="code-panel">
             <pre>
               <HighlightedCode
+                theme={nightOwl}
                 language="shell-session"
-                code={`
-npm i @capacitor/ios @capacitor/android
+                code={`npm i @capacitor/ios @capacitor/android
 npx cap add android
-npx cap add ios
-`}
+npx cap add ios`}
               />
             </pre>
           </div>
         </article>
 
         <article className="step">
-          <sup className="ui-heading-6">04</sup>
+          <div className="number">04</div>
           <div className="heading-group">
             <h3>Adding calls to Native APIs</h3>
             <p>
@@ -107,10 +106,11 @@ npx cap add ios
           <div className="code-panel">
             <pre>
               <HighlightedCode
+                theme={nightOwl}
                 language="typescript"
-                code={`
-import { Component } from '@angular/core';
+                code={`import { Component } from '@angular/core';
 import { Geolocation, GeolocationPosition } from '@capacitor/geolocation';
+
 @Component({
   selector: 'app-geo-page',
   templateUrl: 'geo.page.html',
@@ -122,8 +122,7 @@ export class GeolocationPage {
   async getCurrentPosition() {
     this.loc = await Geolocation.getCurrentPosition();
   }
-}
-`}
+}`}
               />
             </pre>
           </div>

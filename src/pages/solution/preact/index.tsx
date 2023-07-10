@@ -7,6 +7,8 @@ import LogoApple from "../assets/apple.png";
 import LogoAndroid from "../assets/android.png";
 import Image from "next/image";
 
+import nightOwl from "prism-react-renderer/themes/nightOwl";
+
 const framework = {
   id: "preact",
   name: "Preact",
@@ -19,7 +21,7 @@ export const SolutionPreactPage = () => {
     <SolutionPageLayout framework={framework}>
       <section className="ds-container" id="getting-started">
         <article className="step">
-          <sup className="ui-heading-6">01</sup>
+          <div className="number">01</div>
           <div className="heading-group">
             <h3 id="install">Install Capacitor.</h3>
             <p>
@@ -29,18 +31,17 @@ export const SolutionPreactPage = () => {
           <div className="code-panel">
             <pre>
               <HighlightedCode
+                theme={nightOwl}
                 language="shell-session"
-                code={`
-npm install @capacitor/core @capacitor/cli
-npx cap init [name] [id] --web-dir=build
-`}
+                code={`npm install @capacitor/core @capacitor/cli
+npx cap init [name] [id] --web-dir=build`}
               />
             </pre>
           </div>
         </article>
 
         <article className="step">
-          <sup className="ui-heading-6">02</sup>
+          <div className="number">02</div>
           <div className="heading-group">
             <h3>Build the Web App.</h3>
             <p>
@@ -51,17 +52,16 @@ npx cap init [name] [id] --web-dir=build
           <div className="code-panel">
             <pre>
               <HighlightedCode
+                theme={nightOwl}
                 language="shell-session"
-                code={`
-npm run build
-`}
+                code={`npm run build`}
               />
             </pre>
           </div>
         </article>
 
         <article className="step">
-          <sup className="ui-heading-6">03</sup>
+          <div className="number">03</div>
           <div className="heading-group">
             <h3>Install the native platforms you want to target.</h3>
             <div className="platforms">
@@ -87,19 +87,18 @@ npm run build
           <div className="code-panel">
             <pre>
               <HighlightedCode
+                theme={nightOwl}
                 language="shell-session"
-                code={`
-npm i @capacitor/ios @capacitor/android
+                code={`npm i @capacitor/ios @capacitor/android
 npx cap add android
-npx cap add ios
-`}
+npx cap add ios`}
               />
             </pre>
           </div>
         </article>
 
         <article className="step">
-          <sup className="ui-heading-6">04</sup>
+          <div className="number">04</div>
           <div className="heading-group">
             <h3>Adding calls to Native APIs</h3>
             <p>
@@ -110,10 +109,9 @@ npx cap add ios
           <div className="code-panel">
             <pre>
               <HighlightedCode
+                theme={nightOwl}
                 language="typescript"
-                code={`
-
-import { h } from 'preact';
+                code={`import { h } from 'preact';
 import { useState, useCallback } from 'preact/hooks';
 import { Geolocation } from '@capacitor/geolocation';
 
@@ -138,8 +136,7 @@ export default function GeolocationPage() {
       </button>
     </div>
   );
-}
-`}
+}`}
               />
             </pre>
           </div>

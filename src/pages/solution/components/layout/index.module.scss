@@ -1,5 +1,24 @@
 .page {
   :global {
+    .highlighted-code {
+      padding: 32px;
+
+      border-radius: 16px;
+
+      overflow-x: auto;
+
+      &.language-shell-session {
+        .token-line {
+          white-space: nowrap;
+
+          &::before {
+            content: "$ ";
+            color: var(--c-cyan-80);
+          }
+        }
+      }
+    }
+
     #getting-started {
       .step {
         display: flex;
@@ -39,7 +58,11 @@
           }
         }
 
-        sup {
+        > .number {
+          font-weight: 500;
+          color: var(--c-indigo-80);
+
+          font-family: var(--ff-roboto-mono);
           display: flex;
           align-items: center;
           height: 40px;

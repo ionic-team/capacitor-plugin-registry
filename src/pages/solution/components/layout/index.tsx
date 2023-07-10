@@ -4,21 +4,24 @@ import styles from "./index.module.scss";
 import NewsletterSignup from "@components/newsletter-signup";
 import Prefooter from "@components/prefooter";
 import SiteFooter from "@components/site-footer";
-import Image from "next/image";
+import Image, { ImageProps, StaticImageData } from "next/image";
 import SiteHeader from "@/src/components/site-header";
 import SiteMeta from "@/src/components/site-meta";
+import { HTMLAttributes } from "react";
 
-const SolutionPageLayout = ({
-  children,
-  framework,
-}: {
+type SolutionPageLayoutProps = {
   framework: {
     id: string;
     name: string;
     theme: string;
-    logo: string;
+    logo: StaticImageData;
   };
-}) => {
+} & HTMLAttributes<HTMLElement>;
+
+const SolutionPageLayout = ({
+  children,
+  framework,
+}: SolutionPageLayoutProps) => {
   const { src, width, height } = framework.logo;
   return (
     <>
