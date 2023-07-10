@@ -5,6 +5,10 @@
   background: #fff;
 
   :global {
+    h4 {
+      margin-block-start: 1.5rem;
+    }
+
     .squares {
       position: absolute;
       display: flex;
