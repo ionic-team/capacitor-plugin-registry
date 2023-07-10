@@ -46,7 +46,7 @@ export async function applyGithubInfo(plugin: PluginInfo) {
     if (!gh) return;
     plugin.stars = gh.stargazers_count;
     plugin.issues = gh.open_issues_count;
-    plugin.watchers = gh.watchers_count;
+    plugin.watchers = gh.subscribers_count;
     plugin.forks = gh.forks_count;
     plugin.image = gh.owner?.avatar_url;
     plugin.fork = gh.fork;

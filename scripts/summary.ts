@@ -139,7 +139,7 @@ function cleanupKeywords(keywords: string[]): string[] {
 
   const result = [];
   for (let word of keywords) {
-    if (word.includes("-")) {
+    if (word?.includes("-")) {
       const parts = word.split("-");
       result.push(word.replace(/-/g, " ").toLowerCase());
       for (const part of parts) {
