@@ -16,25 +16,21 @@
     .newsletter {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       justify-content: space-between;
       margin-block-end: 4rem;
-      margin-block-start: -1rem;
+      gap: 32px;
 
       @media (max-width: 575px) {
         margin-block-end: 2rem;
       }
+    }
 
-      --h4-color: var(--c-carbon-100);
-      --p4-color: var(--c-indigo-70);
-
-      > * {
-        margin-block-start: 16px;
-      }
+    .hubspot-form {
+      margin-inline: 0;
     }
 
     .routes-group {
-      display: flex;
-      justify-content: space-between;
     }
 
     a.link {
@@ -44,12 +40,7 @@
 
     .copyright {
       p {
-        font-family: "Inter";
         color: var(--c-indigo-70);
-        font-size: 14px;
-        letter-spacing: -0.02em;
-        line-height: 1.6em;
-        margin: 0;
       }
     }
 
@@ -80,11 +71,7 @@
       align-items: flex-start;
       flex-wrap: wrap;
       position: relative;
-      margin-block-start: -16px;
-
-      > * {
-        margin-block-start: 16px;
-      }
+      gap: 16px;
 
       li {
         list-style-type: none;
@@ -138,7 +125,7 @@
           color: #fff;
           border-radius: 8px;
 
-          font-family: Inter, "Inter UI", Helvetica, Arial, sans-serif;
+          font-family: var(--ff-inter);
           letter-spacing: -0.02em;
           font-weight: 500;
           font-size: 16px;
