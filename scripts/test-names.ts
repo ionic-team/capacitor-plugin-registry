@@ -20,5 +20,5 @@ export function testNames(): string[] {
 }
 
 export function cordovaTestNames(): string[] {
-  return ["cordova-ios-6", "cordova-android-11"];
+  return ['cordova-ios-6', 'cordova-android-11'];
 }

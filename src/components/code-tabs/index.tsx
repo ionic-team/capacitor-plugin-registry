@@ -1,12 +1,12 @@
-import { HighlightedCode } from "@ionic-internal/components-react";
-import clsx from "clsx";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { PrismTheme } from "prism-react-renderer";
+import { HighlightedCode } from '@ionic-internal/components-react';
+import clsx from 'clsx';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { PrismTheme } from 'prism-react-renderer';
 
 const pixelize = (value: number) => `${value}px`;
 
-import styles from "./index.module.scss";
-import { useWindowSize } from "usehooks-ts";
+import styles from './index.module.scss';
+import { useWindowSize } from 'usehooks-ts';
 
 const CodeTabs = ({
   data,
@@ -21,8 +21,8 @@ const CodeTabs = ({
 }) => {
   const [activeTab, setActiveTab] = useState({
     index: 0,
-    left: "0px",
-    width: "0px",
+    left: '0px',
+    width: '0px',
   });
 
   const [codeLeft, setCodeLeft] = useState<string>();
@@ -36,13 +36,7 @@ const CodeTabs = ({
     setCodeLeft(`-${pixelize(elRef.current.offsetWidth * activeTab.index)}`);
   }, [width]);
 
-  const handleTabSelect = ({
-    target,
-    index,
-  }: {
-    target: EventTarget;
-    index: number;
-  }) => {
+  const handleTabSelect = ({ target, index }: { target: EventTarget; index: number }) => {
     if (!(target instanceof HTMLButtonElement)) return;
 
     setActiveTab({
@@ -63,34 +57,31 @@ const CodeTabs = ({
     setCodeLeft(`-${pixelize(el.offsetWidth * activeTab.index)}`);
   }, []);
 
-  const handleTabMount = useCallback(
-    ({ tabEl, i }: { tabEl: HTMLButtonElement; i: number }) => {
-      if (tabs.current[i]) {
-        return;
-      } else {
-        tabs.current[i] = tabEl;
+  const handleTabMount = useCallback(({ tabEl, i }: { tabEl: HTMLButtonElement; i: number }) => {
+    if (tabs.current[i]) {
+      return;
+    } else {
+      tabs.current[i] = tabEl;
 
-        if (i === activeTab.index) {
-          setActiveTab((cur) => ({
-            ...cur,
-            left: pixelize(tabEl.offsetLeft),
-            width: pixelize(tabEl.offsetWidth),
-          }));
-        }
+      if (i === activeTab.index) {
+        setActiveTab((cur) => ({
+          ...cur,
+          left: pixelize(tabEl.offsetLeft),
+          width: pixelize(tabEl.offsetWidth),
+        }));
       }
-    },
-    []
-  );
+    }
+  }, []);
 
   return (
     <div
       ref={handleMount}
-      className={clsx(styles.code, "code-tabs")}
+      className={clsx(styles.code, 'code-tabs')}
       style={
         {
-          "--tab-left": activeTab.left,
-          "--tab-width": activeTab.width,
-          "--code-left": codeLeft,
+          '--tab-left': activeTab.left,
+          '--tab-width': activeTab.width,
+          '--code-left': codeLeft,
         } as Record<string, string>
       }
     >
@@ -116,11 +107,7 @@ const CodeTabs = ({
               <pre>
                 <HighlightedCode
                   theme={theme}
-                  language={
-                    data.languages.length === 1
-                      ? data.languages[0]
-                      : data.languages[i]
-                  }
+                  language={data.languages.length === 1 ? data.languages[0] : data.languages[i]}
                   code={code}
                 />
               </pre>

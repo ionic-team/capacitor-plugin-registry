@@ -1,9 +1,7 @@
-import SolutionStencilPage from "@pages/solution/stencil/index";
+import SolutionStencilPage from '@pages/solution/stencil/index';
 
-import { ComponentProps } from "react";
+import { ComponentProps } from 'react';
 
-const SolutionStencil = (props: ComponentProps<"div">) => (
-  <SolutionStencilPage {...props} />
-);
+const SolutionStencil = (props: ComponentProps<'div'>) => <SolutionStencilPage {...props} />;
 
 export default SolutionStencil;

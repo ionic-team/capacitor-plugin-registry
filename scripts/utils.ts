@@ -1,7 +1,7 @@
-import fetch from "cross-fetch";
-import chalk from "chalk";
-import fs from "fs";
-import path from "path";
+import fetch from 'cross-fetch';
+import chalk from 'chalk';
+import fs from 'fs';
+import path from 'path';
 
 export function patchConsole() {
   const originalConsoleError = console.error;
@@ -10,7 +10,7 @@ export function patchConsole() {
   };
   const originalConsoleWarn = console.warn;
   console.warn = (...args: any[]) => {
-    if (process.env.DATA_SCRIPTS_LOG_LEVEL !== "debug") return;
+    if (process.env.DATA_SCRIPTS_LOG_LEVEL !== 'debug') return;
     originalConsoleWarn(chalk.yellow(...args));
   };
   const originalConsoleLog = console.log;
@@ -19,7 +19,7 @@ export function patchConsole() {
   };
   const originalConsoleInfo = console.info;
   console.info = (...args: any[]) => {
-    if (process.env.DATA_SCRIPTS_LOG_LEVEL !== "debug") return;
+    if (process.env.DATA_SCRIPTS_LOG_LEVEL !== 'debug') return;
     originalConsoleInfo(chalk.blue(...args));
   };
 }
@@ -41,7 +41,7 @@ export function normalizeStringArray(arr?: string[]) {
 }
 
 export function createDataDirectoryIfNotExists() {
-  const dir = path.join("data");
+  const dir = path.join('data');
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
@@ -56,15 +56,13 @@ export async function httpGet(url: string, opts: any): Promise<any> {
     }
     return data;
   } catch (error) {
-    throw new Error(
-      `Error: get ${url}: ${response.status} ${response.statusText}`
-    );
+    throw new Error(`Error: get ${url}: ${response.status} ${response.statusText}`);
   }
 }
 
 export function rateLimited(a: any): boolean {
   return (
-    (a as any).message?.startsWith("API rate limit exceeded") ||
-    (a as any).message?.startsWith("You have exceeded a secondary rate limit")
+    (a as any).message?.startsWith('API rate limit exceeded') ||
+    (a as any).message?.startsWith('You have exceeded a secondary rate limit')
   );
 }

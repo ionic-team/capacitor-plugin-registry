@@ -5,7 +5,7 @@ export interface NpmInfo {
   _id: string;
   _rev: string;
   name: string;
-  "dist-tags": DistTags;
+  'dist-tags': DistTags;
   versions: string[] | undefined;
   time: any;
   created: string;
@@ -74,7 +74,7 @@ interface Dist {
   fileCount: number;
   unpackedSize: number;
   signatures: Signature[];
-  "npm-signature": string;
+  'npm-signature': string;
 }
 
 interface Signature {

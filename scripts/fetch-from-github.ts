@@ -1,7 +1,7 @@
-import { httpGet, rateLimited } from "./utils";
-import { PluginInfo } from "./types/plugin";
-import { GitHubInfo } from "./types/github-data-schema";
-import { getGitHubToken } from "./secrets";
+import { httpGet, rateLimited } from './utils';
+import { PluginInfo } from './types/plugin';
+import { GitHubInfo } from './types/github-data-schema';
+import { getGitHubToken } from './secrets';
 
 export async function applyGithubInfo(plugin: PluginInfo) {
   try {
@@ -12,12 +12,9 @@ export async function applyGithubInfo(plugin: PluginInfo) {
     if (!plugin.repo) return;
 
     // call api (eg https://api.github.com/repos/capawesome-team/capacitor-mlkit) and get GitHubInfo
-    let part = plugin.repo
-      .replace("https://github.com/", "")
-      .replace(".git", "")
-      .replace("ssh://git@", "");
-    if (part.includes("#")) {
-      part = part.substring(0, part.indexOf("#") - 1);
+    let part = plugin.repo.replace('https://github.com/', '').replace('.git', '').replace('ssh://git@', '');
+    if (part.includes('#')) {
+      part = part.substring(0, part.indexOf('#') - 1);
     }
 
     const headers = { Authorization: `Bearer ${getGitHubToken()}` };
@@ -33,7 +30,7 @@ export async function applyGithubInfo(plugin: PluginInfo) {
           count++;
           console.log(`   Retry ${count} for ${part}`);
           await sleep(1000 + Math.random() * 10000);
-        } else if ((gh as any).message?.startsWith("Not Found")) {
+        } else if ((gh as any).message?.startsWith('Not Found')) {
           plugin.repo = undefined;
         } else if (gh?.full_name != part) {
           console.warn(`Failed to get info on repo ${part}`);
@@ -69,7 +66,7 @@ export async function applyGithubInfo(plugin: PluginInfo) {
       plugin.quality += 100;
     }
   } catch (error) {
-    console.error("applyGithubInfo Failed", error);
+    console.error('applyGithubInfo Failed', error);
   }
 }
 

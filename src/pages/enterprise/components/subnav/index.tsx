@@ -1,10 +1,10 @@
-import clsx from "clsx";
-import { useEffect, useRef, useState } from "react";
+import clsx from 'clsx';
+import { useEffect, useRef, useState } from 'react';
 
-import styles from "./index.module.scss";
+import styles from './index.module.scss';
 
 let options = {
-  rootMargin: "0px",
+  rootMargin: '0px',
   threshold: 1.0,
 };
 
@@ -17,9 +17,7 @@ const EnterpriseSubnav = () => {
     if (!elRef.current) return;
 
     observer.current = new IntersectionObserver((entries) => {
-      setVisible(
-        entries[0].target.getBoundingClientRect().top < 0 ? true : false
-      );
+      setVisible(entries[0].target.getBoundingClientRect().top < 0 ? true : false);
     }, options);
 
     observer.current.observe(elRef.current);

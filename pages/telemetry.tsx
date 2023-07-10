@@ -1,9 +1,7 @@
-import TelemetryPage from "@pages/telemetry/index";
+import TelemetryPage from '@pages/telemetry/index';
 
-import { ComponentProps } from "react";
+import { ComponentProps } from 'react';
 
-const Telemetry = (props: ComponentProps<"div">) => (
-  <TelemetryPage {...props} />
-);
+const Telemetry = (props: ComponentProps<'div'>) => <TelemetryPage {...props} />;
 
 export default Telemetry;

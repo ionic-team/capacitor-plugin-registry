@@ -1,18 +1,18 @@
-import SolutionPageLayout from "../components/layout";
+import SolutionPageLayout from '../components/layout';
 
-import AngularImage from "./assets/logo.png";
-import { HighlightedCode } from "@ionic-internal/components-react";
+import AngularImage from './assets/logo.png';
+import { HighlightedCode } from '@ionic-internal/components-react';
 
-import LogoApple from "../assets/apple.png";
-import LogoAndroid from "../assets/android.png";
-import Image from "next/image";
+import LogoApple from '../assets/apple.png';
+import LogoAndroid from '../assets/android.png';
+import Image from 'next/image';
 
-import nightOwl from "prism-react-renderer/themes/nightOwl";
+import nightOwl from 'prism-react-renderer/themes/nightOwl';
 
 const framework = {
-  id: "angular",
-  name: "Angular",
-  theme: "#DD002E",
+  id: 'angular',
+  name: 'Angular',
+  theme: '#DD002E',
   logo: AngularImage,
 };
 
@@ -28,11 +28,7 @@ const SolutionAngularPage = () => {
           </div>
           <div className="code-panel">
             <pre>
-              <HighlightedCode
-                theme={nightOwl}
-                language="shell-session"
-                code={`ng add @capacitor/angular`}
-              />
+              <HighlightedCode theme={nightOwl} language="shell-session" code={`ng add @capacitor/angular`} />
             </pre>
           </div>
         </article>
@@ -41,18 +37,11 @@ const SolutionAngularPage = () => {
           <div className="number">02</div>
           <div className="heading-group">
             <h3>Build the Web App.</h3>
-            <p>
-              The compiled web assets will be copied into each Capacitor native
-              platform during the next step.
-            </p>
+            <p>The compiled web assets will be copied into each Capacitor native platform during the next step.</p>
           </div>
           <div className="code-panel">
             <pre>
-              <HighlightedCode
-                theme={nightOwl}
-                language="shell-session"
-                code={`ng build --prod`}
-              />
+              <HighlightedCode theme={nightOwl} language="shell-session" code={`ng build --prod`} />
             </pre>
           </div>
         </article>
@@ -62,12 +51,7 @@ const SolutionAngularPage = () => {
           <div className="heading-group">
             <h3>Install the native platforms you want to target.</h3>
             <div className="platforms">
-              <Image
-                src={LogoApple}
-                width={LogoApple.width / 2}
-                height={LogoApple.height / 2}
-                alt="Apple logo"
-              />
+              <Image src={LogoApple} width={LogoApple.width / 2} height={LogoApple.height / 2} alt="Apple logo" />
               <Image
                 src={LogoAndroid}
                 width={LogoAndroid.width / 4}
@@ -76,9 +60,8 @@ const SolutionAngularPage = () => {
               />
             </div>
             <p>
-              Capacitor's native projects exist in their own top-level folders
-              and should be considered part of your app (check them into source
-              control).
+              Capacitor's native projects exist in their own top-level folders and should be considered part of your app
+              (check them into source control).
             </p>
           </div>
           <div className="code-panel">
@@ -99,8 +82,8 @@ npx cap add ios`}
           <div className="heading-group">
             <h3>Adding calls to Native APIs</h3>
             <p>
-              With Capacitor installed, adding calls to native device features
-              is as straight forward as calling other JavaScript methods
+              With Capacitor installed, adding calls to native device features is as straight forward as calling other
+              JavaScript methods
             </p>
           </div>
           <div className="code-panel">
@@ -132,15 +115,15 @@ export class GeolocationPage {
         <div className="ds-container">
           <h3>Continue your Capacitor Journey.</h3>
           <p>
-            This is only the beginning. Learn more about the Capacitor{" "}
+            This is only the beginning. Learn more about the Capacitor{' '}
             <a href="/docs/basics/workflow" target="_blank">
               development workflow
-            </a>{" "}
-            or using more{" "}
+            </a>{' '}
+            or using more{' '}
             <a href="/docs/apis" target="_blank">
-              {" "}
+              {' '}
               native APIs
-            </a>{" "}
+            </a>{' '}
             .
           </p>
         </div>

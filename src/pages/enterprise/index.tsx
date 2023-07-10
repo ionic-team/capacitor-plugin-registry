@@ -1,54 +1,49 @@
-import LegacyPrismicResponsiveImage from "@components/prismic/legacy/responsive-image";
-import { createContext, useContext, useState } from "react";
+import LegacyPrismicResponsiveImage from '@components/prismic/legacy/responsive-image';
+import { createContext, useContext, useState } from 'react';
 
-import styles from "./index.module.scss";
-import Button from "@components/old/Button";
-import clsx from "clsx";
-import { PrismicRichText } from "@prismicio/react";
-import {
-  Column,
-  Grid,
-  HubspotForm,
-  Modal,
-} from "@ionic-internal/components-react";
+import styles from './index.module.scss';
+import Button from '@components/old/Button';
+import clsx from 'clsx';
+import { PrismicRichText } from '@prismicio/react';
+import { Column, Grid, HubspotForm, Modal } from '@ionic-internal/components-react';
 
-import Companies0 from "./assets/companies/0@2x.png";
-import Companies1 from "./assets/companies/1@2x.png";
-import Companies2 from "./assets/companies/2@2x.png";
-import Companies3 from "./assets/companies/3@2x.png";
-import Companies4 from "./assets/companies/4@2x.png";
-import Companies5 from "./assets/companies/5@2x.png";
-import Companies6 from "./assets/companies/6@2x.png";
-import Companies7 from "./assets/companies/7@2x.png";
+import Companies0 from './assets/companies/0@2x.png';
+import Companies1 from './assets/companies/1@2x.png';
+import Companies2 from './assets/companies/2@2x.png';
+import Companies3 from './assets/companies/3@2x.png';
+import Companies4 from './assets/companies/4@2x.png';
+import Companies5 from './assets/companies/5@2x.png';
+import Companies6 from './assets/companies/6@2x.png';
+import Companies7 from './assets/companies/7@2x.png';
 
-import Editions0 from "./assets/editions/0@2x.png";
-import Editions1 from "./assets/editions/1@2x.png";
-import Editions2 from "./assets/editions/2@2x.png";
-import Editions3 from "./assets/editions/3@2x.png";
-import Editions4 from "./assets/editions/4@2x.png";
-import Editions5 from "./assets/editions/5@2x.png";
-import Editions6 from "./assets/editions/6@2x.png";
-import Editions7 from "./assets/editions/7@2x.png";
-import Editions8 from "./assets/editions/8@2x.png";
+import Editions0 from './assets/editions/0@2x.png';
+import Editions1 from './assets/editions/1@2x.png';
+import Editions2 from './assets/editions/2@2x.png';
+import Editions3 from './assets/editions/3@2x.png';
+import Editions4 from './assets/editions/4@2x.png';
+import Editions5 from './assets/editions/5@2x.png';
+import Editions6 from './assets/editions/6@2x.png';
+import Editions7 from './assets/editions/7@2x.png';
+import Editions8 from './assets/editions/8@2x.png';
 
-import Native0 from "./assets/native/0@2x.png";
-import Native1 from "./assets/native/1@2x.png";
-import Native2 from "./assets/native/2@2x.png";
-import Image from "next/image";
-import SiteFooter from "@components/site-footer";
-import Prefooter from "@components/prefooter";
-import SiteHeader from "@components/site-header";
-import SiteMeta from "@components/site-meta";
-import EnterpriseSubnav from "./components/subnav";
-import { InferGetStaticPropsType } from "next";
-import { getStaticProps } from "@root/pages/enterprise";
+import Native0 from './assets/native/0@2x.png';
+import Native1 from './assets/native/1@2x.png';
+import Native2 from './assets/native/2@2x.png';
+import Image from 'next/image';
+import SiteFooter from '@components/site-footer';
+import Prefooter from '@components/prefooter';
+import SiteHeader from '@components/site-header';
+import SiteMeta from '@components/site-meta';
+import EnterpriseSubnav from './components/subnav';
+import { InferGetStaticPropsType } from 'next';
+import { getStaticProps } from '@root/pages/enterprise';
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const EnterprisePageContext = createContext<{
   ebookModalOpen: boolean;
   setEbookModalOpen: (open: boolean) => void;
-  prismicData: PageProps["prismicData"];
+  prismicData: PageProps['prismicData'];
 } | null>(null);
 
 export default function EnterprisePage({ prismicData }: PageProps) {
@@ -60,9 +55,7 @@ export default function EnterprisePage({ prismicData }: PageProps) {
       <SiteHeader theme="dark" sticky={false} />
       <EnterpriseSubnav />
       <div className={styles.page}>
-        <EnterprisePageContext.Provider
-          value={{ ebookModalOpen, setEbookModalOpen, prismicData }}
-        >
+        <EnterprisePageContext.Provider value={{ ebookModalOpen, setEbookModalOpen, prismicData }}>
           <main>
             <Top />
             <Companies />
@@ -112,26 +105,17 @@ const Top = () => {
   );
 };
 
-const companyImages = [
-  Companies0,
-  Companies1,
-  Companies2,
-  Companies3,
-  Companies4,
-  Companies5,
-  Companies6,
-  Companies7,
-];
+const companyImages = [Companies0, Companies1, Companies2, Companies3, Companies4, Companies5, Companies6, Companies7];
 
 const companyList = [
-  "nationwide",
-  "target",
-  "burger-king",
-  "home-depot",
-  "nbc",
-  "microsoft",
-  "amtrak",
-  "general-electric",
+  'nationwide',
+  'target',
+  'burger-king',
+  'home-depot',
+  'nbc',
+  'microsoft',
+  'amtrak',
+  'general-electric',
 ];
 
 const Companies = () => {
@@ -146,28 +130,16 @@ const Companies = () => {
         <div className="logos">
           <div className="row1">
             {companyImages.slice(0, 4).map(({ src, height, width }, i) => (
-              <Image
-                width={width / 2}
-                height={height / 2}
-                src={src}
-                alt={`${companyList[i]} logo`}
-              />
+              <Image width={width / 2} height={height / 2} src={src} alt={`${companyList[i]} logo`} />
             ))}
           </div>
           <div className="row2">
-            {companyImages
-              .slice(4, companyImages.length)
-              .map(({ src, height, width }, i) => {
-                const currentIndex = i + companyImages.length / 2;
-                return (
-                  <Image
-                    width={width / 2}
-                    height={height / 2}
-                    src={src}
-                    alt={`${companyList[currentIndex]} logo`}
-                  />
-                );
-              })}
+            {companyImages.slice(4, companyImages.length).map(({ src, height, width }, i) => {
+              const currentIndex = i + companyImages.length / 2;
+              return (
+                <Image width={width / 2} height={height / 2} src={src} alt={`${companyList[currentIndex]} logo`} />
+              );
+            })}
           </div>
         </div>
       </div>
@@ -177,11 +149,7 @@ const Companies = () => {
 
 const nativeImages = [Native0, Native1, Native2];
 
-const nativeAlt = [
-  "three blocks with up arrow",
-  "fingerprint icon with lock symbol",
-  "clock icon with up arrow",
-];
+const nativeAlt = ['three blocks with up arrow', 'fingerprint icon with lock symbol', 'clock icon with up arrow'];
 
 const Native = () => {
   const { prismicData } = useContext(EnterprisePageContext) || {};
@@ -190,7 +158,7 @@ const Native = () => {
   const { supertext, title, subtext } = native[0] || {};
 
   return (
-    <section className={clsx(styles.native, "ds-container")}>
+    <section className={clsx(styles.native, 'ds-container')}>
       <div className="heading-group">
         <div className="ds-overline-1">{supertext}</div>
         <PrismicRichText field={title} />
@@ -202,12 +170,7 @@ const Native = () => {
 
           return (
             <li key={i}>
-              <Image
-                width={width / 2}
-                height={height / 2}
-                src={src}
-                alt={`${nativeAlt[i]}`}
-              />
+              <Image width={width / 2} height={height / 2} src={src} alt={`${nativeAlt[i]}`} />
               <h3 className="ds-heading-4">{title}</h3>
               <p className="ds-paragraph--prose">{text}</p>
             </li>
@@ -219,8 +182,7 @@ const Native = () => {
 };
 
 const Ebook = () => {
-  const { ebookModalOpen, setEbookModalOpen, prismicData } =
-    useContext(EnterprisePageContext) || {};
+  const { ebookModalOpen, setEbookModalOpen, prismicData } = useContext(EnterprisePageContext) || {};
   const { ebook } = prismicData || {};
   const { text, cta, background, book } = ebook?.[0] || {};
 
@@ -229,15 +191,10 @@ const Ebook = () => {
       <div className="ds-container">
         <Modal open={ebookModalOpen} onClose={() => setEbookModalOpen?.(false)}>
           <h2>Building Cross-platform Apps with Capacitor</h2>
-          <HubspotForm
-            createProps={{ formId: "9151dc0b-42d9-479f-b7b8-649e0e7bd1bc" }}
-          />
+          <HubspotForm createProps={{ formId: '9151dc0b-42d9-479f-b7b8-649e0e7bd1bc' }} />
         </Modal>
         <div className="wrapper">
-          <LegacyPrismicResponsiveImage
-            image={background}
-            className="background"
-          />
+          <LegacyPrismicResponsiveImage image={background} className="background" />
           <div className="content">
             <div className="image-wrapper">
               <LegacyPrismicResponsiveImage image={book} />
@@ -253,11 +210,7 @@ const Ebook = () => {
                   ),
                 }}
               />
-              <Button
-                kind="round"
-                size="md"
-                onClick={() => setEbookModalOpen?.(true)}
-              >
+              <Button kind="round" size="md" onClick={() => setEbookModalOpen?.(true)}>
                 {cta} →
               </Button>
             </div>
@@ -462,24 +415,23 @@ const editionImages = [
 ];
 
 const editionAlts = [
-  "burger-king",
-  "fidelity",
-  "hr-block",
-  "communo",
-  "usaa",
-  "ibm",
-  "bcbs",
-  "test-kitchen",
+  'burger-king',
+  'fidelity',
+  'hr-block',
+  'communo',
+  'usaa',
+  'ibm',
+  'bcbs',
+  'test-kitchen',
 
-  "home-depot",
+  'home-depot',
 ];
 
 const Editions = () => {
   const { prismicData } = useContext(EnterprisePageContext) || {};
   if (!prismicData) return null;
   const { editions } = prismicData;
-  const { supertext, title, paragraph_1, paragraph_2, cta_1 } =
-    editions[0] || {};
+  const { supertext, title, paragraph_1, paragraph_2, cta_1 } = editions[0] || {};
 
   return (
     <section className={styles.editions} id="editions">
@@ -521,12 +473,7 @@ const Editions = () => {
             <div className="row0">
               {editionImages.slice(0, 3).map(({ src, height, width }, i) => (
                 <div className="image-wrapper">
-                  <Image
-                    src={src}
-                    width={width / 2}
-                    height={height / 2}
-                    alt={editionAlts[i]}
-                  />
+                  <Image src={src} width={width / 2} height={height / 2} alt={editionAlts[i]} />
                 </div>
               ))}
             </div>
@@ -536,12 +483,7 @@ const Editions = () => {
 
                 return (
                   <div className="image-wrapper">
-                    <Image
-                      src={src}
-                      width={width / 2}
-                      height={height / 2}
-                      alt={editionAlts[indexOffset]}
-                    />
+                    <Image src={src} width={width / 2} height={height / 2} alt={editionAlts[indexOffset]} />
                   </div>
                 );
               })}
@@ -552,12 +494,7 @@ const Editions = () => {
 
                 return (
                   <div className="image-wrapper">
-                    <img
-                      src={src}
-                      width={width / 2}
-                      height={height / 2}
-                      alt={editionAlts[indexOffset]}
-                    />
+                    <img src={src} width={width / 2} height={height / 2} alt={editionAlts[indexOffset]} />
                   </div>
                 );
               })}
@@ -582,9 +519,7 @@ const Demo = () => {
           <div className="ds-overline-1">{supertext}</div>
           <h2>{title}</h2>
         </div>
-        <HubspotForm
-          createProps={{ formId: "d0019a78-110e-4d28-b356-56357b4abe4b" }}
-        />
+        <HubspotForm createProps={{ formId: 'd0019a78-110e-4d28-b356-56357b4abe4b' }} />
       </div>
     </section>
   );

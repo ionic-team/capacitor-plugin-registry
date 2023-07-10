@@ -1,18 +1,11 @@
-import { clsx } from "clsx";
-import {
-  Children,
-  HTMLAttributes,
-  cloneElement,
-  isValidElement,
-  useCallback,
-  useState,
-} from "react";
+import { clsx } from 'clsx';
+import { Children, HTMLAttributes, cloneElement, isValidElement, useCallback, useState } from 'react';
 
-import UpArrow from "../../../assets/icon-up-carrot.svg";
-import DownArrow from "../../../assets/icon-down-carrot.svg";
+import UpArrow from '../../../assets/icon-up-carrot.svg';
+import DownArrow from '../../../assets/icon-down-carrot.svg';
 // import { useScreenWidth } from "@utils/customHooks";
 
-import styles from "./index.module.scss";
+import styles from './index.module.scss';
 
 const MenuItemExpander = (props: HTMLAttributes<HTMLElement>) => {
   const [expanded, setExpanded] = useState(false);
@@ -33,15 +26,10 @@ const MenuItemExpander = (props: HTMLAttributes<HTMLElement>) => {
   return (
     <div
       {...props}
-      className={clsx("menu-item-expander", styles.expander, {
+      className={clsx('menu-item-expander', styles.expander, {
         [styles.expanderExpanded]: expanded,
       })}
-      style={
-        { ...props.style, "--h-dropdown": `${dropdownHeight}px` } as Record<
-          string,
-          string
-        >
-      }
+      style={{ ...props.style, '--h-dropdown': `${dropdownHeight}px` } as Record<string, string>}
     >
       {Children.map(props.children, (child, i) => {
         if (!child || !isValidElement(child)) return child;
@@ -49,7 +37,7 @@ const MenuItemExpander = (props: HTMLAttributes<HTMLElement>) => {
         if (i === 0) {
           return (
             <button
-              aria-label={`${expanded ? "close" : "open"} menu item`}
+              aria-label={`${expanded ? 'close' : 'open'} menu item`}
               onClick={() => setExpanded(!expanded)}
               className="menu-item-expander__expand-button"
             >
@@ -57,7 +45,7 @@ const MenuItemExpander = (props: HTMLAttributes<HTMLElement>) => {
                 ...child.props,
                 className: clsx({
                   [child.props.className]: Boolean(child.props.className),
-                  "menu-item-expander__title": true,
+                  'menu-item-expander__title': true,
                 }),
               })}
               {expanded ? <UpArrow /> : <DownArrow />}
@@ -71,7 +59,7 @@ const MenuItemExpander = (props: HTMLAttributes<HTMLElement>) => {
                 ref: callbackRef,
                 className: clsx({
                   [child.props.className]: Boolean(child.props.className),
-                  "menu-item-expander__dropdown": true,
+                  'menu-item-expander__dropdown': true,
                 }),
               })}
             </div>

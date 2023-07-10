@@ -1,10 +1,10 @@
 @layer reset, ds, site;
 
-@import "modern-normalize/modern-normalize.css" layer(reset);
-@import "@ionic-internal/design-system/dist/reset/index.css" layer(reset);
+@import 'modern-normalize/modern-normalize.css' layer(reset);
+@import '@ionic-internal/design-system/dist/reset/index.css' layer(reset);
 
-@import "@ionic-internal/design-system/dist/tokens/index.css" layer(ds);
-@import "@ionic-internal/design-system/dist/stylesheets/ds-os.css" layer(ds);
+@import '@ionic-internal/design-system/dist/tokens/index.css' layer(ds);
+@import '@ionic-internal/design-system/dist/stylesheets/ds-os.css' layer(ds);
 
 @layer site {
   :root {

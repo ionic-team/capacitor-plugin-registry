@@ -72,8 +72,7 @@
       border-radius: 16px;
       transform: translateY(-16px);
 
-      transition: box-shadow 0.2s var(--bezier), transform 0.4s var(--bezier),
-        opacity 0.2s var(--bezier);
+      transition: box-shadow 0.2s var(--bezier), transform 0.4s var(--bezier), opacity 0.2s var(--bezier);
     }
 
     .site-header__menu-container {
@@ -183,8 +182,7 @@
   &Open {
     :global {
       .site-header__menu {
-        box-shadow: 0 48px 96px -8px rgba(0, 0, 0, 0.16),
-          0 24px 48px -4px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 48px 96px -8px rgba(0, 0, 0, 0.16), 0 24px 48px -4px rgba(0, 0, 0, 0.08);
         opacity: 1;
         transform: translateY(0px);
 

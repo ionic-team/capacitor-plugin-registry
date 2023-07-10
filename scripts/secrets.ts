@@ -11,7 +11,7 @@ export function getGitHubToken() {
 }
 
 export function secretList(): string {
-  return "DATA_SCRIPTS_NPM_TOKEN, DATA_SCRIPTS_GITHUB_TOKEN";
+  return 'DATA_SCRIPTS_NPM_TOKEN, DATA_SCRIPTS_GITHUB_TOKEN';
 }
 
 export function checkSecretsAreSet(): boolean {

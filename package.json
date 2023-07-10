@@ -6,7 +6,8 @@
     "dev": "next dev --port 5005",
     "build": "npm run update-registry && next build",
     "start": "next start",
-    "lint": "next lint",
+    "fmt": "npm run prettier -- --write",
+    "prettier": "prettier \"**/*.{css,scss,html,ts,tsx,md}\"",
     "update-registry": "ts-node ./scripts/update-registry-data.ts --project ./scripts/tsconfig.json"
   },
   "prettier": "@ionic/prettier-config",

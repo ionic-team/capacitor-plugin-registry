@@ -1,5 +1,5 @@
-import { InheritableElementProps } from "@ionic-internal/utils-react";
-import { clsx } from "clsx";
+import { InheritableElementProps } from '@ionic-internal/utils-react';
+import { clsx } from 'clsx';
 
 interface CustomResponsiveImageProps {
   image: any;
@@ -7,33 +7,25 @@ interface CustomResponsiveImageProps {
   params2x?: any;
 }
 
-type ResponsiveImageProps = InheritableElementProps<
-  "img",
-  CustomResponsiveImageProps
->;
+type ResponsiveImageProps = InheritableElementProps<'img', CustomResponsiveImageProps>;
 
-const LegacyPrismicResponsiveImage = ({
-  image,
-  params1x = {},
-  params2x = {},
-  ...props
-}: ResponsiveImageProps) => {
+const LegacyPrismicResponsiveImage = ({ image, params1x = {}, params2x = {}, ...props }: ResponsiveImageProps) => {
   if (!image?.url) return null;
 
-  const reversed = Boolean(image["1x"]);
+  const reversed = Boolean(image['1x']);
 
-  const data1x = reversed ? image["1x"] : image;
-  const data2x = reversed ? image : image["2x"];
+  const data1x = reversed ? image['1x'] : image;
+  const data2x = reversed ? image : image['2x'];
 
   const { dimensions: dimensions1x, url: url1x, alt: alt1x } = data1x;
   const { dimensions: dimensions2x, url: url2x, alt: alt2x } = data2x || {};
 
   params1x = {
-    q: "65",
+    q: '65',
     ...params1x,
   };
   params2x = {
-    q: "35",
+    q: '35',
     ...params2x,
   };
 
@@ -44,18 +36,16 @@ const LegacyPrismicResponsiveImage = ({
   const url2xWithParams = url2x + params2xString;
 
   const getSrc = () => {
-    return url2x
-      ? { srcSet: `${url1xWithParams} 1x, ${url2xWithParams} 2x` }
-      : { src: url1xWithParams };
+    return url2x ? { srcSet: `${url1xWithParams} 1x, ${url2xWithParams} 2x` } : { src: url1xWithParams };
   };
 
   return (
     <img
       {...props}
-      loading={props.loading || "lazy"}
+      loading={props.loading || 'lazy'}
       className={clsx({
-        [props.className || ""]: true,
-        "ui-responsive-image": true,
+        [props.className || '']: true,
+        'ui-responsive-image': true,
       })}
       {...getSrc()}
       alt={alt1x || alt2x}
@@ -73,11 +63,11 @@ const urlParamGenerator = (url: string, params: object) => {
       const regex = new RegExp(`\\?.*${cur[0]}=`);
 
       if (!url.match(regex)) {
-        return `${acc}${acc.match(/^\?$/) ? "" : "&"}${cur.join("=")}`;
+        return `${acc}${acc.match(/^\?$/) ? '' : '&'}${cur.join('=')}`;
       }
       return acc;
     },
-    url.match(/\?/) ? "" : "?"
+    url.match(/\?/) ? '' : '?'
   );
 };
 

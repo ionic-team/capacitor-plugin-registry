@@ -1,12 +1,12 @@
-import { createDataDirectoryIfNotExists, log, patchConsole } from "./utils";
-import { writePluginDataToPublicDirectory } from "./format-results";
-import { inspectPlugins, readPluginList } from "./summary";
-import { checkSecretsAreSet, secretList } from "./secrets";
+import { createDataDirectoryIfNotExists, log, patchConsole } from './utils';
+import { writePluginDataToPublicDirectory } from './format-results';
+import { inspectPlugins, readPluginList } from './summary';
+import { checkSecretsAreSet, secretList } from './secrets';
 
-require("dotenv").config();
+require('dotenv').config();
 
 async function execute() {
-  log("Begin updating Capacitor Plugin Registry data");
+  log('Begin updating Capacitor Plugin Registry data');
   /**
    * Patch console logs to respect log level and apply colors
    */

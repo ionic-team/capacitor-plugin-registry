@@ -1,29 +1,29 @@
-import Prefooter from "@components/prefooter";
-import SiteFooter from "@components/site-footer";
-import { createContext, useContext } from "react";
+import Prefooter from '@components/prefooter';
+import SiteFooter from '@components/site-footer';
+import { createContext, useContext } from 'react';
 
-import styles from "./index.module.scss";
-import { PrismicRichText } from "@prismicio/react";
-import clsx from "clsx";
-import { Column, Grid } from "@ionic-internal/components-react";
-import LegacyPrismicResponsiveImage from "@components/prismic/legacy/responsive-image";
-import NewsletterSignup from "@components/newsletter-signup";
-import SiteHeader from "@components/site-header";
-import SiteMeta from "@components/site-meta";
-import { getStaticProps } from "@root/pages/community";
-import { InferGetStaticPropsType } from "next";
-import { isWebLink } from "@utils/prismic";
+import styles from './index.module.scss';
+import { PrismicRichText } from '@prismicio/react';
+import clsx from 'clsx';
+import { Column, Grid } from '@ionic-internal/components-react';
+import LegacyPrismicResponsiveImage from '@components/prismic/legacy/responsive-image';
+import NewsletterSignup from '@components/newsletter-signup';
+import SiteHeader from '@components/site-header';
+import SiteMeta from '@components/site-meta';
+import { getStaticProps } from '@root/pages/community';
+import { InferGetStaticPropsType } from 'next';
+import { isWebLink } from '@utils/prismic';
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const CommunityPageContext = createContext<{
-  prismicData: PageProps["prismicData"];
+  prismicData: PageProps['prismicData'];
 } | null>(null);
 
 const CommunityPage = ({ prismicData }: PageProps) => {
   return (
     <>
-      <SiteMeta title="Capacitor Community" />
+      <SiteMeta title="Capacitor Community" description="Get connected and get help from the Capacitor community" />
       <SiteHeader />
       <CommunityPageContext.Provider value={{ prismicData }}>
         <main className={styles.page}>
@@ -44,7 +44,7 @@ const Top = () => {
   const { top, top__list } = prismicData;
 
   return (
-    <section className={clsx(styles.top, "ds-container")}>
+    <section className={clsx(styles.top, 'ds-container')}>
       <div className="heading-group">
         <PrismicRichText
           field={top}
@@ -86,22 +86,18 @@ const Websites = () => {
   if (!prismicData) return null;
   const { websites__list } = prismicData;
 
-  const dimensions = ["40x32", "40x34", "34x40", "40x40"];
+  const dimensions = ['40x32', '40x34', '34x40', '40x40'];
 
   return (
-    <section className={clsx(styles.websites, "ds-container")}>
+    <section className={clsx(styles.websites, 'ds-container')}>
       <Grid>
         {websites__list.map(({ icon, text, link }, i) => {
-          const [width, height] = dimensions[i].split("x");
+          const [width, height] = dimensions[i].split('x');
 
           return (
             <Column cols={[12, 6, 6, 3, 3]}>
               <div className="image-wrapper">
-                <LegacyPrismicResponsiveImage
-                  width={width}
-                  height={height}
-                  image={icon}
-                />
+                <LegacyPrismicResponsiveImage width={width} height={height} image={icon} />
               </div>
               <PrismicRichText field={text} />
               <PrismicRichText field={link} />

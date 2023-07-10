@@ -59,7 +59,7 @@
       }
 
       &::after {
-        content: "";
+        content: '';
         z-index: -1;
         background: var(--c-capacitor-blue);
         position: absolute;
@@ -68,8 +68,7 @@
         width: var(--tab-width);
         border-radius: 1000px;
 
-        transition: width 0.2s cubic-bezier(0.22, 0.62, 0.04, 0.93),
-          left 0.2s cubic-bezier(0.22, 0.62, 0.04, 0.93);
+        transition: width 0.2s cubic-bezier(0.22, 0.62, 0.04, 0.93), left 0.2s cubic-bezier(0.22, 0.62, 0.04, 0.93);
       }
     }
 

@@ -56,7 +56,7 @@
         max-width: 530px;
       }
 
-      [class*="ds-paragraph"] {
+      [class*='ds-paragraph'] {
         margin-block-end: 2rem;
         max-width: 448px;
       }
@@ -112,10 +112,7 @@
         @media screen and (max-width: 575px) {
           --width: 200px;
           max-width: var(--width);
-          left: min(
-            calc(480px / 2 - var(--width) / 2),
-            100% / 2 - var(--width) / 2
-          );
+          left: min(calc(480px / 2 - var(--width) / 2), 100% / 2 - var(--width) / 2);
           top: -220px;
           position: absolute;
         }
@@ -206,7 +203,7 @@
       }
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 24px;
         left: 7px;
@@ -274,7 +271,7 @@
               white-space: nowrap;
 
               &::before {
-                content: "$ ";
+                content: '$ ';
                 color: var(--c-cyan-80);
               }
             }
@@ -355,7 +352,7 @@
         padding: clamp(1rem, 8vw, 3rem) 0;
       }
 
-      [class*="ds-paragraph"] {
+      [class*='ds-paragraph'] {
         color: var(--c-carbon-20);
         font-weight: 600;
         font-size: 1.5rem;
@@ -495,7 +492,7 @@
         margin-block-end: 0px;
         max-width: 360px;
       }
-      [class*="ds-paragraph"] {
+      [class*='ds-paragraph'] {
         max-width: 560px;
       }
     }
@@ -588,7 +585,7 @@
           margin-block-end: 1.25rem;
 
           .title {
-            [class*="ds-heading"] {
+            [class*='ds-heading'] {
               line-height: 100%;
               margin-block-end: 0.375rem;
 
@@ -599,7 +596,7 @@
                 margin-block-end: -0.125rem;
               }
             }
-            [class*="ds-paragraph"] {
+            [class*='ds-paragraph'] {
               font-weight: 500;
               color: var(--c-carbon-60);
               line-height: 100%;
@@ -659,8 +656,7 @@
 
           &:hover {
             transform: translateY(-1px);
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-              0 1px 1px 0 rgba(0, 0, 0, 0.04);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 1px 0 rgba(0, 0, 0, 0.04);
           }
 
           img {
@@ -745,7 +741,7 @@
         z-index: 2;
         max-width: 528px;
 
-        [class*="ds-paragraph"] {
+        [class*='ds-paragraph'] {
           margin-block-end: 2.5rem;
 
           font-size: 2rem;
@@ -858,8 +854,7 @@
         --elevation: 0;
 
         &:hover {
-          --elevation: 0 2px 4px 0 rgba(0, 0, 0, 0.1),
-            0 0 2px 0 rgba(0, 0, 0, 0.06);
+          --elevation: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 0 2px 0 rgba(0, 0, 0, 0.06);
         }
       }
       .secondary {

@@ -18,7 +18,7 @@
           white-space: nowrap;
 
           &::before {
-            content: "$ ";
+            content: '$ ';
             color: var(--c-cyan-80);
           }
         }
@@ -36,7 +36,7 @@
         padding-inline-start: 3.2em;
         margin: 1.6em 0;
 
-        li[class*="ds-paragraph"] {
+        li[class*='ds-paragraph'] {
           margin-block-end: 0;
         }
 
@@ -76,7 +76,7 @@
         color: #16161d;
         background-color: #f8f8f8;
 
-        &[class*="language-"] {
+        &[class*='language-'] {
           margin: 1.6em 0;
         }
 

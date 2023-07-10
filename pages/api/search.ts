@@ -1,11 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { PluginResult } from "@root/shared/plugin-result";
-import type { NextApiRequest, NextApiResponse } from "next";
-import Fuse from "fuse.js";
+import { PluginResult } from '@root/shared/plugin-result';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import Fuse from 'fuse.js';
 
-import data from "@root/data/plugin-data.json";
-import index from "@root/data/plugin-index.json";
-import { searchKeys } from "@root/shared/search-keys";
+import data from '@root/data/plugin-data.json';
+import index from '@root/data/plugin-index.json';
+import { searchKeys } from '@root/shared/search-keys';
 
 const rawData = [...data] as PluginResult[];
 const searchIndex = Fuse.parseIndex<PluginResult>(index);
@@ -13,13 +13,8 @@ const searchIndex = Fuse.parseIndex<PluginResult>(index);
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMT = 10;
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<PluginResult[]>
-) {
-  const querySearch = req.query.search
-    ? req.query.search.toString().toLowerCase().trim()
-    : undefined;
+export default function handler(req: NextApiRequest, res: NextApiResponse<PluginResult[]>) {
+  const querySearch = req.query.search ? req.query.search.toString().toLowerCase().trim() : undefined;
 
   // Filter
   const filteredData = filterData({
@@ -32,12 +27,8 @@ export default function handler(
   const sortedData = filteredData; // TODO: Add Sort Options
 
   // Pagination
-  const page = req.query.page
-    ? parseInt(req.query.page.toString())
-    : DEFAULT_PAGE;
-  const limit = req.query.limit
-    ? parseInt(req.query.limit.toString())
-    : DEFAULT_LIMT;
+  const page = req.query.page ? parseInt(req.query.page.toString()) : DEFAULT_PAGE;
+  const limit = req.query.limit ? parseInt(req.query.limit.toString()) : DEFAULT_LIMT;
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
   const results = sortedData.slice(startIndex, endIndex);

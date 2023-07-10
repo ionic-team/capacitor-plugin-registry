@@ -1,39 +1,31 @@
-import clsx from "clsx";
-import styles from "./index.module.scss";
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-import { useRouter } from "next/router";
-import PlatformBar from "@components/platform-bar";
+import clsx from 'clsx';
+import styles from './index.module.scss';
+import { ChangeEvent, Dispatch, SetStateAction, createContext, useCallback, useContext, useState } from 'react';
+import { useRouter } from 'next/router';
+import PlatformBar from '@components/platform-bar';
 
-import IconAuthor from "./assets/icons/author.png";
-import IconDownloads from "./assets/icons/downloads.png";
-import IconHealth from "./assets/icons/health.png";
-import IconIssues from "./assets/icons/issues.png";
-import IconLicense from "./assets/icons/license.png";
-import IconOfficialBadge from "./assets/icons/official-badge.png";
-import IconStars from "./assets/icons/stars.png";
-import IconUpdated from "./assets/icons/updated.png";
-import IconWatchers from "./assets/icons/watchers.png";
-import IconQuestion from "./assets/icons/question.png";
+import IconAuthor from './assets/icons/author.png';
+import IconDownloads from './assets/icons/downloads.png';
+import IconHealth from './assets/icons/health.png';
+import IconIssues from './assets/icons/issues.png';
+import IconLicense from './assets/icons/license.png';
+import IconOfficialBadge from './assets/icons/official-badge.png';
+import IconStars from './assets/icons/stars.png';
+import IconUpdated from './assets/icons/updated.png';
+import IconWatchers from './assets/icons/watchers.png';
+import IconQuestion from './assets/icons/question.png';
 
-import Image from "next/image";
-import { PluginResult } from "@root/shared/plugin-result";
+import Image from 'next/image';
+import { PluginResult } from '@root/shared/plugin-result';
 
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import { InferGetStaticPropsType } from "next";
-import { getStaticProps } from "@root/pages/directory";
-import SiteFooter from "@components/site-footer";
-import Prefooter from "@components/prefooter";
-import SiteHeader from "@components/site-header";
-import SiteMeta from "@components/site-meta";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import { InferGetStaticPropsType } from 'next';
+import { getStaticProps } from '@root/pages/directory';
+import SiteFooter from '@components/site-footer';
+import Prefooter from '@components/prefooter';
+import SiteHeader from '@components/site-header';
+import SiteMeta from '@components/site-meta';
 
 const DirectoryPageContext = createContext<{
   pluginData: PluginResult[];
@@ -53,13 +45,11 @@ const DirectoryPageContext = createContext<{
   allPlatforms: [],
 });
 
-const DirectoryPage = ({
-  allPlatforms,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const DirectoryPage = ({ allPlatforms }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [pluginData, setPluginData] = useState<PluginResult[]>([]);
-  const [platforms, setPlatforms] = useState<string[]>(["android", "ios"]);
+  const [platforms, setPlatforms] = useState<string[]>(['android', 'ios']);
   // const { query } = useRouter();
-  const [filters, setFilters] = useState<string[]>(["official", "community"]);
+  const [filters, setFilters] = useState<string[]>(['official', 'community']);
 
   // TODO: query string functinality
   // useEffect(() => {
@@ -74,7 +64,10 @@ const DirectoryPage = ({
 
   return (
     <>
-      <SiteMeta title="Capacitor Plugin Directory" />
+      <SiteMeta
+        title="Capacitor Plugin Directory"
+        description="A list of all capacitor plugins filterable by platform or type"
+      />
       <DirectoryPageContext.Provider
         value={{
           pluginData,
@@ -118,11 +111,7 @@ const Search = () => {
     <section className={styles.search} id="search">
       <div className="ds-container">
         <div className={styles.searchInputWrapper}>
-          <input
-            onChange={handleChange}
-            className={styles.searchInput}
-            placeholder="Search plugins..."
-          />
+          <input onChange={handleChange} className={styles.searchInput} placeholder="Search plugins..." />
         </div>
       </div>
     </section>
@@ -130,8 +119,7 @@ const Search = () => {
 };
 
 const Sidebar = () => {
-  const { allPlatforms, setFilters, platforms, setPlatforms, filters } =
-    useContext(DirectoryPageContext);
+  const { allPlatforms, setFilters, platforms, setPlatforms, filters } = useContext(DirectoryPageContext);
 
   const handlePlatformCheckboxChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -179,11 +167,11 @@ const Sidebar = () => {
         <article className={styles.sidebarFilters}>
           <h2>Filter</h2>
           <div>
-            <div className={clsx("ds-paragraph-4", styles.sidebarFilter)}>
+            <div className={clsx('ds-paragraph-4', styles.sidebarFilter)}>
               <input
                 data-name="official"
                 type="checkbox"
-                checked={filters.includes("official")}
+                checked={filters.includes('official')}
                 onChange={handleFilterCheckboxChange}
               />
               <Image
@@ -202,11 +190,11 @@ const Sidebar = () => {
                 />
               </Tippy>
             </div>
-            <div className={clsx("ds-paragraph-4", styles.sidebarFilter)}>
+            <div className={clsx('ds-paragraph-4', styles.sidebarFilter)}>
               <input
                 data-name="community"
                 type="checkbox"
-                checked={filters.includes("community")}
+                checked={filters.includes('community')}
                 onChange={handleFilterCheckboxChange}
               />
               Community
@@ -225,10 +213,7 @@ const Sidebar = () => {
           <h2>Platform</h2>
           <div>
             {allPlatforms.map((platform) => (
-              <div
-                key={platform}
-                className={clsx("ds-paragraph-4", styles.sidebarPlatform)}
-              >
+              <div key={platform} className={clsx('ds-paragraph-4', styles.sidebarPlatform)}>
                 <input
                   checked={platforms.includes(platform)}
                   data-name={platform}
@@ -247,16 +232,13 @@ const Sidebar = () => {
 };
 
 const Results = () => {
-  const { pluginData, platforms, filters, setPluginData } =
-    useContext(DirectoryPageContext);
+  const { pluginData, platforms, filters, setPluginData } = useContext(DirectoryPageContext);
 
   return (
     <div className={styles.results}>
       {pluginData
         //filter by platforms
-        .filter((plugin) =>
-          plugin.platforms.some((platform) => platforms.includes(platform))
-        )
+        .filter((plugin) => plugin.platforms.some((platform) => platforms.includes(platform)))
         //filter by filters
         .filter((plugin) => filters.includes(plugin.type))
         .map((data) => {
@@ -278,16 +260,16 @@ const PluginCard = ({
   type,
   stats: { downloads, stars, openIssues, watchers },
 }: PluginResult) => {
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    year: "numeric",
-    day: "2-digit",
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    year: 'numeric',
+    day: '2-digit',
   });
 
   return (
     <article className={styles.pluginCard}>
       <header>
-        <h2 className={clsx("ds-heading-5", styles.pluginCardTitle)}>
+        <h2 className={clsx('ds-heading-5', styles.pluginCardTitle)}>
           {githubUrl ? (
             <a href={githubUrl} target="_blank" rel="noopener noreferrer">
               {name}
@@ -295,7 +277,7 @@ const PluginCard = ({
           ) : (
             name
           )}
-          {type === "official" && (
+          {type === 'official' && (
             <Image
               src={IconOfficialBadge}
               width={IconOfficialBadge.width / 2}
@@ -313,30 +295,13 @@ const PluginCard = ({
         </div>
         <p className="ds-paragraph-4">{description}</p>
         <div className={styles.pluginCardBottomInfo}>
-          <span
-            className={clsx("ds-paragraph-6", styles.pluginCardBottomInfoItem)}
-          >
-            <Image
-              src={IconLicense}
-              width={IconLicense.width / 2}
-              height={IconLicense.height / 2}
-              alt="License icon"
-            />
+          <span className={clsx('ds-paragraph-6', styles.pluginCardBottomInfoItem)}>
+            <Image src={IconLicense} width={IconLicense.width / 2} height={IconLicense.height / 2} alt="License icon" />
             {license} license
           </span>
-          {author && "name" in author && (
-            <span
-              className={clsx(
-                "ds-paragraph-6",
-                styles.pluginCardBottomInfoItem
-              )}
-            >
-              <Image
-                src={IconAuthor}
-                width={IconAuthor.width / 2}
-                height={IconAuthor.height / 2}
-                alt="Author icon"
-              />
+          {author && 'name' in author && (
+            <span className={clsx('ds-paragraph-6', styles.pluginCardBottomInfoItem)}>
+              <Image src={IconAuthor} width={IconAuthor.width / 2} height={IconAuthor.height / 2} alt="Author icon" />
               {author.name}
             </span>
           )}
@@ -345,7 +310,7 @@ const PluginCard = ({
       <div className={styles.pluginCardEnd}>
         <div className={styles.pluginCardStats}>
           {downloads && (
-            <div className={clsx("ds-paragraph-4", styles.pluginCardStatItem)}>
+            <div className={clsx('ds-paragraph-4', styles.pluginCardStatItem)}>
               <Image
                 src={IconDownloads}
                 width={IconDownloads.width / 2}
@@ -356,7 +321,7 @@ const PluginCard = ({
             </div>
           )}
           {lastUpdated && (
-            <div className={clsx("ds-paragraph-4", styles.pluginCardStatItem)}>
+            <div className={clsx('ds-paragraph-4', styles.pluginCardStatItem)}>
               <Image
                 src={IconUpdated}
                 width={IconUpdated.width / 2}
@@ -366,34 +331,19 @@ const PluginCard = ({
               Updated: {formatter.format(new Date(lastUpdated))}
             </div>
           )}
-          <div className={clsx("ds-paragraph-4", styles.pluginCardStatItem)}>
-            <Image
-              src={IconIssues}
-              width={IconIssues.width / 2}
-              height={IconIssues.height / 2}
-              alt="Issues icon"
-            />
+          <div className={clsx('ds-paragraph-4', styles.pluginCardStatItem)}>
+            <Image src={IconIssues} width={IconIssues.width / 2} height={IconIssues.height / 2} alt="Issues icon" />
             {openIssues} issues
           </div>
-          <div className={clsx("ds-paragraph-4", styles.pluginCardStatItem)}>
-            <Image
-              src={IconHealth}
-              width={IconHealth.width / 2}
-              height={IconHealth.height / 2}
-              alt="Health icon"
-            />
+          <div className={clsx('ds-paragraph-4', styles.pluginCardStatItem)}>
+            <Image src={IconHealth} width={IconHealth.width / 2} height={IconHealth.height / 2} alt="Health icon" />
             Health: {score}%
           </div>
-          <div className={clsx("ds-paragraph-4", styles.pluginCardStatItem)}>
-            <Image
-              src={IconStars}
-              width={IconStars.width / 2}
-              height={IconStars.height / 2}
-              alt="Stars icon"
-            />
+          <div className={clsx('ds-paragraph-4', styles.pluginCardStatItem)}>
+            <Image src={IconStars} width={IconStars.width / 2} height={IconStars.height / 2} alt="Stars icon" />
             {stars} stars
           </div>
-          <div className={clsx("ds-paragraph-4", styles.pluginCardStatItem)}>
+          <div className={clsx('ds-paragraph-4', styles.pluginCardStatItem)}>
             <Image
               src={IconWatchers}
               width={IconWatchers.width / 2}
@@ -410,7 +360,7 @@ const PluginCard = ({
 
 const Content = () => {
   return (
-    <div className={clsx("ds-container", styles.content)}>
+    <div className={clsx('ds-container', styles.content)}>
       <Sidebar />
       <Results />
     </div>

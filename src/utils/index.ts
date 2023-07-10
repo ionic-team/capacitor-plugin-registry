@@ -1,4 +1,4 @@
-export const HOSTNAME = "capacitorjs.com";
+export const HOSTNAME = 'capacitorjs.com';
 
 export const BASE_URL = `https://${HOSTNAME}`;
 

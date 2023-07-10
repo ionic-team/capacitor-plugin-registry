@@ -1,15 +1,12 @@
-import { httpGet } from "./utils";
-import { PluginInfo } from "./types/plugin";
-import { getNpmToken } from "./secrets";
-import { removeFromPluginList } from "./summary";
-import { capacitorVersions, cordovaTestNames, testNames } from "./test-names";
-import { NpmDownloads, NpmInfo } from "./types/npm-data-schema";
+import { httpGet } from './utils';
+import { PluginInfo } from './types/plugin';
+import { getNpmToken } from './secrets';
+import { removeFromPluginList } from './summary';
+import { capacitorVersions, cordovaTestNames, testNames } from './test-names';
+import { NpmDownloads, NpmInfo } from './types/npm-data-schema';
 
 export async function applyNpmInfo(plugin: PluginInfo) {
-  const [npmHistory, npmLatest] = await Promise.all([
-    getNpmInfo(plugin.name, false),
-    getNpmInfo(plugin.name, true),
-  ]);
+  const [npmHistory, npmLatest] = await Promise.all([getNpmInfo(plugin.name, false), getNpmInfo(plugin.name, true)]);
 
   if (!npmHistory.versions) {
     // Likely not found in npm
@@ -34,14 +31,11 @@ export async function applyNpmInfo(plugin: PluginInfo) {
   }
   if (npmLatest.capacitor) {
     plugin.platforms = [];
-    if (npmLatest.capacitor.ios) plugin.platforms.push("ios");
-    if (npmLatest.capacitor.android) plugin.platforms.push("android");
+    if (npmLatest.capacitor.ios) plugin.platforms.push('ios');
+    if (npmLatest.capacitor.android) plugin.platforms.push('android');
   }
 
-  plugin.success = [
-    ...getCapacitorVersions(npmLatest),
-    ...getCordovaVersions(npmLatest),
-  ] as any;
+  plugin.success = [...getCapacitorVersions(npmLatest), ...getCordovaVersions(npmLatest)] as any;
   plugin.success = cleanupBasedOnPlatforms(plugin.success, plugin.platforms);
   plugin.fails = [];
   for (const test of testNames()) {
@@ -53,7 +47,7 @@ export async function applyNpmInfo(plugin: PluginInfo) {
 
 export async function applyNpmDownloads(plugin: PluginInfo) {
   try {
-    const period = "last-month";
+    const period = 'last-month';
     const np: NpmDownloads = await httpGet(
       `https://api.npmjs.org/downloads/point/${period}/${plugin.name}`,
       npmHeaders()
@@ -63,19 +57,17 @@ export async function applyNpmDownloads(plugin: PluginInfo) {
     plugin.downloadEnd = np.end;
     plugin.downloadPeriod = period;
   } catch (error) {
-    console.error("applyNpmDownloads Failed", (error as any).message);
+    console.error('applyNpmDownloads Failed', (error as any).message);
   }
 }
 
 async function getNpmInfo(name: string, latest: boolean): Promise<NpmInfo> {
-  let url = "";
+  let url = '';
   try {
-    url = latest
-      ? `https://registry.npmjs.org/${name}/latest`
-      : `https://registry.npmjs.org/${name}`;
+    url = latest ? `https://registry.npmjs.org/${name}/latest` : `https://registry.npmjs.org/${name}`;
     const np: NpmInfo = await httpGet(url, npmHeaders());
     //np.versions = undefined;
-    np.version = np["dist-tags"] ? np["dist-tags"].latest : np.version;
+    np.version = np['dist-tags'] ? np['dist-tags'].latest : np.version;
     return np;
   } catch (error) {
     const msg = `${error}`;
@@ -92,27 +84,23 @@ function npmHeaders(): any {
   return {
     headers: {
       Authorization: `bearer ${getNpmToken()}`,
-      "User-Agent": "Ionic Plugin Explorer",
-      Accept: "*/*",
+      'User-Agent': 'Ionic Plugin Explorer',
+      Accept: '*/*',
     },
   };
 }
 
 function cleanUrl(url: string): string {
   if (url) {
-    return url.replace("git+", "");
+    return url.replace('git+', '');
   }
   return url;
 }
 
-function cleanupBasedOnPlatforms(
-  tests: string[],
-  platforms: string[]
-): string[] {
+function cleanupBasedOnPlatforms(tests: string[], platforms: string[]): string[] {
   return tests.filter((test) => {
     return (
-      (test.includes("ios") && platforms.includes("ios")) ||
-      (test.includes("android") && platforms.includes("android"))
+      (test.includes('ios') && platforms.includes('ios')) || (test.includes('android') && platforms.includes('android'))
     );
   });
 }
@@ -125,29 +113,25 @@ function getCapacitorVersions(p: NpmInfo): string[] {
     for (let version of capacitorVersions) {
       t.push(`^${version}.0.0`);
     }
-    cap = t.join(" | ");
+    cap = t.join(' | ');
   }
   for (let version of capacitorVersions) {
     let match = false;
 
     if (cap?.includes(`>`) && !cap?.includes(`>=`)) {
-      const t = cap.split(">");
+      const t = cap.split('>');
       const min = parseInt(t[1].trim());
       if (version > min) {
         match = true;
       }
     } else if (cap?.includes(`>=`)) {
-      const t = cap.split(">=");
+      const t = cap.split('>=');
       const min = parseInt(t[1].trim());
       if (version >= min) {
         match = true;
       }
     }
-    if (
-      cap?.includes(`^${version}`) ||
-      cap?.includes(`>=${version}`) ||
-      match
-    ) {
+    if (cap?.includes(`^${version}`) || cap?.includes(`>=${version}`) || match) {
       result.push(`capacitor-ios-${version}`);
       result.push(`capacitor-android-${version}`);
     }
@@ -155,14 +139,10 @@ function getCapacitorVersions(p: NpmInfo): string[] {
   if (result.length == 0) {
     if (!likelyCordova(p)) {
       if (!cap) {
-        console.error(
-          `Error: ${p.name} does not seem to be Capacitor or Cordova based. The package will be removed.`
-        );
+        console.error(`Error: ${p.name} does not seem to be Capacitor or Cordova based. The package will be removed.`);
         removeFromPluginList(p.name);
       } else {
-        console.error(
-          `Warning ${p.name} is Capacitor based but dependent on @capacitor/core "${cap}"`
-        );
+        console.error(`Warning ${p.name} is Capacitor based but dependent on @capacitor/core "${cap}"`);
       }
     }
   }
@@ -170,23 +150,15 @@ function getCapacitorVersions(p: NpmInfo): string[] {
 }
 
 function capCoreDeps(p: NpmInfo): string {
-  let cap = p.peerDependencies
-    ? p.peerDependencies["@capacitor/core"]
-    : undefined;
+  let cap = p.peerDependencies ? p.peerDependencies['@capacitor/core'] : undefined;
   if (!cap) {
-    cap = p.dependencies ? p.dependencies["@capacitor/core"] : undefined;
+    cap = p.dependencies ? p.dependencies['@capacitor/core'] : undefined;
     if (!cap) {
-      cap = p.devDependencies
-        ? p.devDependencies["@capacitor/core"]
-        : undefined;
+      cap = p.devDependencies ? p.devDependencies['@capacitor/core'] : undefined;
       if (!cap) {
-        cap = p.devDependencies
-          ? p.devDependencies["@capacitor/ios"]
-          : undefined;
+        cap = p.devDependencies ? p.devDependencies['@capacitor/ios'] : undefined;
       } else if (!cap) {
-        cap = p.devDependencies
-          ? p.devDependencies["@capacitor/android"]
-          : undefined;
+        cap = p.devDependencies ? p.devDependencies['@capacitor/android'] : undefined;
       }
     }
   }
@@ -195,10 +167,10 @@ function capCoreDeps(p: NpmInfo): string {
 
 function likelyCordova(p: NpmInfo): boolean {
   if (p.cordova?.platforms) return true;
-  if (p.engines && p.engines["cordova"]) return true;
-  if (p.dependencies && p.dependencies["cordova-android"]) return true;
-  if (p.dependencies && p.dependencies["cordova-ios"]) return true;
-  if (p.name.includes("cordova-")) return true; // We dont extract the package to see if there is a plugin.xml but this is close enough
+  if (p.engines && p.engines['cordova']) return true;
+  if (p.dependencies && p.dependencies['cordova-android']) return true;
+  if (p.dependencies && p.dependencies['cordova-ios']) return true;
+  if (p.name.includes('cordova-')) return true; // We dont extract the package to see if there is a plugin.xml but this is close enough
   return false;
 }
 

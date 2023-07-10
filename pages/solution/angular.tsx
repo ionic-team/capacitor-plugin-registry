@@ -1,9 +1,7 @@
-import SolutionAngularPage from "@pages/solution/angular/index";
+import SolutionAngularPage from '@pages/solution/angular/index';
 
-import { ComponentProps } from "react";
+import { ComponentProps } from 'react';
 
-const SolutionAngular = (props: ComponentProps<"div">) => (
-  <SolutionAngularPage {...props} />
-);
+const SolutionAngular = (props: ComponentProps<'div'>) => <SolutionAngularPage {...props} />;
 
 export default SolutionAngular;

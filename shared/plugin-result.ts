@@ -24,4 +24,4 @@ export type PluginResult = {
   };
 };
 
-export type PluginType = "official" | "community";
+export type PluginType = 'official' | 'community';

@@ -24,7 +24,7 @@
         line-height: 1;
         letter-spacing: -0.04em;
       }
-      [class*="ds-paragraph"] {
+      [class*='ds-paragraph'] {
         font-size: clamp(18px, 4.5vw, 20px);
       }
     }
@@ -86,7 +86,7 @@
       }
 
       .link::after {
-        content: " →";
+        content: ' →';
         letter-spacing: 0;
         white-space: nowrap;
         color: var(--c-capacitor-blue);

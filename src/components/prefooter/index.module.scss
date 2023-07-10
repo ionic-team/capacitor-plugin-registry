@@ -20,13 +20,13 @@
       }
 
       &::before {
-        content: "";
+        content: '';
         flex-basis: 50%;
         border-inline-end: 1px solid var(--c-indigo-20);
         border-block-start: 1px solid var(--c-indigo-20);
       }
       &::after {
-        content: "";
+        content: '';
         flex-basis: 50%;
         border-block-start: 1px solid var(--c-indigo-20);
       }

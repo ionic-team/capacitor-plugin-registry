@@ -1,19 +1,17 @@
-import jsonfile from "jsonfile";
-import path from "path";
-import fs from "fs";
-import { PluginResult, PluginType } from "../shared/plugin-result";
-import { searchKeys } from "../shared/search-keys";
-import { calculatePluginScore } from "./calculate-score";
-import { PluginInfo } from "./types/plugin";
-import Fuse from "fuse.js";
-import { normalizeStringArray } from "./utils";
+import jsonfile from 'jsonfile';
+import path from 'path';
+import fs from 'fs';
+import { PluginResult, PluginType } from '../shared/plugin-result';
+import { searchKeys } from '../shared/search-keys';
+import { calculatePluginScore } from './calculate-score';
+import { PluginInfo } from './types/plugin';
+import Fuse from 'fuse.js';
+import { normalizeStringArray } from './utils';
 
-export async function writePluginDataToPublicDirectory(
-  pluginData: PluginInfo[]
-) {
-  const PLUGIN_PUBLIC_DATA_PATH = path.join("data", "plugin-data.json");
-  const PLUGIN_PUBLIC_RAW_PATH = path.join("public", "plugin-data-raw.json");
-  const PLUGIN_INDEX_DATA_PATH = path.join("data", "plugin-index.json");
+export async function writePluginDataToPublicDirectory(pluginData: PluginInfo[]) {
+  const PLUGIN_PUBLIC_DATA_PATH = path.join('data', 'plugin-data.json');
+  const PLUGIN_PUBLIC_RAW_PATH = path.join('public', 'plugin-data-raw.json');
+  const PLUGIN_INDEX_DATA_PATH = path.join('data', 'plugin-index.json');
 
   const pluginResults = pluginData.map((plugin) => {
     const pluginResult: PluginResult = {
@@ -67,10 +65,7 @@ function deleteFileIfExists(path: string) {
   });
 }
 
-function writeDataFile(
-  pluginData: PluginResult[] | PluginInfo[],
-  savePath: string
-) {
+function writeDataFile(pluginData: PluginResult[] | PluginInfo[], savePath: string) {
   return new Promise<void>((resolve, reject) => {
     jsonfile.writeFile(savePath, pluginData, {}, (err) => {
       if (err) {
@@ -97,7 +92,5 @@ function createSearchIndex(pluginData: PluginResult[], savePath: string) {
 }
 
 function getPluginType({ name }: PluginInfo): PluginType {
-  return name.startsWith("@capacitor/") || name.startsWith("@ionic-enterprise/")
-    ? "official"
-    : "community";
+  return name.startsWith('@capacitor/') || name.startsWith('@ionic-enterprise/') ? 'official' : 'community';
 }

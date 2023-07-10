@@ -12,7 +12,7 @@
           white-space: nowrap;
 
           &::before {
-            content: "$ ";
+            content: '$ ';
             color: var(--c-cyan-80);
           }
         }
@@ -44,7 +44,7 @@
         }
 
         &::before {
-          content: "";
+          content: '';
           z-index: -1;
           position: absolute;
           top: 24px;
@@ -80,7 +80,7 @@
             margin-block-start: 0;
           }
 
-          [class*="ds-heading"] {
+          [class*='ds-heading'] {
             margin-block-end: 0.75rem;
           }
 
@@ -155,7 +155,7 @@
     z-index: -1;
     background: #bfe4ff;
     display: block;
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     left: 0;

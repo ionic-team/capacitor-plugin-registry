@@ -1,4 +1,4 @@
-import { PluginInfo } from "./types/plugin";
+import { PluginInfo } from './types/plugin';
 
 /**
  * Based on the React Native Directory Scoring System (for now at least!)
@@ -6,45 +6,45 @@ import { PluginInfo } from "./types/plugin";
 
 const modifiers = [
   {
-    name: "Very popular",
+    name: 'Very popular',
     value: 40,
     condition: (plugin: PluginInfo) => getCombinedPopularity(plugin) > 10000,
   },
   {
-    name: "Popular",
+    name: 'Popular',
     value: 10,
     condition: (plugin: PluginInfo) => getCombinedPopularity(plugin) > 2500,
   },
   {
-    name: "Recommended",
+    name: 'Recommended',
     value: 20,
     condition: (plugin: PluginInfo) => false,
   },
   {
-    name: "Lots of open issues",
+    name: 'Lots of open issues',
     value: -20,
     condition: (plugin: PluginInfo) => plugin.issues >= 75,
   },
   {
-    name: "No license",
+    name: 'No license',
     value: -20,
     condition: (plugin: PluginInfo) => !plugin.license,
   },
   {
-    name: "GPL license",
+    name: 'GPL license',
     value: -20,
     condition: (plugin: PluginInfo) =>
       plugin.license &&
-      typeof plugin.license === "string" &&
-      (plugin.license.startsWith("gpl") || plugin.license.startsWith("other")),
+      typeof plugin.license === 'string' &&
+      (plugin.license.startsWith('gpl') || plugin.license.startsWith('other')),
   },
   {
-    name: "Recently updated",
+    name: 'Recently updated',
     value: 10,
     condition: (plugin: PluginInfo) => getUpdatedDaysAgo(plugin) <= 30, // Roughly 1 month
   },
   {
-    name: "Not updated recently",
+    name: 'Not updated recently',
     value: -20,
     condition: (plugin: PluginInfo) => getUpdatedDaysAgo(plugin) >= 180, // Roughly 6 months
   },
@@ -60,9 +60,7 @@ const maxScore = modifiers.reduce((currentMax, modifier) => {
 
 export const calculatePluginScore = (plugin: PluginInfo) => {
   // Filter the modifiers to the ones which conditions pass with the data
-  const matchingModifiers = modifiers.filter((modifier) =>
-    modifier.condition(plugin)
-  );
+  const matchingModifiers = modifiers.filter((modifier) => modifier.condition(plugin));
 
   // Reduce the matching modifiers to find the raw score for the data
   const rawScore = matchingModifiers.reduce((currentScore, modifier) => {
@@ -71,14 +69,10 @@ export const calculatePluginScore = (plugin: PluginInfo) => {
 
   // Scale the raw score as a percentage between the minimum and maximum possible score
   // based on the available modifiers
-  const score = Math.round(
-    ((rawScore - minScore) / (maxScore - minScore)) * 100
-  );
+  const score = Math.round(((rawScore - minScore) / (maxScore - minScore)) * 100);
 
   // Map the modifiers to the name so we can include that in the data
-  const matchingModifierNames = matchingModifiers.map(
-    (modifier) => modifier.name
-  );
+  const matchingModifierNames = matchingModifiers.map((modifier) => modifier.name);
 
   return {
     score,
@@ -98,9 +92,7 @@ const DAY_IN_MS = 864e5;
 
 const getUpdatedDaysAgo = (plugin: PluginInfo) => {
   const updatedAt = plugin.updated;
-  const updateDate = updatedAt
-    ? new Date(updatedAt).getTime()
-    : new Date().getTime();
+  const updateDate = updatedAt ? new Date(updatedAt).getTime() : new Date().getTime();
   const currentDate = new Date().getTime();
 
   return (currentDate - updateDate) / DAY_IN_MS;

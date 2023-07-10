@@ -1,9 +1,7 @@
-import SolutionReactPage from "@pages/solution/react/index";
+import SolutionReactPage from '@pages/solution/react/index';
 
-import { ComponentProps } from "react";
+import { ComponentProps } from 'react';
 
-const SolutionReact = (props: ComponentProps<"div">) => (
-  <SolutionReactPage {...props} />
-);
+const SolutionReact = (props: ComponentProps<'div'>) => <SolutionReactPage {...props} />;
 
 export default SolutionReact;
