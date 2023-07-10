@@ -7,6 +7,8 @@ import { HighlightedCode } from "@ionic-internal/components-react";
 import SiteHeader from "@components/site-header";
 import SiteMeta from "@components/site-meta";
 
+import nightOwl from "prism-react-renderer/themes/nightOwl";
+
 const TelemetryPage = () => {
   return (
     <>
@@ -68,10 +70,9 @@ const Telemetry = () => (
     </p>
     <pre>
       <HighlightedCode
+        theme={nightOwl}
         language="shell-session"
-        code={`
-        npx cap telemetry off
-        `}
+        code={`npx cap telemetry off`}
       />
     </pre>
     <p>
@@ -80,10 +81,9 @@ const Telemetry = () => (
     </p>
     <pre>
       <HighlightedCode
+        theme={nightOwl}
         language="shell-session"
-        code={`
-        npx cap telemetry
-        `}
+        code={`npx cap telemetry`}
       />
     </pre>
     <p>
@@ -92,10 +92,9 @@ const Telemetry = () => (
     </p>
     <pre>
       <HighlightedCode
+        theme={nightOwl}
         language="shell-session"
-        code={`
-        npx cap telemetry on
-        `}
+        code={`npx cap telemetry on`}
       />
     </pre>
   </section>

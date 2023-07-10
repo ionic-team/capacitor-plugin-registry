@@ -4,7 +4,30 @@
 
 .page {
   margin-block-start: 120px;
-  margin-block-end: 101px;
+
+  :global {
+    .highlighted-code {
+      padding: 32px;
+
+      border-radius: 16px;
+
+      overflow-x: auto;
+
+      &.language-shell-session {
+        .token-line {
+          white-space: nowrap;
+
+          &::before {
+            content: "$ ";
+            color: var(--c-cyan-80);
+          }
+        }
+      }
+    }
+}
+
+.telemetry {
+  margin-block-end: 160px;
 
   :global {
     ul,
