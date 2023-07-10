@@ -5,7 +5,12 @@ import styles from "./index.module.scss";
 import Button from "@/src/components/old/Button";
 import clsx from "clsx";
 import { PrismicRichText } from "@prismicio/react";
-import { HubspotForm, Modal } from "@ionic-internal/components-react";
+import {
+  Column,
+  Grid,
+  HubspotForm,
+  Modal,
+} from "@ionic-internal/components-react";
 
 import Companies0 from "./assets/companies/0@2x.png";
 import Companies1 from "./assets/companies/1@2x.png";
@@ -34,12 +39,19 @@ import SiteFooter from "@components/site-footer";
 import Prefooter from "@components/prefooter";
 import SiteHeader from "@components/site-header";
 import SiteMeta from "@components/site-meta";
-import SiteSubnav from "@components/site-subnav";
 import EnterpriseSubnav from "./components/subnav";
+import { InferGetStaticPropsType } from "next";
+import { getStaticProps } from "@/pages/enterprise";
 
-const EnterprisePageContext = createContext();
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-export default function EnterprisePage({ prismicData }) {
+const EnterprisePageContext = createContext<{
+  ebookModalOpen: boolean;
+  setEbookModalOpen: (open: boolean) => void;
+  prismicData: PageProps["prismicData"];
+} | null>(null);
+
+export default function EnterprisePage({ prismicData }: PageProps) {
   const [ebookModalOpen, setEbookModalOpen] = useState(false);
 
   return (
@@ -74,10 +86,10 @@ export default function EnterprisePage({ prismicData }) {
 }
 
 const Top = () => {
-  const {
-    prismicData: { top },
-  } = useContext(EnterprisePageContext);
-  const { title, text, cta_1, background } = top[0];
+  const { prismicData } = useContext(EnterprisePageContext) || {};
+  if (!prismicData) return null;
+  const { top } = prismicData;
+  const { title, text, cta_1, background } = top[0] || {};
 
   return (
     <section className={styles.top} id="top">
@@ -123,14 +135,14 @@ const companyList = [
 ];
 
 const Companies = () => {
-  const {
-    prismicData: { companies },
-  } = useContext(EnterprisePageContext);
+  const { prismicData } = useContext(EnterprisePageContext) || {};
+  if (!prismicData) return null;
+  const { companies } = prismicData;
 
   return (
     <section className={styles.companies} id="companies">
       <div className="ds-container">
-        <h2 className="ds-overline-2">{companies}</h2>
+        <h2>{companies}</h2>
         <div className="logos">
           <div className="row1">
             {companyImages.slice(0, 4).map(({ src, height, width }, i) => (
@@ -143,17 +155,19 @@ const Companies = () => {
             ))}
           </div>
           <div className="row2">
-            {companyImages.slice(0, 4).map(({ src, height, width }, i) => {
-              const currentIndex = i + companyImages.length / 2;
-              return (
-                <Image
-                  width={width / 2}
-                  height={height / 2}
-                  src={src}
-                  alt={`${companyList[currentIndex]} logo`}
-                />
-              );
-            })}
+            {companyImages
+              .slice(4, companyImages.length)
+              .map(({ src, height, width }, i) => {
+                const currentIndex = i + companyImages.length / 2;
+                return (
+                  <Image
+                    width={width / 2}
+                    height={height / 2}
+                    src={src}
+                    alt={`${companyList[currentIndex]} logo`}
+                  />
+                );
+              })}
           </div>
         </div>
       </div>
@@ -170,17 +184,15 @@ const nativeAlt = [
 ];
 
 const Native = () => {
-  const {
-    prismicData: { native, native__list },
-  } = useContext(EnterprisePageContext);
-  const { supertext, title, subtext } = native[0];
+  const { prismicData } = useContext(EnterprisePageContext) || {};
+  if (!prismicData) return null;
+  const { native, native__list } = prismicData;
+  const { supertext, title, subtext } = native[0] || {};
 
   return (
     <section className={clsx(styles.native, "ds-container")}>
       <div className="heading-group">
-        <p className="ui-heading-6">
-          <sup>{supertext}</sup>
-        </p>
+        <div className="ds-overline-1">{supertext}</div>
         <PrismicRichText field={title} />
         <p className="ds-paragraph-2">{subtext}</p>
       </div>
@@ -207,17 +219,15 @@ const Native = () => {
 };
 
 const Ebook = () => {
-  const {
-    ebookModalOpen,
-    setEbookModalOpen,
-    prismicData: { ebook },
-  } = useContext(EnterprisePageContext);
-  const { text, cta, background, book } = ebook[0];
+  const { ebookModalOpen, setEbookModalOpen, prismicData } =
+    useContext(EnterprisePageContext) || {};
+  const { ebook } = prismicData || {};
+  const { text, cta, background, book } = ebook?.[0] || {};
 
   return (
     <section className={styles.ebook} id="ebook">
       <div className="ds-container">
-        <Modal open={ebookModalOpen} onClose={() => setEbookModalOpen(false)}>
+        <Modal open={ebookModalOpen} onClose={() => setEbookModalOpen?.(false)}>
           <h2>Building Cross-platform Apps with Capacitor</h2>
           <HubspotForm
             createProps={{ formId: "9151dc0b-42d9-479f-b7b8-649e0e7bd1bc" }}
@@ -246,7 +256,7 @@ const Ebook = () => {
               <Button
                 kind="round"
                 size="md"
-                onClick={() => setEbookModalOpen(true)}
+                onClick={() => setEbookModalOpen?.(true)}
               >
                 {cta} →
               </Button>
@@ -259,10 +269,10 @@ const Ebook = () => {
 };
 
 const MicroFrontends = () => {
-  const {
-    prismicData: { micro_frontends },
-  } = useContext(EnterprisePageContext);
-  const { supertext, title, subtext, image } = micro_frontends[0];
+  const { prismicData } = useContext(EnterprisePageContext) || {};
+  if (!prismicData) return null;
+  const { micro_frontends } = prismicData;
+  const { supertext, title, subtext, image } = micro_frontends[0] || {};
 
   return (
     <section className={styles.microFrontends} id="micro-frontends">
@@ -272,9 +282,7 @@ const MicroFrontends = () => {
             <LegacyPrismicResponsiveImage image={image} />
           </div>
           <div className="heading-group">
-            <p className="ui-heading-6">
-              <sup>{supertext}</sup>
-            </p>
+            <div className="ds-overline-1">{supertext}</div>
             <PrismicRichText field={title} />
             <PrismicRichText
               field={subtext}
@@ -294,19 +302,17 @@ const MicroFrontends = () => {
 };
 
 const Plugins = () => {
-  const {
-    prismicData: { plugins },
-  } = useContext(EnterprisePageContext);
-  const { supertext, title, subtext, image } = plugins[0];
+  const { prismicData } = useContext(EnterprisePageContext) || {};
+  if (!prismicData) return null;
+  const { plugins } = prismicData;
+  const { supertext, title, subtext, image } = plugins[0] || {};
 
   return (
     <section className={styles.plugins} id="plugins">
       <div className="ds-container">
         <div className="wrapper">
           <div className="heading-group">
-            <p className="ui-heading-6">
-              <sup>{supertext}</sup>
-            </p>
+            <div className="ds-overline-1">{supertext}</div>
             <PrismicRichText field={title} />
             <p className="ds-paragraph-2">{subtext}</p>
           </div>
@@ -320,10 +326,10 @@ const Plugins = () => {
 };
 
 const Security = () => {
-  const {
-    prismicData: { security },
-  } = useContext(EnterprisePageContext);
-  const { supertext, title, subtext, image } = security[0];
+  const { prismicData } = useContext(EnterprisePageContext) || {};
+  if (!prismicData) return null;
+  const { security } = prismicData;
+  const { supertext, title, subtext, image } = security[0] || {};
 
   return (
     <section className={styles.security} id="security">
@@ -333,9 +339,7 @@ const Security = () => {
             <LegacyPrismicResponsiveImage image={image} />
           </div>
           <div className="heading-group">
-            <p className="ui-heading-6">
-              <sup>{supertext}</sup>
-            </p>
+            <div className="ds-overline-1">{supertext}</div>
             <PrismicRichText field={title} />
             <PrismicRichText
               field={subtext}
@@ -355,19 +359,17 @@ const Security = () => {
 };
 
 const Delivery = () => {
-  const {
-    prismicData: { delivery },
-  } = useContext(EnterprisePageContext);
-  const { supertext, title, subtext, image } = delivery[0];
+  const { prismicData } = useContext(EnterprisePageContext) || {};
+  if (!prismicData) return null;
+  const { delivery } = prismicData;
+  const { supertext, title, subtext, image } = delivery[0] || {};
 
   return (
     <section className={styles.delivery} id="delivery">
       <div className="ds-container">
         <div className="wrapper">
           <div className="heading-group">
-            <p className="ui-heading-6">
-              <sup>{supertext}</sup>
-            </p>
+            <div className="ds-overline-1">{supertext}</div>
             <PrismicRichText field={title} />
             <PrismicRichText
               field={subtext}
@@ -390,45 +392,45 @@ const Delivery = () => {
 };
 
 const SupportGuidance = () => {
-  const {
-    prismicData: { support_guidance },
-  } = useContext(EnterprisePageContext);
+  const { prismicData } = useContext(EnterprisePageContext) || {};
+  if (!prismicData) return null;
+  const { support_guidance } = prismicData;
 
   return (
-    <section id="support-guidance">
+    <section className={styles.supportGuidance} id="support-guidance">
       <div className="ds-container">
-        <div className="wrapper">
+        <Grid className="wrapper">
           {support_guidance.map(({ image, title, text }) => (
-            <article>
+            <Column cols={[12, 12, 6, 6, 6]} as="article">
               <LegacyPrismicResponsiveImage image={image} />
               <h3>{title}</h3>
               <p className="ds-paragraph-2">{text}</p>
-            </article>
+            </Column>
           ))}
-        </div>
+        </Grid>
       </div>
     </section>
   );
 };
 
 const Features = () => {
-  const {
-    prismicData: { features, features__list },
-  } = useContext(EnterprisePageContext);
-  const { supertext, title, subtext } = features[0];
+  const { prismicData } = useContext(EnterprisePageContext) || {};
+  if (!prismicData) return null;
+  const { features, features__list } = prismicData;
+  const { supertext, title, subtext } = features[0] || {};
 
   return (
-    <section id="features">
+    <section className={styles.features} id="features">
       <div className="ds-container">
-        <div className="wrapper">
-          <div className="heading-group">
-            <p className="ui-heading-6">
-              <sup>{supertext}</sup>
-            </p>
-            <PrismicRichText field={title} />
-            <p className="ds-paragraph-2">{subtext}</p>
-          </div>
-          <ul>
+        <Grid className="wrapper">
+          <Column cols={[12, 12, 6, 6, 6]} className="heading-group">
+            <div className="sticky-wrapper">
+              <div className="ds-overline-1">{supertext}</div>
+              <PrismicRichText field={title} />
+              <p className="ds-paragraph-2">{subtext}</p>
+            </div>
+          </Column>
+          <Column cols={[12, 12, 6, 6, 6]} as="ul">
             {features__list.map(({ icon, title, text }) => (
               <li>
                 <div className="image-wrapper">
@@ -440,8 +442,8 @@ const Features = () => {
                 </div>
               </li>
             ))}
-          </ul>
-        </div>
+          </Column>
+        </Grid>
       </div>
     </section>
   );
@@ -473,19 +475,18 @@ const editionAlts = [
 ];
 
 const Editions = () => {
-  const {
-    prismicData: { editions },
-  } = useContext(EnterprisePageContext);
-  const { supertext, title, paragraph_1, paragraph_2, cta_1 } = editions[0];
+  const { prismicData } = useContext(EnterprisePageContext) || {};
+  if (!prismicData) return null;
+  const { editions } = prismicData;
+  const { supertext, title, paragraph_1, paragraph_2, cta_1 } =
+    editions[0] || {};
 
   return (
-    <section id="editions">
+    <section className={styles.editions} id="editions">
       <div className="ds-container">
         <div className="wrapper">
           <div className="heading-group">
-            <p className="ui-heading-6">
-              <sup>{supertext}</sup>
-            </p>
+            <div className="ds-overline-1">{supertext}</div>
             <PrismicRichText field={title} />
             <PrismicRichText
               field={paragraph_1}
@@ -522,8 +523,8 @@ const Editions = () => {
                 <div className="image-wrapper">
                   <Image
                     src={src}
-                    width={width}
-                    height={height}
+                    width={width / 2}
+                    height={height / 2}
                     alt={editionAlts[i]}
                   />
                 </div>
@@ -537,8 +538,8 @@ const Editions = () => {
                   <div className="image-wrapper">
                     <Image
                       src={src}
-                      width={width}
-                      height={height}
+                      width={width / 2}
+                      height={height / 2}
                       alt={editionAlts[indexOffset]}
                     />
                   </div>
@@ -553,8 +554,8 @@ const Editions = () => {
                   <div className="image-wrapper">
                     <img
                       src={src}
-                      width={width}
-                      height={height}
+                      width={width / 2}
+                      height={height / 2}
                       alt={editionAlts[indexOffset]}
                     />
                   </div>
@@ -569,18 +570,16 @@ const Editions = () => {
 };
 
 const Demo = () => {
-  const {
-    prismicData: { demo },
-  } = useContext(EnterprisePageContext);
-  const { supertext, title } = demo[0];
+  const { prismicData } = useContext(EnterprisePageContext) || {};
+  if (!prismicData) return null;
+  const { demo } = prismicData;
+  const { supertext, title } = demo[0] || {};
 
   return (
-    <section id="demo">
+    <section className={styles.demo} id="demo">
       <div className="ds-container">
         <div className="heading-group">
-          <p className="ui-heading-6">
-            <sup>{supertext}</sup>
-          </p>
+          <div className="ds-overline-1">{supertext}</div>
           <h2>{title}</h2>
         </div>
         <HubspotForm

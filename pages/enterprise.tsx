@@ -1,15 +1,15 @@
 import EnterprisePage from "@/src/pages/enterprise/index";
 
-import pluginData from "../data/plugin-data.json";
-import { GetStaticProps } from "next";
+import { InferGetStaticPropsType } from "next";
 import { ComponentProps } from "react";
 import { createClient } from "@ionic-internal/config-prismic";
 
-const Enterprise = (props: ComponentProps<"div">) => (
-  <EnterprisePage {...props} />
-);
+type PagePropsType = ComponentProps<"div"> &
+  InferGetStaticPropsType<typeof getStaticProps>;
 
-export const getStaticProps: GetStaticProps = async () => {
+const Enterprise = (props: PagePropsType) => <EnterprisePage {...props} />;
+
+export const getStaticProps = async () => {
   const prismicClient = createClient();
 
   const prismicData = (await prismicClient.getSingle("capacitor_enterprise"))

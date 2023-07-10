@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import styles from "./index.module.scss";
 
@@ -13,7 +13,7 @@ const EnterpriseSubnav = () => {
   const elRef = useRef<HTMLElement>(null);
   const observer = useRef<IntersectionObserver>();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!elRef.current) return;
 
     observer.current = new IntersectionObserver((entries) => {
@@ -24,7 +24,9 @@ const EnterpriseSubnav = () => {
 
     observer.current.observe(elRef.current);
 
-    return () => observer.current.unobserve(elRef.current);
+    return () => {
+      elRef.current && observer.current?.unobserve(elRef.current);
+    };
   }, []);
 
   return (
