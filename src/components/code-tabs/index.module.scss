@@ -13,6 +13,8 @@
     }
 
     .tabs-wrapper {
+      white-space: nowrap;
+
       overflow: auto;
       position: relative;
       display: flex;
@@ -73,7 +75,7 @@
 
     .background {
       overflow: hidden;
-      border-radius: 16px;
+      clip-path: inset(0px round 16px 16px 16px 16px);
       background: #00233a;
     }
 
@@ -88,6 +90,15 @@
 
       article {
         min-width: 100%;
+      }
+
+      pre,
+      code {
+        height: 100%;
+      }
+
+      code {
+        overflow-x: auto;
       }
     }
   }

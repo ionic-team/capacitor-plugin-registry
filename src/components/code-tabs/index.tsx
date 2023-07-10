@@ -1,14 +1,18 @@
 import { HighlightedCode } from "@ionic-internal/components-react";
 import clsx from "clsx";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { PrismTheme } from "prism-react-renderer";
 
 const pixelize = (value: number) => `${value}px`;
 
 import styles from "./index.module.scss";
+import { useWindowSize } from "usehooks-ts";
 
 const CodeTabs = ({
   data,
+  theme,
 }: {
+  theme: PrismTheme;
   data: {
     tabs: string[];
     languages: string[];
@@ -24,6 +28,13 @@ const CodeTabs = ({
   const [codeLeft, setCodeLeft] = useState<string>();
   const tabs = useRef<HTMLButtonElement[]>([]);
   const elRef = useRef<HTMLDivElement>();
+  const { width } = useWindowSize();
+
+  useEffect(() => {
+    if (!elRef.current) return;
+
+    setCodeLeft(`-${pixelize(elRef.current.offsetWidth * activeTab.index)}`);
+  }, [width]);
 
   const handleTabSelect = ({
     target,
@@ -104,6 +115,7 @@ const CodeTabs = ({
             <article>
               <pre>
                 <HighlightedCode
+                  theme={theme}
                   language={
                     data.languages.length === 1
                       ? data.languages[0]
