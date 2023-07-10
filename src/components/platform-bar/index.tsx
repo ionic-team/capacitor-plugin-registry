@@ -17,9 +17,9 @@ const PlatformBar = () => {
           />
         </div>
         <div className={styles.platformBarCtas}>
-          <a className={clsx("ds-paragraph-5", styles.platformBarCtaLink)}>
+          {/* <a className={clsx("ds-paragraph-5", styles.platformBarCtaLink)}>
             Account
-          </a>
+          </a> */}
           <a
             href="https://github.com/ionic-team/capacitor-plugin-registry"
             target="_blank"
