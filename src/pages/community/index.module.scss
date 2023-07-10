@@ -19,7 +19,10 @@
       margin-inline-end: auto;
 
       h1 {
-        font-size: clamp(52px, 15.5vw, 64px);
+        font-size: clamp(3rem, 10vw, 4rem);
+
+        line-height: 1;
+        letter-spacing: -0.04em;
       }
       [class*="ds-paragraph"] {
         font-size: clamp(18px, 4.5vw, 20px);
@@ -47,7 +50,7 @@
 
         .image-wrapper {
           overflow: hidden;
-          border-radius: 8px;
+          clip-path: inset(0px round 8px 8px 8px 8px);
           margin-block-end: 24px;
           max-width: 340px;
 

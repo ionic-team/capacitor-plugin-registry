@@ -10,10 +10,17 @@ import LegacyPrismicResponsiveImage from "@/src/components/prismic/legacy/respon
 import NewsletterSignup from "@components/newsletter-signup";
 import SiteHeader from "@components/site-header";
 import SiteMeta from "@components/site-meta";
+import { getStaticProps } from "@/pages/community";
+import { InferGetStaticPropsType } from "next";
+import { isWebLink } from "@utils/prismic";
 
-const CommunityPageContext = createContext();
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-const CommunityPage = ({ prismicData }) => {
+const CommunityPageContext = createContext<{
+  prismicData: PageProps["prismicData"];
+} | null>(null);
+
+const CommunityPage = ({ prismicData }: PageProps) => {
   return (
     <>
       <SiteMeta title="Capacitor Community" />
@@ -32,9 +39,9 @@ const CommunityPage = ({ prismicData }) => {
 };
 
 const Top = () => {
-  const {
-    prismicData: { top, top__list },
-  } = useContext(CommunityPageContext);
+  const { prismicData } = useContext(CommunityPageContext) || {};
+  if (!prismicData) return null;
+  const { top, top__list } = prismicData;
 
   return (
     <section className={clsx(styles.top, "ds-container")}>
@@ -51,23 +58,33 @@ const Top = () => {
         />
       </div>
       <div className="cards">
-        {top__list.map(({ image, text, link: { target, url } }) => (
-          <a target={target} href={url} className="card">
-            <div className="image-wrapper">
-              <LegacyPrismicResponsiveImage image={image} />
-            </div>
-            <PrismicRichText field={text} />
-          </a>
-        ))}
+        {top__list.map((field) => {
+          if (!isWebLink(field.link)) return null;
+
+          const {
+            image,
+            text,
+            link: { target, url },
+          } = field;
+
+          return (
+            <a target={target} href={url} className="card">
+              <div className="image-wrapper">
+                <LegacyPrismicResponsiveImage image={image} />
+              </div>
+              <PrismicRichText field={text} />
+            </a>
+          );
+        })}
       </div>
     </section>
   );
 };
 
 const Websites = () => {
-  const {
-    prismicData: { websites__list },
-  } = useContext(CommunityPageContext);
+  const { prismicData } = useContext(CommunityPageContext) || {};
+  if (!prismicData) return null;
+  const { websites__list } = prismicData;
 
   const dimensions = ["40x32", "40x34", "34x40", "40x40"];
 
@@ -87,7 +104,7 @@ const Websites = () => {
                 />
               </div>
               <PrismicRichText field={text} />
-              <PrismicRichText className="link" richText={link} />
+              <PrismicRichText field={link} />
             </Column>
           );
         })}
