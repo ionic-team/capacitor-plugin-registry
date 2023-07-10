@@ -19,7 +19,6 @@
 
     :global {
       .site-header__expand-button {
-        font-size: 2rem;
         color: #fff;
       }
     }
@@ -50,7 +49,8 @@
     }
 
     .site-header__expand-button {
-      padding: 1rem;
+      font-size: 2rem;
+      padding-inline: 1rem;
       margin-inline-end: -1rem;
     }
 
@@ -78,8 +78,8 @@
 
     .site-header__menu-container {
       height: 100%;
-      padding-block-start: 24px;
-      padding-block-end: 24px;
+      padding-block-start: 3rem;
+      padding-block-end: 1.5rem;
       border-radius: 16px;
       overflow: hidden;
     }
@@ -125,6 +125,8 @@
     }
 
     .site-header__menu-section {
+      margin-block-start: 1.5rem;
+
       > li {
         + li {
           margin-block-start: 1.25rem;

@@ -1,21 +1,26 @@
 import { clsx } from "clsx";
-import { useEffect, useRef, useState } from "react";
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
 import SiteHeaderDesktop from "./desktop";
 import SiteHeaderMobile from "./mobile";
 import { useIntersectionObserver, useWindowSize } from "usehooks-ts";
 
 import styles from "./index.module.scss";
 
+export type GlobalSideHeaderProps = {
+  sticky?: boolean;
+  theme?: "light" | "dark";
+};
+
 export default function SiteHeader({
   sticky = true,
   theme = "light",
   ...props
-}) {
+}: HTMLAttributes<HTMLElement> & GlobalSideHeaderProps) {
   const [isStuck, setIsStuck] = useState<boolean>(false);
   const [isOffset, setIsOffset] = useState<boolean>(true);
 
-  const intersectionRef = useRef<HTMLDivElement>();
-  const elRef = useRef<HTMLDivElement>();
+  const intersectionRef = useRef<HTMLDivElement>(null);
+  const elRef = useRef<HTMLDivElement>(null);
 
   const { width, height } = useWindowSize();
   const { isIntersecting } = useIntersectionObserver(intersectionRef, {}) || {};

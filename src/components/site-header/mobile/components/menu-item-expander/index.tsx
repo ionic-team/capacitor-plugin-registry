@@ -1,5 +1,12 @@
 import { clsx } from "clsx";
-import { Children, cloneElement, useCallback, useState } from "react";
+import {
+  Children,
+  HTMLAttributes,
+  cloneElement,
+  isValidElement,
+  useCallback,
+  useState,
+} from "react";
 
 import UpArrow from "../../../assets/icon-up-carrot.svg";
 import DownArrow from "../../../assets/icon-down-carrot.svg";
@@ -7,7 +14,7 @@ import DownArrow from "../../../assets/icon-down-carrot.svg";
 
 import styles from "./index.module.scss";
 
-const MenuItemExpander = (props) => {
+const MenuItemExpander = (props: HTMLAttributes<HTMLElement>) => {
   const [expanded, setExpanded] = useState(false);
   const [dropdownHeight, setDropdownHeight] = useState(0);
   // const width = useScreenWidth(50);
@@ -26,13 +33,19 @@ const MenuItemExpander = (props) => {
   return (
     <div
       {...props}
-      $dropdownHeight={dropdownHeight}
       className={clsx("menu-item-expander", styles.expander, {
         [styles.expanderExpanded]: expanded,
       })}
-      style={{ ...props.style, "--h-dropdown": `${dropdownHeight}px` }}
+      style={
+        { ...props.style, "--h-dropdown": `${dropdownHeight}px` } as Record<
+          string,
+          string
+        >
+      }
     >
       {Children.map(props.children, (child, i) => {
+        if (!child || !isValidElement(child)) return child;
+
         if (i === 0) {
           return (
             <button

@@ -2,7 +2,13 @@ import CloseIcon from "../assets/icon-close.svg";
 
 import { clsx } from "clsx";
 import Link from "next/link";
-import { forwardRef, useCallback, useEffect, useState } from "react";
+import {
+  HTMLAttributes,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import MenuItemExpander from "./components/menu-item-expander";
 import { useWindowSize } from "usehooks-ts";
 
@@ -12,14 +18,14 @@ import LogoDark from "../assets/logo-dark.png";
 import styles from "./index.module.scss";
 import Image from "next/image";
 
-import Logo from "../assets/logo.png";
 import Button from "../../old/Button";
+import { GlobalSideHeaderProps } from "..";
 
 //TODO: Fix props any type
-const SiteHeaderMobile = forwardRef(function SiteHeaderModile(
-  { theme, ...props },
-  ref
-) {
+const SiteHeaderMobile = forwardRef<
+  HTMLElement,
+  HTMLAttributes<HTMLElement> & GlobalSideHeaderProps
+>(function SiteHeaderModile({ theme = "light", ...props }, ref) {
   const [open, setOpen] = useState(false);
   const [shouldLoadMenu, setShouldLoadMenu] = useState(false);
   const { width } = useWindowSize();
@@ -37,7 +43,7 @@ const SiteHeaderMobile = forwardRef(function SiteHeaderModile(
     document.body.classList.remove("no-scroll");
   }, [width]);
 
-  const connectedCallback = useCallback((e: HTMLElement) => {
+  const connectedCallback = useCallback((e: HTMLElement | null) => {
     e?.classList.add("open");
   }, []);
 
@@ -135,9 +141,6 @@ const SiteHeaderMobile = forwardRef(function SiteHeaderModile(
               </div>
             </div>
             <div className="site-header__drawer">
-              <div className="site-header__drawer-start">
-                <Link href="/contact/sales">Contact Sales</Link>
-              </div>
               <div className="site-header__drawer-end">
                 <Link href="/login" className="link">
                   Log in

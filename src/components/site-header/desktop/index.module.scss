@@ -1,4 +1,6 @@
 .header {
+  box-shadow: 0px 1px 0px 0px #0000000f;
+
   // #region ----------- DROPDOWN STUCK ----------
   &:global(.site-header--stuck) {
     background-color: rgba(255, 255, 255, 0.98);
@@ -10,7 +12,6 @@
       background-color: rgba(255, 255, 255, 0.92);
       backdrop-filter: saturate(180%) blur(32px);
     }
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.06);
   }
   // #endregion
 
@@ -75,12 +76,29 @@
     font-weight: 500;
 
     height: 100%;
+
+    &Group {
+      display: flex;
+      align-items: center;
+    }
   }
 
   &VerticalRule {
     display: flex;
     align-items: center;
     margin-inline: 0.75rem;
+
+    + .headerRoutesGroup {
+      @media (max-width: 1023px) {
+        display: none;
+      }
+
+      + .headerVerticalRule {
+        @media (max-width: 1023px) {
+          display: none;
+        }
+      }
+    }
 
     &::before {
       display: block;
