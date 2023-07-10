@@ -1,14 +1,15 @@
 import DirectoryPage from "@/src/pages/directory/index";
 
 import pluginData from "../data/plugin-data.json";
-import { GetStaticProps } from "next";
+import { InferGetStaticPropsType } from "next";
 import { ComponentProps } from "react";
 
-const Directory = (props: ComponentProps<"div">) => (
-  <DirectoryPage {...props} />
-);
+type PagePropsType = ComponentProps<"div"> &
+  InferGetStaticPropsType<typeof getStaticProps>;
 
-export const getStaticProps: GetStaticProps = async () => {
+const Directory = (props: PagePropsType) => <DirectoryPage {...props} />;
+
+export const getStaticProps = async () => {
   const allPlatforms = pluginData.reduce<string[]>((acc, cur) => {
     if (!Array.isArray(cur.platforms)) return acc;
 

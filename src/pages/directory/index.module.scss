@@ -60,6 +60,12 @@
 
   :global {
     h2 {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      line-height: 1;
+      font-weight: 700;
+      font-size: 0.75rem;
+
       margin-block-end: 1.25rem;
 
       color: #92a0b9;
@@ -82,7 +88,7 @@
   row-gap: 2rem;
 
   margin-block-start: 4rem;
-  margin-block-end: 3rem;
+  margin-block-end: 6rem;
 
   @media (max-width: 767px) {
     grid-template-columns: 1fr;

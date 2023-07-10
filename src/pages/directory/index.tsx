@@ -29,7 +29,7 @@ import { PluginResult } from "@/shared/plugin-result";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { InferGetStaticPropsType } from "next";
-import { getStaticProps } from "@/pages";
+import { getStaticProps } from "@/pages/directory";
 import SiteFooter from "@components/site-footer";
 import Prefooter from "@components/prefooter";
 import SiteHeader from "@components/site-header";
@@ -75,7 +75,6 @@ const DirectoryPage = ({
   return (
     <>
       <SiteMeta title="Capacitor Plugin Directory" />
-      <SiteHeader />
       <DirectoryPageContext.Provider
         value={{
           pluginData,
@@ -87,8 +86,8 @@ const DirectoryPage = ({
           platforms,
         }}
       >
+        <PlatformBar />
         <main>
-          <PlatformBar />
           <Search />
           <Content />
           <Prefooter />
@@ -178,7 +177,7 @@ const Sidebar = () => {
     <aside className={styles.sidebar}>
       <div className={styles.sidebarStickyWrapper}>
         <article className={styles.sidebarFilters}>
-          <h2 className="ds-overline-3">Filter</h2>
+          <h2>Filter</h2>
           <div>
             <div className={clsx("ds-paragraph-4", styles.sidebarFilter)}>
               <input
@@ -223,7 +222,7 @@ const Sidebar = () => {
           </div>
         </article>
         <article className={styles.sidebarPlatforms}>
-          <h2 className="ds-overline-3">Platform</h2>
+          <h2>Platform</h2>
           <div>
             {allPlatforms.map((platform) => (
               <div
