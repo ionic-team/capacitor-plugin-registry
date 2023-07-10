@@ -1,4 +1,4 @@
-import SolutionReactPage from "@/src/pages/solution/react/index";
+import SolutionReactPage from "@pages/solution/react/index";
 
 import { ComponentProps } from "react";
 

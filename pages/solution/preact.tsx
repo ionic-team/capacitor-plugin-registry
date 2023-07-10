@@ -1,4 +1,4 @@
-import SolutionPreactPage from "@/src/pages/solution/preact/index";
+import SolutionPreactPage from "@pages/solution/preact/index";
 
 import { ComponentProps } from "react";
 

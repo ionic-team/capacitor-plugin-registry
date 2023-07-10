@@ -1,4 +1,4 @@
-import SolutionEmberPage from "@/src/pages/solution/ember/index";
+import SolutionEmberPage from "@pages/solution/ember/index";
 
 import { ComponentProps } from "react";
 

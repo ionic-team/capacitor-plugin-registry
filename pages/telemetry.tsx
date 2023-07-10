@@ -1,4 +1,4 @@
-import TelemetryPage from "@/src/pages/telemetry/index";
+import TelemetryPage from "@pages/telemetry/index";
 
 import { ComponentProps } from "react";
 

@@ -1,4 +1,4 @@
-import SolutionAngularPage from "@/src/pages/solution/angular/index";
+import SolutionAngularPage from "@pages/solution/angular/index";
 
 import { ComponentProps } from "react";
 

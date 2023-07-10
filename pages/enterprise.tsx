@@ -1,4 +1,4 @@
-import EnterprisePage from "@/src/pages/enterprise/index";
+import EnterprisePage from "@pages/enterprise/index";
 
 import { InferGetStaticPropsType } from "next";
 import { ComponentProps } from "react";

@@ -1,4 +1,4 @@
-import CordovaPage from "@/src/pages/cordova/index";
+import CordovaPage from "@pages/cordova/index";
 
 import { ComponentProps } from "react";
 

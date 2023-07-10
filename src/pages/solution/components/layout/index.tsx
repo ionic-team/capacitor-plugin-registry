@@ -5,8 +5,8 @@ import NewsletterSignup from "@components/newsletter-signup";
 import Prefooter from "@components/prefooter";
 import SiteFooter from "@components/site-footer";
 import Image, { ImageProps, StaticImageData } from "next/image";
-import SiteHeader from "@/src/components/site-header";
-import SiteMeta from "@/src/components/site-meta";
+import SiteHeader from "@components/site-header";
+import SiteMeta from "@components/site-meta";
 import { HTMLAttributes } from "react";
 
 type SolutionPageLayoutProps = {

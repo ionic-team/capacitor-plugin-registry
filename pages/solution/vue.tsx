@@ -1,4 +1,4 @@
-import SolutionVuePage from "@/src/pages/solution/vue/index";
+import SolutionVuePage from "@pages/solution/vue/index";
 
 import { ComponentProps } from "react";
 

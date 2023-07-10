@@ -1,4 +1,4 @@
-import SolutionStencilPage from "@/src/pages/solution/stencil/index";
+import SolutionStencilPage from "@pages/solution/stencil/index";
 
 import { ComponentProps } from "react";
 

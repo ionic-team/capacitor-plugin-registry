@@ -1,8 +1,8 @@
-import LegacyPrismicResponsiveImage from "@/src/components/prismic/legacy/responsive-image";
+import LegacyPrismicResponsiveImage from "@components/prismic/legacy/responsive-image";
 import { createContext, useContext, useState } from "react";
 
 import styles from "./index.module.scss";
-import Button from "@/src/components/old/Button";
+import Button from "@components/old/Button";
 import clsx from "clsx";
 import { PrismicRichText } from "@prismicio/react";
 import {
@@ -41,7 +41,7 @@ import SiteHeader from "@components/site-header";
 import SiteMeta from "@components/site-meta";
 import EnterpriseSubnav from "./components/subnav";
 import { InferGetStaticPropsType } from "next";
-import { getStaticProps } from "@/pages/enterprise";
+import { getStaticProps } from "@root/pages/enterprise";
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 

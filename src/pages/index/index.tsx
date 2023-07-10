@@ -18,7 +18,7 @@ import {
 } from "react";
 
 import styles from "./index.module.scss";
-import Button from "@/src/components/old/Button";
+import Button from "@components/old/Button";
 import Link from "next/link";
 import SiteFooter from "@components/site-footer";
 import Prefooter from "@components/prefooter";
@@ -26,11 +26,11 @@ import CodeTabs from "@components/code-tabs";
 import SiteHeader from "@components/site-header";
 import SiteMeta from "@components/site-meta";
 import { InferGetStaticPropsType } from "next";
-import { getStaticProps } from "@/pages";
+import { getStaticProps } from "@root/pages";
 
 import ImageTop0 from "./assets/top-0.png";
 import Image from "next/image";
-import LegacyPrismicResponsiveImage from "@/src/components/prismic/legacy/responsive-image";
+import LegacyPrismicResponsiveImage from "@components/prismic/legacy/responsive-image";
 
 import nightOwl from "prism-react-renderer/themes/nightOwl";
 import { isWebLink } from "@utils/prismic";

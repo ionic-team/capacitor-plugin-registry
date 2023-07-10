@@ -24,12 +24,12 @@ import IconWatchers from "./assets/icons/watchers.png";
 import IconQuestion from "./assets/icons/question.png";
 
 import Image from "next/image";
-import { PluginResult } from "@/shared/plugin-result";
+import { PluginResult } from "@root/shared/plugin-result";
 
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { InferGetStaticPropsType } from "next";
-import { getStaticProps } from "@/pages/directory";
+import { getStaticProps } from "@root/pages/directory";
 import SiteFooter from "@components/site-footer";
 import Prefooter from "@components/prefooter";
 import SiteHeader from "@components/site-header";

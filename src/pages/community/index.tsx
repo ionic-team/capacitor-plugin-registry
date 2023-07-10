@@ -1,16 +1,16 @@
-import Prefooter from "@/src/components/prefooter";
-import SiteFooter from "@/src/components/site-footer";
+import Prefooter from "@components/prefooter";
+import SiteFooter from "@components/site-footer";
 import { createContext, useContext } from "react";
 
 import styles from "./index.module.scss";
 import { PrismicRichText } from "@prismicio/react";
 import clsx from "clsx";
 import { Column, Grid } from "@ionic-internal/components-react";
-import LegacyPrismicResponsiveImage from "@/src/components/prismic/legacy/responsive-image";
+import LegacyPrismicResponsiveImage from "@components/prismic/legacy/responsive-image";
 import NewsletterSignup from "@components/newsletter-signup";
 import SiteHeader from "@components/site-header";
 import SiteMeta from "@components/site-meta";
-import { getStaticProps } from "@/pages/community";
+import { getStaticProps } from "@root/pages/community";
 import { InferGetStaticPropsType } from "next";
 import { isWebLink } from "@utils/prismic";
 

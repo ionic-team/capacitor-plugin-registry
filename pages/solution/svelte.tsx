@@ -1,4 +1,4 @@
-import SolutionSveltePage from "@/src/pages/solution/svelte/index";
+import SolutionSveltePage from "@pages/solution/svelte/index";
 
 import { ComponentProps } from "react";
 

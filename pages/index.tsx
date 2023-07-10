@@ -1,4 +1,4 @@
-import IndexPage from "@/src/pages/index";
+import IndexPage from "@pages/index";
 
 import { ComponentProps } from "react";
 import { createClient } from "@ionic-internal/config-prismic";

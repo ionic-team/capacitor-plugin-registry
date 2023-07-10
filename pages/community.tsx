@@ -1,4 +1,4 @@
-import CommunityPage from "@/src/pages/community/index";
+import CommunityPage from "@pages/community/index";
 
 import { ComponentProps } from "react";
 import { createClient } from "@ionic-internal/config-prismic";

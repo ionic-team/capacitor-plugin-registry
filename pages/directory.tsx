@@ -1,4 +1,4 @@
-import DirectoryPage from "@/src/pages/directory/index";
+import DirectoryPage from "@pages/directory/index";
 
 import pluginData from "../data/plugin-data.json";
 import { InferGetStaticPropsType } from "next";

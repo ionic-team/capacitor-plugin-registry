@@ -1,11 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { PluginResult } from "@/shared/plugin-result";
+import { PluginResult } from "@root/shared/plugin-result";
 import type { NextApiRequest, NextApiResponse } from "next";
 import Fuse from "fuse.js";
 
-import data from "@/data/plugin-data.json";
-import index from "@/data/plugin-index.json";
-import { searchKeys } from "@/shared/search-keys";
+import data from "@root/data/plugin-data.json";
+import index from "@root/data/plugin-index.json";
+import { searchKeys } from "@root/shared/search-keys";
 
 const rawData = [...data] as PluginResult[];
 const searchIndex = Fuse.parseIndex<PluginResult>(index);
