@@ -11,7 +11,8 @@ import { normalizeStringArray } from "./utils";
 export async function writePluginDataToPublicDirectory(
   pluginData: PluginInfo[]
 ) {
-  const PLUGIN_PUBLIC_DATA_PATH = path.join("data", "plugin-data.json");
+  const PLUGIN_DATA_PATH = path.join("data", "plugin-data.json");
+  const PLUGIN_PUBLIC_DATA_PATH = path.join("public", "plugin-data.json");
   const PLUGIN_PUBLIC_RAW_PATH = path.join("public", "plugin-data-raw.json");
   const PLUGIN_INDEX_DATA_PATH = path.join("data", "plugin-index.json");
 
@@ -41,9 +42,11 @@ export async function writePluginDataToPublicDirectory(
     return pluginResult;
   });
 
+  await deleteFileIfExists(PLUGIN_DATA_PATH);
   await deleteFileIfExists(PLUGIN_PUBLIC_DATA_PATH);
   await deleteFileIfExists(PLUGIN_PUBLIC_RAW_PATH);
   await deleteFileIfExists(PLUGIN_INDEX_DATA_PATH);
+  await writeDataFile(pluginResults, PLUGIN_DATA_PATH);
   await writeDataFile(pluginResults, PLUGIN_PUBLIC_DATA_PATH);
   await writeDataFile(pluginData, PLUGIN_PUBLIC_RAW_PATH);
   await createSearchIndex(pluginResults, PLUGIN_INDEX_DATA_PATH);
