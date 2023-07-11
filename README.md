@@ -16,6 +16,6 @@
 ## Want to add your plugin?
 
 1. Fork and clone the repo
-2. Append your plugin to [`plugins.txt`](./scripts/source-data/plugins.txt)
+2. Append your plugin to [`plugins.txt`](./plugins.txt)
 3. Commit your changes
 4. Submit a pull request
