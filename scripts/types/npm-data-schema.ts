@@ -14,7 +14,7 @@ export interface NpmInfo {
   homepage: string;
   keywords: string[];
   repository: Repository;
-  author: { name: string; email?: string };
+  author: { name: string; email?: string } | string;
   bugs: Bugs;
   license: string;
   readmeFilename: string;
