@@ -8,6 +8,7 @@
     "start": "next start",
     "fmt": "npm run prettier -- --write",
     "prettier": "prettier \"**/*.{css,scss,html,ts,tsx,md}\"",
+    "sitemap": "next-sitemap",
     "update-registry": "ts-node ./scripts/update-registry-data.ts --project ./scripts/tsconfig.json"
   },
   "prettier": "@ionic/prettier-config",
@@ -32,6 +33,7 @@
     "fuse.js": "^6.6.2",
     "modern-normalize": "^2.0.0",
     "next": "13.3.1",
+    "next-sitemap": "^4.1.8",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",

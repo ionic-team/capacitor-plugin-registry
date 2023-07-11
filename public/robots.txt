@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://capacitorjs.com
+
+# Sitemaps
+Sitemap: https://capacitorjs.com/sitemap.xml
+Sitemap: https://capacitorjs.com/docs/sitemap.xml
