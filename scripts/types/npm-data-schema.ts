@@ -14,9 +14,9 @@ export interface NpmInfo {
   homepage: string;
   keywords: string[];
   repository: Repository;
-  author: { name: string; email?: string } | string;
+  author: { name: string; email?: string; url?: string } | string;
   bugs: Bugs;
-  license: string;
+  license: { type: string; url?: string } | string;
   readmeFilename: string;
   _cached: boolean;
   _contentLength: number;

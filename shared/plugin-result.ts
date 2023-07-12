@@ -3,11 +3,11 @@ export type PluginResult = {
   npmPackageName: string;
   description: string;
   keywords: string[];
-  license: string;
+  license: { type: string; url?: string };
   lastUpdated: string;
   githubUrl: string | undefined;
   platforms: string[];
-  author: { name: string; email?: string };
+  author: { name: string; email?: string; url?: string };
   type: PluginType;
   health: {
     score: number;

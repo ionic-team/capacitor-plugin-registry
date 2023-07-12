@@ -1,3 +1,5 @@
+import { NpmInfo } from "./npm-data-schema";
+
 /**
  * This interface is the output from inspecting all plugins mentioned in plugins.txt
  * It is used by the plugin explorer in the VS Code extension
@@ -5,13 +7,13 @@
  * You can use shared/plugin-result for the plugin registry and modify it to suite needs
  */
 export interface PluginInfo {
-  name: string; // Name of the npm package
-  author: { name: string; email?: string }; // Name and email of the Author of the latest package
+  name: NpmInfo["name"]; // Name of the npm package
+  author: NpmInfo["author"]; // Name and email of the Author of the latest package
   published: string; // Date Time published to npm
-  license: string; // eg MIT
-  version: string; // Version number inspected from NPM
-  versions: string[]; // List of version numbers available (NPM)
-  keywords: string[]; // List of keywords from npm and Github filtered to remove garbage
+  license: NpmInfo["license"]; // eg MIT
+  version: NpmInfo["version"]; // Version number inspected from NPM
+  versions: NpmInfo["versions"]; // List of version numbers available (NPM)
+  keywords: NpmInfo["keywords"]; // List of keywords from npm and Github filtered to remove garbage
   repo: string | undefined; // Url to the github repo (if open source)
   success: string[]; // List of string of environments where this plugin will fail (eg cordova-android-11)
   fails: string[]; // List of string of environments where this plugin will fail (eg capacitor-ios-5)
