@@ -2,6 +2,7 @@ import fetch from "cross-fetch";
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";
+import { PluginInfo } from "./types/plugin";
 
 export function patchConsole() {
   const originalConsoleError = console.error;
@@ -38,6 +39,14 @@ export function sleep(ms: number) {
 export function normalizeStringArray(arr?: string[]) {
   if (!arr || !Array.isArray(arr)) return [];
   return Array.from(new Set(arr.map((s) => s.toLowerCase().trim())));
+}
+
+export function normalizeAuthor(author: PluginInfo["author"]) {
+  return typeof author === "string" ? { name: author } : author;
+}
+
+export function normalizeLicense(license: PluginInfo["license"]) {
+  return typeof license === "string" ? { type: license } : license;
 }
 
 export function createDataDirectoryIfNotExists() {
