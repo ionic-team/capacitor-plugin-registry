@@ -18,10 +18,7 @@ export async function applyNpmInfo(plugin: PluginInfo) {
 
   plugin.version = npmHistory.version;
   plugin.versions = npmHistory.versions as string[];
-  plugin.author =
-    typeof npmHistory.author === "string"
-      ? { name: npmHistory.author }
-      : npmHistory.author;
+  plugin.author = npmHistory.author;
   plugin.description = npmHistory.description;
   plugin.bugs = npmHistory.bugs?.url;
   plugin.published = npmHistory.time[npmHistory.version];

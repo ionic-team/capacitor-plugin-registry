@@ -6,7 +6,11 @@ import { searchKeys } from "../shared/search-keys";
 import { calculatePluginScore } from "./calculate-score";
 import { PluginInfo } from "./types/plugin";
 import Fuse from "fuse.js";
-import { normalizeStringArray } from "./utils";
+import {
+  normalizeAuthor,
+  normalizeLicense,
+  normalizeStringArray,
+} from "./utils";
 
 export async function writePluginDataToPublicDirectory(
   pluginData: PluginInfo[]
@@ -22,12 +26,12 @@ export async function writePluginDataToPublicDirectory(
       npmPackageName: plugin.name,
       description: plugin.description,
       keywords: normalizeStringArray(plugin.keywords),
-      license: plugin.license,
+      license: normalizeLicense(plugin.license),
       lastUpdated: plugin.published,
       githubUrl: plugin.repo,
       health: calculatePluginScore(plugin),
       platforms: plugin.platforms,
-      author: plugin.author,
+      author: normalizeAuthor(plugin.author),
       type: getPluginType(plugin),
       stats: {
         downloads: plugin.downloads ?? -1,
