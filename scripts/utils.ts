@@ -2,7 +2,7 @@ import fetch from "cross-fetch";
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";
-import { NpmInfo } from "./types/npm-data-schema";
+import { PluginInfo } from "./types/plugin";
 
 export function patchConsole() {
   const originalConsoleError = console.error;
@@ -41,11 +41,11 @@ export function normalizeStringArray(arr?: string[]) {
   return Array.from(new Set(arr.map((s) => s.toLowerCase().trim())));
 }
 
-export function normalizeAuthor(author: NpmInfo["author"]) {
+export function normalizeAuthor(author: PluginInfo["author"]) {
   return typeof author === "string" ? { name: author } : author;
 }
 
-export function normalizeLicense(license: NpmInfo["license"]) {
+export function normalizeLicense(license: PluginInfo["license"]) {
   return typeof license === "string" ? { type: license } : license;
 }
 
