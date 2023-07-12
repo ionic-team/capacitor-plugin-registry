@@ -3,6 +3,7 @@ import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 import { NpmInfo } from "./types/npm-data-schema";
+import { PluginResult } from "../shared/plugin-result";
 
 export function patchConsole() {
   const originalConsoleError = console.error;
@@ -41,11 +42,11 @@ export function normalizeStringArray(arr?: string[]) {
   return Array.from(new Set(arr.map((s) => s.toLowerCase().trim())));
 }
 
-export function normalizeAuthor(author: NpmInfo["author"]) {
+export function normalizeAuthor(author: PluginResult["author"]) {
   return typeof author === "string" ? { name: author } : author;
 }
 
-export function normalizeLicense(license: NpmInfo["license"]) {
+export function normalizeLicense(license: PluginResult["license"]) {
   return typeof license === "string" ? { type: license } : license;
 }
 
