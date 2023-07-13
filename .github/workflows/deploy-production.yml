@@ -15,6 +15,7 @@ env:
 
 jobs:
   deploy:
+    if: github.repository == 'ionic-team/capacitor-plugin-registry'
     environment:
       name: production
       url: https://capacitorjs.com/directory
