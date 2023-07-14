@@ -39,6 +39,8 @@ async function inspectPlugin(name: string): Promise<PluginInfo> {
   if (plugin.repo?.includes("github.com")) {
     await applyGithubInfo(plugin);
   }
+  // Important: We dont need all the data that comes from npm so set versions to []
+  plugin.versions = [];
   return plugin;
 }
 
