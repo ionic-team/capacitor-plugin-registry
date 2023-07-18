@@ -241,13 +241,6 @@
 @regulaforensics/cordova-plugin-face-huawei-vision
 @reslear/capacitor-google-auth
 @rgarciadelongoria/firebase-remote-config
-@robingenz/capacitor-android-dark-mode-support
-@robingenz/capacitor-app-update
-@robingenz/capacitor-background-task
-@robingenz/capacitor-badge
-@robingenz/capacitor-file-picker
-@robingenz/capacitor-managed-configurations
-@robingenz/capacitor-screen-orientation
 @rokt/cordova-plugin-roktsdk
 @rollershop/capacitor-emarsys-sdk
 @sencrop/capacitor-intercom
