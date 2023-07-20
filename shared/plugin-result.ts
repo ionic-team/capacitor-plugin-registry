@@ -6,9 +6,10 @@ export type PluginResult = {
   license: { type: string; url?: string };
   lastUpdated: string;
   githubUrl: string | undefined;
-  platforms: string[];
+  platforms: PlatformType[];
   author: { name: string; email?: string; url?: string };
   type: PluginType;
+  runtime: RuntimeType;
   health: {
     score: number;
     modifiers: string[];
@@ -24,4 +25,6 @@ export type PluginResult = {
   };
 };
 
+export type PlatformType = string | "android" | "ios"; // Plugins may report more than these two
 export type PluginType = "official" | "community";
+export type RuntimeType = "capacitor" | "cordova" | "unknown";

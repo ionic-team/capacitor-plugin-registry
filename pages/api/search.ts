@@ -1,73 +1,126 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { PluginResult } from "@/shared/plugin-result";
+import {
+  PlatformType,
+  PluginResult,
+  PluginType,
+  RuntimeType,
+} from "@/shared/plugin-result";
 import type { NextApiRequest, NextApiResponse } from "next";
-import Fuse from "fuse.js";
+
+import { z } from "zod";
+import {
+  preprocessStringArray,
+  preprocessStringNumber,
+} from "./utils/zod-helpers";
+import {
+  filterPlatforms,
+  filterRuntime,
+  filterSource,
+  filterStringSearch,
+} from "./utils/filters";
 
 import data from "@/data/plugin-data.json";
-import index from "@/data/plugin-index.json";
-import { searchKeys } from "@/shared/search-keys";
-
 const rawData = [...data] as PluginResult[];
-const searchIndex = Fuse.parseIndex<PluginResult>(index);
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMT = 10;
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<PluginResult[]>
-) {
-  const querySearch = req.query.search
-    ? req.query.search.toString().toLowerCase().trim()
-    : undefined;
+const querySchema = z.object({
+  search: z.string().optional(),
+  page: z.preprocess(
+    preprocessStringNumber(z.string().optional()),
+    z.number().positive().gt(0).optional()
+  ),
+  limit: z.preprocess(
+    preprocessStringNumber(z.string().optional()),
+    z.number().positive().gt(0).lte(100).optional()
+  ),
+  source: z.preprocess(
+    preprocessStringArray(z.string().optional()),
+    z.array(z.enum(["official", "community"] as const)).optional()
+  ),
+  platform: z.preprocess(
+    preprocessStringArray(z.string().optional()),
+    z.array(z.enum(["android", "ios"] as const)).optional()
+  ),
+  runtime: z.preprocess(
+    preprocessStringArray(z.string().optional()),
+    z.array(z.enum(["capacitor", "cordova"] as const)).optional()
+  ),
+});
 
-  // Filter
-  const filteredData = filterData({
-    input: rawData,
-    search: querySearch,
-    index: searchIndex,
-  });
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const { search, page, limit, platform, source, runtime } =
+      querySchema.parse(req.query);
 
-  // Sort
-  const sortedData = filteredData; // TODO: Add Sort Options
+    // Filter
+    const filteredData = filterData({
+      input: rawData,
+      search,
+      platform,
+      source,
+      runtime,
+    });
 
-  // Pagination
-  const page = req.query.page
-    ? parseInt(req.query.page.toString())
-    : DEFAULT_PAGE;
-  const limit = req.query.limit
-    ? parseInt(req.query.limit.toString())
-    : DEFAULT_LIMT;
-  const startIndex = (page - 1) * limit;
-  const endIndex = page * limit;
-  const results = sortedData.slice(startIndex, endIndex);
+    // Sort
+    const sortedData = sortData({
+      input: filteredData,
+    });
 
-  return res.status(200).json(results);
+    // Pagination
+    const results = paginateData({
+      input: sortedData,
+      page,
+      limit,
+    });
+
+    return res.status(200).json(results);
+  } catch (e) {
+    if (e instanceof z.ZodError) {
+      return res
+        .status(400)
+        .json({ message: "Invalid query params", errors: e.issues });
+    }
+    return res.status(500).json({ message: "Internal Server Error", error: e });
+  }
 }
 
 function filterData({
   input,
   search,
-  index,
+  platform,
+  source,
+  runtime,
 }: {
   input: PluginResult[];
   search?: string;
-  index: Fuse.FuseIndex<PluginResult>;
+  platform?: PlatformType[];
+  source?: PluginType[];
+  runtime?: RuntimeType[];
 }) {
-  if (!search) {
-    return input;
-  }
-  const fuse = new Fuse(
-    input,
-    {
-      keys: searchKeys,
-      shouldSort: true,
-      includeScore: true,
-      ignoreLocation: true,
-      minMatchCharLength: 3,
-      threshold: 0.4,
-    }
-    // index
-  );
-  return fuse.search(search).map((result) => result.item);
+  const stringFilter = filterStringSearch(search);
+  const platformFilter = filterPlatforms(platform);
+  const sourceFilter = filterSource(source);
+  const runtimeFilter = filterRuntime(runtime);
+
+  return runtimeFilter(sourceFilter(platformFilter(stringFilter(input))));
+}
+
+function sortData({ input }: { input: PluginResult[] }) {
+  return input;
+}
+
+function paginateData({
+  input,
+  page = DEFAULT_PAGE,
+  limit = DEFAULT_LIMT,
+}: {
+  input: PluginResult[];
+  page?: number;
+  limit?: number;
+}) {
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  return input.slice(startIndex, endIndex);
 }

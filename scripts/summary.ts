@@ -103,6 +103,7 @@ export function readPlugin(plugin: string): PluginInfo {
     downloadEnd: "",
     license: "",
     fails: [],
+    runtime: "unknown",
   };
 }
 

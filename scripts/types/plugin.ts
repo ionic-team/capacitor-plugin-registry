@@ -1,3 +1,4 @@
+import { RuntimeType } from "../../shared/plugin-result";
 import { NpmInfo } from "./npm-data-schema";
 
 /**
@@ -32,4 +33,5 @@ export interface PluginInfo {
   issues: number; // Github Open issue count
   watchers: number; // Github Watcher count
   forks: number; // Github Fork count
+  runtime: RuntimeType; // Capacitor or Cordova
 }
