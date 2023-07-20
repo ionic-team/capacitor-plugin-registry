@@ -59,7 +59,7 @@ export async function applyNpmInfo(plugin: PluginInfo) {
   plugin.success = cleanupBasedOnPlatforms(plugin.success, plugin.platforms);
   plugin.fails = [];
   for (const test of testNames()) {
-    if (!plugin.success.includes(test)) {
+    if (!plugin.success?.includes(test)) {
       plugin.fails.push(test);
     }
   }
@@ -125,8 +125,8 @@ function cleanupBasedOnPlatforms(
 ): string[] {
   return tests.filter((test) => {
     return (
-      (test.includes("ios") && platforms.includes("ios")) ||
-      (test.includes("android") && platforms.includes("android"))
+      (test?.includes("ios") && platforms?.includes("ios")) ||
+      (test?.includes("android") && platforms?.includes("android"))
     );
   });
 }
