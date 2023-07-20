@@ -4,6 +4,8 @@ import {
   PluginResult,
   PluginType,
   RuntimeType,
+  SortByType,
+  SortDirectionType,
 } from "@/shared/plugin-result";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -20,6 +22,15 @@ import {
 } from "./utils/filters";
 
 import data from "@/data/plugin-data.json";
+import {
+  sortByName,
+  sortByDownloads,
+  sortByRuntime,
+  sortByLastUpdated,
+  sortBySource,
+  sortByStars,
+  sortByRelevance,
+} from "./utils/sorts";
 const rawData = [...data] as PluginResult[];
 
 const DEFAULT_PAGE = 1;
@@ -47,12 +58,36 @@ const querySchema = z.object({
     preprocessStringArray(z.string().optional()),
     z.array(z.enum(["capacitor", "cordova"] as const)).optional()
   ),
+  sortBy: z
+    .enum([
+      "relevance",
+      "name",
+      "downloads",
+      "runtime",
+      "lastUpdated",
+      "source",
+      "stars",
+    ] as const)
+    .optional()
+    .default("relevance"),
+  sortDirection: z
+    .enum(["asc", "desc"] as const)
+    .optional()
+    .default("desc"),
 });
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { search, page, limit, platform, source, runtime } =
-      querySchema.parse(req.query);
+    const {
+      search,
+      page,
+      limit,
+      platform,
+      source,
+      runtime,
+      sortBy,
+      sortDirection,
+    } = querySchema.parse(req.query);
 
     // Filter
     const filteredData = filterData({
@@ -66,6 +101,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     // Sort
     const sortedData = sortData({
       input: filteredData,
+      sortBy,
+      sortDirection,
     });
 
     // Pagination
@@ -107,8 +144,32 @@ function filterData({
   return runtimeFilter(sourceFilter(platformFilter(stringFilter(input))));
 }
 
-function sortData({ input }: { input: PluginResult[] }) {
-  return input;
+function sortData({
+  input,
+  sortBy,
+  sortDirection,
+}: {
+  input: PluginResult[];
+  sortBy: SortByType;
+  sortDirection: SortDirectionType;
+}) {
+  switch (sortBy) {
+    case "name":
+      return sortByName(input, sortDirection);
+    case "downloads":
+      return sortByDownloads(input, sortDirection);
+    case "runtime":
+      return sortByRuntime(input, sortDirection);
+    case "lastUpdated":
+      return sortByLastUpdated(input, sortDirection);
+    case "source":
+      return sortBySource(input, sortDirection);
+    case "stars":
+      return sortByStars(input, sortDirection);
+    case "relevance":
+    default:
+      return sortByRelevance(input, sortDirection);
+  }
 }
 
 function paginateData({
