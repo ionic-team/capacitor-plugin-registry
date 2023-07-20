@@ -37,6 +37,13 @@ export async function applyNpmInfo(plugin: PluginInfo) {
     if (npmLatest.capacitor.ios) plugin.platforms.push("ios");
     if (npmLatest.capacitor.android) plugin.platforms.push("android");
   }
+  plugin.runtime = likelyCapacitor(npmLatest)
+    ? "capacitor"
+    : likelyCordova(npmLatest)
+    ? "cordova"
+    : "unknown";
+
+  npmLatest.dependencies;
 
   plugin.success = [
     ...getCapacitorVersions(npmLatest),
@@ -191,6 +198,16 @@ function capCoreDeps(p: NpmInfo): string {
     }
   }
   return cap;
+}
+
+function likelyCapacitor(p: NpmInfo): boolean {
+  // Capacitor plugins typically have a capacitor property with some info
+  if (p.capacitor?.ios || p.capacitor?.android) return true;
+  // Otherwise, all plugins need to rely on core in some fashion
+  if (p.devDependencies?.["@capacitor/core"]) return true;
+  if (p.peerDependencies?.["@capacitor/core"]) return true;
+  if (p.dependencies?.["@capacitor/core"]) return true;
+  return false;
 }
 
 function likelyCordova(p: NpmInfo): boolean {

@@ -4,3 +4,11 @@
 @capacitor/camera
 @capacitor/clipboard
 @capacitor/device
+@capacitor-community/camera-preview
+@capacitor-community/capacitor-googlemaps-native
+@capacitor-community/contacts
+@capacitor-community/date-picker
+@capacitor-community/facebook-login
+cordova-plugin-inappbrowser
+cordova-plugin-media
+cordova-plugin-sqlite

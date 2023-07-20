@@ -33,6 +33,7 @@ export async function writePluginDataToPublicDirectory(
       platforms: plugin.platforms,
       author: normalizeAuthor(plugin.author),
       type: getPluginType(plugin),
+      runtime: plugin.runtime,
       stats: {
         downloads: plugin.downloads ?? -1,
         downloadsStart: plugin.downloadStart,
