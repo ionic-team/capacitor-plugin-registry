@@ -24,6 +24,7 @@ export type PluginResult = {
     openIssues: number;
   };
   searchScore: number;
+  exactMatch: boolean;
 };
 
 export type PlatformType = string | "android" | "ios"; // Plugins may report more than these two

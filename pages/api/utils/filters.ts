@@ -23,7 +23,6 @@ export const filterStringSearch =
       input,
       {
         keys: searchKeys,
-        shouldSort: true,
         includeScore: true,
         ignoreLocation: true,
         minMatchCharLength: 3,
@@ -31,9 +30,13 @@ export const filterStringSearch =
       },
       searchIndex
     );
-    return fuse
-      .search(search)
-      .map((result) => ({ ...result.item, searchScore: result.score ?? 0 }));
+    return fuse.search(search).map((result) => ({
+      ...result.item,
+      exactMatch:
+        result.item.name === search ||
+        result.item.npmPackageName.split("/").at(-1) === search,
+      searchScore: parseFloat(result.score?.toFixed(6) ?? "1"),
+    }));
   };
 
 export const filterPlatforms =

@@ -43,7 +43,8 @@ export async function writePluginDataToPublicDirectory(
         openIssues: plugin.issues,
         watchers: plugin.watchers,
       },
-      searchScore: 0, // Search score is calculated per request if a searchTerm is given
+      searchScore: 1, // Search score is calculated per request if a searchTerm is given, 1 is not found, 0 is match
+      exactMatch: false, // Exact match is calculated per request if a searchTerm is given
     };
     return pluginResult;
   });

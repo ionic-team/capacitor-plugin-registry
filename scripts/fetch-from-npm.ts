@@ -27,7 +27,14 @@ export async function applyNpmInfo(plugin: PluginInfo) {
   }
   plugin.license = npmHistory.license;
   plugin.repo = cleanUrl(npmHistory.repository?.url);
-  plugin.keywords = npmHistory.keywords;
+  plugin.keywords = Array.isArray(npmHistory.keywords)
+    ? npmHistory.keywords
+    : [];
+
+  // Add name and package name to keywords
+  const nameParts = plugin.name.split(/[@/-]/).filter(Boolean);
+  plugin.keywords.push(...nameParts);
+
   if (npmLatest.cordova) {
     const platforms = npmLatest.cordova.platforms;
     plugin.platforms = Array.isArray(platforms) ? platforms : [platforms];

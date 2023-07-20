@@ -4,7 +4,7 @@ import { PluginResult } from "./plugin-result";
 export const searchKeys: Fuse.FuseOptionKeyObject<PluginResult>[] = [
   {
     name: "name",
-    weight: 2,
+    weight: 1,
   },
   {
     name: "description",
@@ -12,10 +12,10 @@ export const searchKeys: Fuse.FuseOptionKeyObject<PluginResult>[] = [
   },
   {
     name: "npmPackageName",
-    weight: 6,
+    weight: 2,
   },
   {
     name: "keywords",
-    weight: 3,
+    weight: 10,
   },
 ];

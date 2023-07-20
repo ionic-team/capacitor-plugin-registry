@@ -6,18 +6,23 @@ export const sortByRelevance = (
 ) => {
   /**
    * Relevance is primarily based on search score,
+   * Exact match if any,
    * then by capacitor > cordova,
    * then by downloads IF we have a searchScore !== 0
    * then by name IF all searchScore values === 0 (no search term)
    */
 
-  const hasSearchScore = input.some((plugin) => plugin.searchScore !== 0);
+  const hasSearchScore = input.some((plugin) => plugin.searchScore !== 1);
 
   return input.sort((a, b) => {
     if (a.searchScore !== b.searchScore) {
-      return direction === "asc"
+      return direction === "desc"
         ? a.searchScore - b.searchScore
         : b.searchScore - a.searchScore;
+    }
+
+    if (a.exactMatch !== b.exactMatch) {
+      return direction === "desc" ? -1 : 1;
     }
 
     if (a.runtime !== b.runtime) {
@@ -25,7 +30,7 @@ export const sortByRelevance = (
       const cordova = 2;
       const aRuntime = a.runtime === "capacitor" ? capacitor : cordova;
       const bRuntime = b.runtime === "capacitor" ? capacitor : cordova;
-      return direction === "asc" ? aRuntime - bRuntime : bRuntime - aRuntime;
+      return direction === "desc" ? aRuntime - bRuntime : bRuntime - aRuntime;
     }
 
     if (hasSearchScore && a.stats.downloads !== b.stats.downloads) {
@@ -35,7 +40,7 @@ export const sortByRelevance = (
     }
 
     const compared = a.name.localeCompare(b.name);
-    return direction === "asc" ? compared : -compared;
+    return direction === "desc" ? compared : -compared;
   });
 };
 

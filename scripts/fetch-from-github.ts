@@ -52,9 +52,7 @@ export async function applyGithubInfo(plugin: PluginInfo) {
     plugin.fork = gh.fork;
     if (gh.topics) {
       for (const topic of gh.topics) {
-        if (!plugin.keywords.includes(topic)) {
-          plugin.keywords.push(topic);
-        }
+        plugin.keywords.push(topic);
       }
     }
     if (!plugin.description) {
