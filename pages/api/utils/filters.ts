@@ -31,7 +31,9 @@ export const filterStringSearch =
       },
       searchIndex
     );
-    return fuse.search(search).map((result) => result.item);
+    return fuse
+      .search(search)
+      .map((result) => ({ ...result.item, searchScore: result.score ?? 0 }));
   };
 
 export const filterPlatforms =
