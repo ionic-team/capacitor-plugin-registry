@@ -11,6 +11,11 @@ export async function applyNpmInfo(plugin: PluginInfo) {
     getNpmInfo(plugin.name, true),
   ]);
 
+  if (!npmLatest.name) {
+    console.warn(`[warn] ${plugin.name} was not found on npm.`);
+    return;
+  }
+
   if (!npmHistory.versions) {
     // Likely not found in npm
     return;
@@ -88,6 +93,7 @@ async function getNpmInfo(name: string, latest: boolean): Promise<NpmInfo> {
       ? `https://registry.npmjs.org/${name}/latest`
       : `https://registry.npmjs.org/${name}`;
     const np: NpmInfo = await httpGet(url, npmHeaders());
+    if (!np.name) throw new Error(`No name found in ${url}`); // This error is happening for some reason
     //np.versions = undefined;
     np.version = np["dist-tags"] ? np["dist-tags"].latest : np.version;
     return np;
