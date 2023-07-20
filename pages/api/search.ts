@@ -44,7 +44,7 @@ const querySchema = z.object({
   ),
   limit: z.preprocess(
     preprocessStringNumber(z.string().optional()),
-    z.number().positive().gt(0).lte(100).optional()
+    z.number().positive().gt(0).lte(2000).optional()
   ),
   source: z.preprocess(
     preprocessStringArray(z.string().optional()),
