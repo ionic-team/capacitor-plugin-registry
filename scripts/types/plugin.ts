@@ -1,5 +1,6 @@
 import { RuntimeType } from "../../shared/plugin-result";
 import { NpmInfo } from "./npm-data-schema";
+import { GitHubInfo } from "./github-data-schema";
 
 /**
  * This interface is the output from inspecting all plugins mentioned in plugins.txt
@@ -10,6 +11,8 @@ import { NpmInfo } from "./npm-data-schema";
 export interface PluginInfo {
   name: NpmInfo["name"]; // Name of the npm package
   author: NpmInfo["author"]; // Name and email of the Author of the latest package
+  owner?: GitHubInfo["owner"]; // Owner object containing secondary info for plugin registry site
+  ghLicense?: GitHubInfo["license"]; // License object containing secondary info for plugin registry site
   published: string; // Date Time published to npm
   license: NpmInfo["license"]; // eg MIT
   version: NpmInfo["version"]; // Version number inspected from NPM
