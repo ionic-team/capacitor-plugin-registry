@@ -44,6 +44,8 @@ export async function applyGithubInfo(plugin: PluginInfo) {
     }
 
     if (!gh) return;
+    plugin.owner = gh.owner;
+    plugin.ghLicense = gh.license;
     plugin.stars = gh.stargazers_count;
     plugin.issues = gh.open_issues_count;
     plugin.watchers = gh.subscribers_count;

@@ -4,8 +4,16 @@ export type PluginResult = {
   description: string;
   keywords: string[];
   license: { type: string; url?: string };
+  ghLicense: {
+    name: string | undefined;
+    url: string | undefined;
+  };
   lastUpdated: string;
   githubUrl: string | undefined;
+  owner: {
+    url: string | undefined;
+    html_url: string | undefined;
+  };
   platforms: PlatformType[];
   author: { name: string; email?: string; url?: string };
   type: PluginType;

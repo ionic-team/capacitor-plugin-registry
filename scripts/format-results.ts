@@ -34,6 +34,14 @@ export async function writePluginDataToPublicDirectory(
       author: normalizeAuthor(plugin.author),
       type: getPluginType(plugin),
       runtime: plugin.runtime,
+      owner: {
+        url: plugin.owner?.url,
+        html_url: plugin.owner?.html_url,
+      },
+      ghLicense: {
+        name: plugin.ghLicense?.name,
+        url: plugin.ghLicense?.url,
+      },
       stats: {
         downloads: plugin.downloads ?? -1,
         downloadsStart: plugin.downloadStart,
