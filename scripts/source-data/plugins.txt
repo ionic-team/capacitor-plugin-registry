@@ -55,6 +55,8 @@
 @capacitor-community/speech-recognition
 @capacitor-community/sqlite
 @capacitor-community/stripe
+@capacitor-community/stripe-identity
+@capacitor-community/stripe-terminal
 @capacitor-community/text-to-speech
 @capacitor-community/twitter
 @capacitor-community/uxcam
