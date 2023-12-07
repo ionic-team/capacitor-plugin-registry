@@ -1145,3 +1145,4 @@ wonderpush-cordova-sdk-fcm
 wxs-chris-wxsnetwork
 zebra-capacitor
 capacitor-reminders
+capacitor-community-nordic-dfu
