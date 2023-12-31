@@ -439,6 +439,7 @@ capacitor-zebra-printer
 capacitor-zeroconf
 capacitor-zip
 capacitor-zip-plugin
+capacitor-esptouch
 capacitor3-kakao-login
 capgo-inappbrowser-intent-fix
 card.io.cordova.mobilesdk
