@@ -48,6 +48,7 @@
 @capacitor-community/native-audio
 @capacitor-community/native-market
 @capacitor-community/photoviewer
+@capacitor-community/play-integrity
 @capacitor-community/privacy-screen
 @capacitor-community/realm
 @capacitor-community/security-provider
