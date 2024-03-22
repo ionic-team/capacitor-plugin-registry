@@ -33,6 +33,7 @@
 @capacitor-community/capacitor-googlemaps-native
 @capacitor-community/contacts
 @capacitor-community/date-picker
+@capacitor-community/device-check
 @capacitor-community/facebook-login
 @capacitor-community/fcm
 @capacitor-community/file-opener
@@ -58,6 +59,7 @@
 @capacitor-community/stripe
 @capacitor-community/stripe-identity
 @capacitor-community/stripe-terminal
+@capacitor-community/tap-jacking
 @capacitor-community/text-to-speech
 @capacitor-community/twitter
 @capacitor-community/uxcam
