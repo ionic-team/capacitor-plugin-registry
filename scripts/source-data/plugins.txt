@@ -104,6 +104,7 @@
 @capacitor/storage
 @capacitor/text-zoom
 @capacitor/toast
+@capacitor/watch
 @capawesome-team/capacitor-android-battery-optimization
 @capawesome-team/capacitor-android-foreground-service
 @capawesome-team/capacitor-datetime-picker
