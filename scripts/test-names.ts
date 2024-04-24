@@ -2,7 +2,7 @@
  * This is the array of Capacitor Versions checked when inspecting plugins
  * eg [2,3,4] means Capacitor v2 through v4.
  */
-export const capacitorVersions = [2, 3, 4, 5];
+export const capacitorVersions = [2, 3, 4, 5, 6];
 
 /**
  * A list of all [capacitor|cordova]-[ios|android]-[version]
