@@ -80,6 +80,7 @@
 @capacitor/app
 @capacitor/app-launcher
 @capacitor/background-runner
+@capacitor/barcode-scanner
 @capacitor/browser
 @capacitor/camera
 @capacitor/clipboard
