@@ -63,6 +63,7 @@
 @capacitor-community/text-to-speech
 @capacitor-community/twitter
 @capacitor-community/uxcam
+@capacitor-community/video-recorder
 @capacitor-firebase/analytics
 @capacitor-firebase/app
 @capacitor-firebase/app-check
