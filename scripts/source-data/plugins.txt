@@ -146,6 +146,7 @@
 @dolosplus/zebra-capacitor
 @dutchconcepts/capacitor-barcode-scanner
 @dynatrace/cordova-plugin
+@ebarooni/capacitor-calendar
 @enertrag/p2pconnect
 @falconeta/capacitor-wifi-connect
 @felipeclopes/firebase-remote-config
