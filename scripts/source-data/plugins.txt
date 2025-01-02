@@ -1157,3 +1157,5 @@ wxs-chris-wxsnetwork
 zebra-capacitor
 capacitor-reminders
 capacitor-community-nordic-dfu
+scanbot-barcode-scanner-sdk-example-capacitor-ionic
+scanbot-sdk-example-capacitor-ionic
