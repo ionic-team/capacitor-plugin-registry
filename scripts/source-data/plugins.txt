@@ -323,6 +323,7 @@ capacitor-axa-mobile-sdk-plugin
 capacitor-background-fetch
 capacitor-background-geolocation
 capacitor-background-step
+capacitor-camera-view
 capacitor-biometric-auth
 capacitor-biometric-plugin
 capacitor-ble-printer
