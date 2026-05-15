@@ -17,7 +17,7 @@
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
     "fuse.js": "^6.6.2",
-    "next": "13.3.1",
+    "next": "13.5.11",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",

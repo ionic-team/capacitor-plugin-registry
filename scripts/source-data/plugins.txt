@@ -1157,3 +1157,4 @@ wxs-chris-wxsnetwork
 zebra-capacitor
 capacitor-reminders
 capacitor-community-nordic-dfu
+@codext/capacitor-wifi
